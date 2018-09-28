@@ -3,7 +3,7 @@ import { Text, View, componentDidMount } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import HomeScreen from './HomeScreen';
+import HomeScreen from './home/HomeScreen';
 
 class ContactsScreen extends React.Component {
     render() {
@@ -25,11 +25,11 @@ class MyBooksScreen extends React.Component {
     }
 }
 
-class SettingsScreen extends React.Component {
+class NotificationsScreen extends React.Component {
     render() {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>Settings!</Text>
+                <Text>Notifications Screen!</Text>
             </View>
         );
     }
@@ -43,7 +43,10 @@ export default createBottomTabNavigator (
             screen: MyBooksScreen, 
             navigationOptions: { title: 'My Books' },
         },
-        Settings: SettingsScreen,
+        Notifications: {
+            screen: NotificationsScreen,
+            navigationOptions: { title: 'Notifications' }
+        },
     },
     {
         navigationOptions: ({ navigation }) => ({
@@ -61,8 +64,8 @@ export default createBottomTabNavigator (
                 } else if (routeName === 'MyBooks') {
                     iconName = `ios-book${focused ? '' : '-outline'}`;
 
-                } else if (routeName === 'Settings') {
-                    iconName = `ios-options${focused ? '' : '-outline'}`;
+                } else if (routeName === 'Notifications') {
+                    iconName = `ios-notifications${focused ? '' : '-outline'}`;
                 }
         
                 // You can return any component that you like here! We usually use an
