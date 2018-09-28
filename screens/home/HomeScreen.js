@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View, Image, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 
 import MainHeader from '../MainHeader';
 import BooksAvailableSection from './BooksAvailableSection';
+import NotificationsSection from './NotificationsSection';
+import NewsfeedSection from './NewsfeedSection';
 
 export default class HomeScreen extends Component {
     render() {
@@ -11,8 +13,8 @@ export default class HomeScreen extends Component {
                 <MainHeader />
 
                 <BooksAvailableSection />
-
-                {/* notifications */}
+                <NotificationsSection />
+                <NewsfeedSection />
 
             </View>
         );
