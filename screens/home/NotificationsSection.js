@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, Platform, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+// import { Ionicons } from '@expo/vector-icons';
 
 
 export default class NotificationsSection extends Component {
@@ -8,12 +9,12 @@ export default class NotificationsSection extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.notificationSubsection}>
-                    <Ionicons name={'ios-paper-plane'} style={styles.notificationIcon} />
+                    <Ionicons name={Platform.OS === 'ios' ? 'ios-paper-plane' : 'md-paper-plane'} style={styles.notificationIcon} />
                     <Text style={{flex: 1}}>You have <Text style={{color: '#8c1515', fontWeight: 'bold'}}>2</Text> share book requests</Text>
                 </View>
 
                 <View style={styles.notificationSubsection}>
-                    <Ionicons name={'ios-bookmark'} style={styles.notificationIcon} />
+                    <Ionicons name={Platform.OS === 'ios' ? 'ios-bookmark' : 'md-bookmark'} style={styles.notificationIcon} />
                     <Text style={{flex: 1}}>You requested <Text style={{color: '#8c1515', fontWeight: 'bold'}}>1</Text> book</Text>
                 </View>
             </View>

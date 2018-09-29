@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, View, TextInput, TouchableOpacity, Platform, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+// import { Ionicons } from '@expo/vector-icons';
 
 export default class MainHeader extends Component {
     constructor(props) {
@@ -14,12 +15,12 @@ export default class MainHeader extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.searchContainer}>
-                    <Ionicons style={styles.searchIcon} name={'ios-search'} color="#000"/>
+                    <Ionicons style={styles.searchIcon} name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'} color="#000"/>
                     <TextInput style={styles.textInput} onChangeText={(search_term) => this.setState({search_term})} placeholder='Seach book' keyboardType='default' underlineColorAndroid='rgba(0,0,0,0)' />
                 </View>
 
                 <TouchableOpacity style={styles.settingsContainer}>
-                    <Ionicons style={styles.settingsIcon} name={'ios-settings'} color="#000"/>
+                    <Ionicons style={styles.settingsIcon} name={Platform.OS === 'ios' ? 'ios-settings' : 'md-settings'} color="#000"/>
                 </TouchableOpacity>
             </View>
         )

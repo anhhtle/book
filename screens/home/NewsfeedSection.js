@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, Image, StyleSheet } from 'react-native';
+import { Text, View, Image, Platform, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+// import { Ionicons } from '@expo/vector-icons';
 
 
 export default class NotificationsSection extends Component {
@@ -23,11 +24,11 @@ export default class NotificationsSection extends Component {
                             <Text style={styles.bookTitle} numberOfLines={2}>American Assassin</Text>
                             <Text style={styles.author}>Vince Flynn</Text>
                             <View style={{flexDirection: 'row'}}>
-                                <Ionicons name={'ios-star'} color={'gold'} size={16} />
-                                <Ionicons name={'ios-star'} color={'gold'} size={16} />
-                                <Ionicons name={'ios-star'} color={'gold'} size={16} />
-                                <Ionicons name={'ios-star'} color={'gold'} size={16} />
-                                <Ionicons name={'ios-star-half'} color={'gold'} size={16} />
+                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
+                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
+                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
+                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
+                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star-half' : 'md-star-half'} color={'gold'} size={16} />
                             </View>
                         </View>
                     </View>
@@ -48,11 +49,11 @@ export default class NotificationsSection extends Component {
                             <Text style={styles.bookTitle} numberOfLines={2}>American Assassin</Text>
                             <Text style={styles.author}>Vince Flynn</Text>
                             <View style={{flexDirection: 'row'}}>
-                                <Ionicons name={'ios-star'} color={'gold'} size={16} />
-                                <Ionicons name={'ios-star'} color={'gold'} size={16} />
-                                <Ionicons name={'ios-star'} color={'gold'} size={16} />
-                                <Ionicons name={'ios-star'} color={'gold'} size={16} />
-                                <Ionicons name={'ios-star-half'} color={'gold'} size={16} />
+                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
+                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
+                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
+                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
+                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star-half' : 'md-star-half'} color={'gold'} size={16} />
                             </View>
                         </View>
                     </View>
@@ -73,11 +74,11 @@ export default class NotificationsSection extends Component {
                             <Text style={styles.bookTitle} numberOfLines={2}>American Assassin</Text>
                             <Text style={styles.author}>Vince Flynn</Text>
                             <View style={{flexDirection: 'row'}}>
-                                <Ionicons name={'ios-star'} color={'gold'} size={16} />
-                                <Ionicons name={'ios-star'} color={'gold'} size={16} />
-                                <Ionicons name={'ios-star'} color={'gold'} size={16} />
-                                <Ionicons name={'ios-star'} color={'gold'} size={16} />
-                                <Ionicons name={'ios-star-half'} color={'gold'} size={16} />
+                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
+                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
+                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
+                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
+                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star-half' : 'md-star-half'} color={'gold'} size={16} />
                             </View>
                         </View>
                     </View>
