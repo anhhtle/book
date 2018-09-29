@@ -15,7 +15,7 @@ export default class MainHeader extends Component {
             <View style={styles.container}>
                 <View style={styles.searchContainer}>
                     <Ionicons style={styles.searchIcon} name={'ios-search'} color="#000"/>
-                    <TextInput style={styles.textInput} onChangeText={(search_term) => this.setState({search_term})} placeholder='Seach book' keyboardType='default' />
+                    <TextInput style={styles.textInput} onChangeText={(search_term) => this.setState({search_term})} placeholder='Seach book' keyboardType='default' underlineColorAndroid='rgba(0,0,0,0)' />
                 </View>
 
                 <TouchableOpacity style={styles.settingsContainer}>
@@ -29,10 +29,10 @@ export default class MainHeader extends Component {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        paddingTop: 50,
+        paddingTop: 30,
         paddingHorizontal: 20,
         paddingBottom: 10,
-        height: 100,
+        height: 80,
         backgroundColor: '#B1040E',
     },
 
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         paddingLeft: 15,
         fontSize: 16,
         borderLeftWidth: 1,
-        borderLeftColor: '#d6d7da' 
+        borderLeftColor: '#d6d7da',
     },
 
     // right side

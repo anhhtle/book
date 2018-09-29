@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, } from 'react-native';
 
 import MainHeader from '../MainHeader';
 import BooksAvailableSection from './BooksAvailableSection';
@@ -9,14 +9,14 @@ import NewsfeedSection from './NewsfeedSection';
 export default class HomeScreen extends Component {
     render() {
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <MainHeader />
 
                 <BooksAvailableSection />
                 <NotificationsSection />
                 <NewsfeedSection />
 
-            </View>
+            </ScrollView>
         );
     }
 }

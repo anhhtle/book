@@ -9,12 +9,12 @@ export default class NotificationsSection extends Component {
             <View style={styles.container}>
                 <View style={styles.notificationSubsection}>
                     <Ionicons name={'ios-paper-plane'} style={styles.notificationIcon} />
-                    <Text>You have <Text style={{color: '#8c1515', fontWeight: 'bold'}}>2</Text> share book requests</Text>
+                    <Text style={{flex: 1}}>You have <Text style={{color: '#8c1515', fontWeight: 'bold'}}>2</Text> share book requests</Text>
                 </View>
 
                 <View style={styles.notificationSubsection}>
                     <Ionicons name={'ios-bookmark'} style={styles.notificationIcon} />
-                    <Text>You requested <Text style={{color: '#8c1515', fontWeight: 'bold'}}>1</Text> book</Text>
+                    <Text style={{flex: 1}}>You requested <Text style={{color: '#8c1515', fontWeight: 'bold'}}>1</Text> book</Text>
                 </View>
             </View>
         );
