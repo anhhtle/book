@@ -7,16 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import HomeScreen from './home/HomeScreen';
 import ContactsScreen from './contacts/ContactsScreen';
-
-class MyBooksScreen extends React.Component {
-    render() {
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>My Books!</Text>
-            </View>
-        );
-    }
-}
+import BookcaseScreen from './bookcase/BookcaseScreen';
 
 class NotificationsScreen extends React.Component {
     render() {
@@ -32,17 +23,14 @@ export default createBottomTabNavigator (
     {
         Home: HomeScreen,
         Contacts: ContactsScreen,
-        MyBooks: { 
-            screen: MyBooksScreen, 
-            navigationOptions: { title: 'My Books' },
-        },
+        Bookcase: BookcaseScreen,
         Notifications: {
             screen: NotificationsScreen,
             navigationOptions: { title: 'Notifications' }
         },
     },
     {
-        initialRouteName: 'Contacts',
+        initialRouteName: 'Bookcase',
         navigationOptions: ({ navigation }) => ({      
             // icons
             tabBarIcon: ({ tintColor }) => {
@@ -63,7 +51,7 @@ export default createBottomTabNavigator (
                 } else if (routeName === 'Contacts') {
                     iconName += `people`;
                     
-                } else if (routeName === 'MyBooks') {
+                } else if (routeName === 'Bookcase') {
                     iconName += `book`;
 
                 } else if (routeName === 'Notifications') {
