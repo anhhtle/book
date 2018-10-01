@@ -2,23 +2,11 @@ import React from 'react';
 import { Text, View, Platform } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 
-// icon for android production build
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
-// icon for dev in expo
 // import { Ionicons } from '@expo/vector-icons';
 
 import HomeScreen from './home/HomeScreen';
-
-class ContactsScreen extends React.Component {
-    render() {
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>Contacts!</Text>
-            </View>
-        );
-    }
-}
+import ContactsScreen from './contacts/ContactsScreen';
 
 class MyBooksScreen extends React.Component {
     render() {
@@ -54,44 +42,21 @@ export default createBottomTabNavigator (
         },
     },
     {
-        navigationOptions: ({ navigation }) => ({
+        initialRouteName: 'Contacts',
+        navigationOptions: ({ navigation }) => ({      
             // icons
-            tabBarIcon: ({ focused, tintColor }) => {
+            tabBarIcon: ({ tintColor }) => {
                 const { routeName } = navigation.state;
                 let iconName;
-                
-                // if (routeName === 'Home') {
-                //     iconName = `ios-home${focused ? '' : '-outline'}`;
-
-                // } else if (routeName === 'Contacts') {
-                //     iconName = `ios-people${focused ? '' : '-outline'}`;
-                    
-                // } else if (routeName === 'MyBooks') {
-                //     iconName = `ios-book${focused ? '' : '-outline'}`;
-
-                // } else if (routeName === 'Notifications') {
-                //     iconName = `ios-notifications${focused ? '' : '-outline'}`;
-                // }
-
+            
+                // determine OS
                 if (Platform.OS === 'ios') {
                     iconName = 'ios-';
                 } else {
                     iconName = 'md-';
                 }
                 
-                // if (routeName === 'Home') {
-                //     iconName += `home${focused ? '' : '-outline'}`;
-
-                // } else if (routeName === 'Contacts') {
-                //     iconName += `people${focused ? '' : '-outline'}`;
-                    
-                // } else if (routeName === 'MyBooks') {
-                //     iconName += `book${focused ? '' : '-outline'}`;
-
-                // } else if (routeName === 'Notifications') {
-                //     iconName += `notifications${focused ? '' : '-outline'}`;
-                // }
-                
+                // Asign icon
                 if (routeName === 'Home') {
                     iconName += `home`;
 
