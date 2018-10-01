@@ -3,7 +3,6 @@ import { Text, View, Platform } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-// import { Ionicons } from '@expo/vector-icons';
 
 import HomeScreen from './home/HomeScreen';
 import ContactsScreen from './contacts/ContactsScreen';
@@ -30,7 +29,7 @@ export default createBottomTabNavigator (
         },
     },
     {
-        initialRouteName: 'Bookcase',
+        initialRouteName: 'Home',
         navigationOptions: ({ navigation }) => ({      
             // icons
             tabBarIcon: ({ tintColor }) => {

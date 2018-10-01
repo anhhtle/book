@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, TextInput, TouchableOpacity, Platform, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default class MainHeader extends Component {
+export default class BookSearchResultHeader extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -11,33 +11,23 @@ export default class MainHeader extends Component {
     };
 
     render() {
+        const {goBack} = this.props.navigation;
+
         return (
             <View style={styles.container}>
+                <TouchableOpacity style={styles.backContainer} onPress={ () => goBack() }>
+                    <Ionicons style={styles.backIcon} name={Platform.OS === 'ios' ? 'ios-arrow-round-back' : 'md-arrow-round-back'} color="#000"/>
+                </TouchableOpacity>
+
                 <View style={styles.searchContainer}>
                     <Ionicons style={styles.searchIcon} name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'} color="#000"/>
                     <TextInput style={styles.textInput} placeholder='Seach book' keyboardType='default' underlineColorAndroid='rgba(0,0,0,0)' 
                         onChangeText={(search_term) => this.setState({search_term})}
-                        onSubmitEditing={this.onSearchSubmit}
                     />
                 </View>
 
-                <TouchableOpacity style={styles.settingsContainer} onPress={this.onSearchSubmit}>
-                    <Ionicons style={styles.settingsIcon} name={Platform.OS === 'ios' ? 'ios-settings' : 'md-settings'} color="#000"/>
-                </TouchableOpacity>
             </View>
         )
-    }
-
-    onSearchSubmit = () => {
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=${this.state.search_term}`)
-            .then(res => res.json())
-            .then(resJson => {
-                this.props.navigation.navigate('BookSearchResult', { data: resJson });
-            }).catch(err => {
-                console.error(err);
-            });
-
-        // this.props.navigation.navigate('BookSearchResult');
     }
 };
 
@@ -52,6 +42,19 @@ const styles = StyleSheet.create({
     },
 
     // left side
+    backContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 5
+    },
+    backIcon: {
+        color: '#FFF',
+        fontSize: 35,
+        fontWeight: `700`
+    },
+
+    // right side
     searchContainer: {
         flex: 9,
         flexDirection: 'row',
@@ -75,15 +78,4 @@ const styles = StyleSheet.create({
         borderLeftColor: '#d6d7da',
     },
 
-    // right side
-    settingsContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginLeft: 5
-    },
-    settingsIcon: {
-        color: '#FFF',
-        fontSize: 20,
-    }
 });

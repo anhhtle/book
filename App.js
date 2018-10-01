@@ -8,10 +8,12 @@ import Ionicons from './node_modules/@expo/vector-icons/fonts/Ionicons.ttf';
 
 //import screens
 import DashboardScreen from './screens/DashboardScreen';
+import BookSearchResultScreen from './screens/search/bookSearchResult/BookSearchResultScreen';
 
 const RootStack = createStackNavigator(
   {
-    Dashboard: { screen: DashboardScreen }
+    Dashboard: { screen: DashboardScreen },
+    BookSearchResult: { screen: BookSearchResultScreen }
   },
   {
     initialRouteName: 'Dashboard',

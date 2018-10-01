@@ -10,7 +10,7 @@ export default class HomeScreen extends Component {
     render() {
         return (
             <ScrollView style={styles.container}>
-                <MainHeader />
+                <MainHeader navigation={this.props.navigation} />
 
                 <BooksAvailableSection />
                 <NotificationsSection />
