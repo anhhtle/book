@@ -22,7 +22,7 @@ export default class ResultCard extends React.Component {
 
                     {/* action button */}
                     <TouchableOpacity style={styles.actionIconContainer}>
-                        <Ionicons name={Platform.OS === 'ios' ? 'ios-add-circle' : 'md-star-add-circle'} style={styles.actionIcon}/>
+                        <Ionicons name={Platform.OS === 'ios' ? 'ios-add-circle' : 'md-add-circle'} style={styles.actionIcon}/>
                     </TouchableOpacity>
                 </View>
             </View>

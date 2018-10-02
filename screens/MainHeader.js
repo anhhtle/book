@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, TouchableOpacity, Platform, StyleSheet } from 'react-native';
+import { View, TextInput, TouchableOpacity, Platform, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default class MainHeader extends Component {
@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         height: 30,
         paddingLeft: 15,
+        paddingVertical: 0,
         fontSize: 16,
         borderLeftWidth: 1,
         borderLeftColor: '#d6d7da',

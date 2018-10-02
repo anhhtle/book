@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
+// need to comment out all expo related lines on production build
 import { AppLoading, Font } from 'expo';
 
 import Ionicons from './node_modules/@expo/vector-icons/fonts/Ionicons.ttf';
