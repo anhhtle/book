@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, Platform, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default class ContactCards extends React.Component {
+export default class FriendCard extends React.Component {
 
     render () {
         return (
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     contactImage: {
-        flex: 1,
+        // flex: 1,
         width: 60,
         height: 60,
         resizeMode: 'contain',

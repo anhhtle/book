@@ -1,11 +1,14 @@
 import React from 'react';
 import { Text, View, Platform } from 'react-native';
-import { createBottomTabNavigator } from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import HomeScreen from './home/HomeScreen';
-import ContactsScreen from './contacts/ContactsScreen';
+// contacts stack
+import FriendsListScreen from './contacts/friends-list/FriendsListScreen';
+import FriendsRequestScreen from './contacts/friends-request/FriendsRequestScreen';
+
 import BookcaseScreen from './bookcase/BookcaseScreen';
 
 class NotificationsScreen extends React.Component {
@@ -18,10 +21,21 @@ class NotificationsScreen extends React.Component {
     }
 }
 
+const ContactsStack = createStackNavigator(
+    {
+        FriendsList: {screen: FriendsListScreen},
+        FriendsRequest: {screen: FriendsRequestScreen}
+    },
+    {
+        initialRouteName: 'FriendsList',
+        headerMode: 'none'
+    }
+)
+
 export default createBottomTabNavigator (
     {
         Home: HomeScreen,
-        Contacts: ContactsScreen,
+        Contacts: ContactsStack,
         Bookcase: BookcaseScreen,
         Notifications: {
             screen: NotificationsScreen,
@@ -67,5 +81,6 @@ export default createBottomTabNavigator (
             inactiveTintColor: 'gray'
         },
     },
+
 );
     
