@@ -1,6 +1,5 @@
 import React from 'react';
-import { ScrollView, View, StyleSheet, } from 'react-native';
-import { StackActions, NavigationActions } from 'react-navigation';
+import { ScrollView, Text, StyleSheet, } from 'react-native';
 
 import ContactsHeader from '../ContactsHeader';
 import ContactsSubheader from '../ContactsSubheader';
@@ -12,7 +11,7 @@ export default class FriendsRequestScreen extends React.Component {
                 <ContactsHeader />
                 <ContactsSubheader navigation={this.props.navigation} />
 
-                <View>Request</View>
+                <Text>Request</Text>
             </ScrollView>
         )
     }

@@ -14,14 +14,16 @@ export default class MainHeader extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.searchContainer}>
-                    <Ionicons style={styles.searchIcon} name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'} color="#000"/>
+                    <TouchableOpacity style={styles.searchIconContainer} onPress={this.onSearchSubmit}>
+                        <Ionicons style={styles.searchIcon} name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'} color="#000"/>
+                    </TouchableOpacity>
                     <TextInput style={styles.textInput} placeholder='Seach book' keyboardType='default' underlineColorAndroid='rgba(0,0,0,0)' 
                         onChangeText={(search_term) => this.setState({search_term})}
                         onSubmitEditing={this.onSearchSubmit}
                     />
                 </View>
 
-                <TouchableOpacity style={styles.settingsContainer} onPress={this.onSearchSubmit}>
+                <TouchableOpacity style={styles.settingsContainer}>
                     <Ionicons style={styles.settingsIcon} name={Platform.OS === 'ios' ? 'ios-settings' : 'md-settings'} color="#000"/>
                 </TouchableOpacity>
             </View>
@@ -59,14 +61,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fff'
     },
+    searchIconContainer: {
+        width: 40
+    },
     searchIcon: {
-        flex: 1,
         fontSize: 20,
-        textAlign: 'center',
-        paddingHorizontal: 5
+        textAlign: 'center'
     },
     textInput: {
-        flex: 9,
+        flex: 1,
         backgroundColor: '#fff',
         height: 30,
         paddingLeft: 15,

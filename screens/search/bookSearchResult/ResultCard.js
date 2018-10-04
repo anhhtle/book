@@ -3,21 +3,26 @@ import { View, Text, Image, Platform, TouchableOpacity, StyleSheet } from 'react
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default class ResultCard extends React.Component {
-    
+    constructor(props) {
+        super(props);
+        this.state = {
+            book: this.props.item
+        };
+    }
+
     render () {
-        const item = this.props.item;
 
         return (
             <View style={styles.container}>
-                <Image source={{ uri: item.volumeInfo.imageLinks.smallThumbnail }} style={styles.cardImage} />
+                { this.renderImage() }
+
                 <View style={styles.cardDetail}>
-                    <Text style={styles.title}>{item.volumeInfo.title}</Text>
-                    <Text style={styles.author}>{item.volumeInfo.authors ? item.volumeInfo.authors[0] : ''}</Text>
-                    {/* <Text style={styles.author}>{'author'}</Text> */}
+                    <Text style={styles.title}>{this.state.book.volumeInfo.title}</Text>
+                    <Text style={styles.author}>{this.state.book.volumeInfo.authors ? this.state.book.volumeInfo.authors[0] : ''}</Text>
 
                     {/* ratings */}
                     <View style={{flexDirection: 'row'}}>
-                        { this.renderRatingStars(item.volumeInfo.averageRating) }
+                        { this.renderRatingStars() }
                     </View>
 
                     {/* action button */}
@@ -29,7 +34,17 @@ export default class ResultCard extends React.Component {
         )
     }
 
-    renderRatingStars(ratingNum) {
+    renderImage() {
+        if (this.state.book.volumeInfo.imageLinks) {
+            return <Image source={{ uri: this.state.book.volumeInfo.imageLinks.smallThumbnail }} style={styles.cardImage} />
+        }
+
+        return <Image source={{ uri: 'https://www.edsportrallysupplies.ie/media/catalog/product/cache/1/image/256x256/9df78eab33525d08d6e5fb8d27136e95/i/m/image-placeholder-alt_2_1.jpg' }} style={styles.cardImage} />
+    }
+
+    renderRatingStars() {
+        let ratingNum = this.state.book.volumeInfo.averageRating;
+
         let fullStar = Math.floor(ratingNum / 1);
         let halfStar = Math.round(ratingNum % fullStar);
         let emptyStar = 5 - fullStar - halfStar;
@@ -47,6 +62,11 @@ export default class ResultCard extends React.Component {
 
         return starTemplate;
     }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({book: nextProps.item});
+    }
+
 }
 
 const styles = StyleSheet.create({

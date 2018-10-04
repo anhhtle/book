@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, TouchableOpacity, Platform, StyleSheet } from 'react-native';
+import { View, TextInput, TouchableOpacity, Platform, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default class BookSearchResultHeader extends Component {
@@ -15,19 +15,31 @@ export default class BookSearchResultHeader extends Component {
 
         return (
             <View style={styles.container}>
-                <TouchableOpacity style={styles.backContainer} onPress={ () => goBack() }>
-                    <Ionicons style={styles.backIcon} name={Platform.OS === 'ios' ? 'ios-arrow-round-back' : 'md-arrow-round-back'} color="#000"/>
+                <TouchableOpacity style={styles.goBackContainer} onPress={ () => goBack() }>
+                    <Ionicons style={styles.goBackIcon} name={Platform.OS === 'ios' ? 'ios-arrow-round-back' : 'md-arrow-round-back'} color="#000"/>
                 </TouchableOpacity>
 
                 <View style={styles.searchContainer}>
-                    <Ionicons style={styles.searchIcon} name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'} color="#000"/>
+                    <TouchableOpacity style={styles.searchIconContainer} onPress={this.onSearchSubmit}>
+                        <Ionicons style={styles.searchIcon} name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'} color="#000"/>
+                    </TouchableOpacity>
                     <TextInput style={styles.textInput} placeholder='Seach book' keyboardType='default' underlineColorAndroid='rgba(0,0,0,0)' 
                         onChangeText={(search_term) => this.setState({search_term})}
+                        onSubmitEditing={this.onSearchSubmit}
                     />
                 </View>
-
             </View>
         )
+    }
+
+    onSearchSubmit = () => {
+        fetch(`https://www.googleapis.com/books/v1/volumes?q=${this.state.search_term}`)
+            .then(res => res.json())
+            .then(resJson => {
+                this.props.updateState(resJson);
+            }).catch(err => {
+                console.error(err);
+            });
     }
 };
 
@@ -42,13 +54,13 @@ const styles = StyleSheet.create({
     },
 
     // left side
-    backContainer: {
+    goBackContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginRight: 5
+        marginRight: 5,
     },
-    backIcon: {
+    goBackIcon: {
         color: '#FFF',
         fontSize: 35,
         fontWeight: `700`
@@ -60,13 +72,19 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+    },
+    searchIconContainer: {
+        width: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: 0
     },
     searchIcon: {
-        flex: 1,
         fontSize: 20,
         textAlign: 'center',
-        paddingHorizontal: 5
+        padding: 5,
+        marginLeft: 0
     },
     textInput: {
         flex: 9,

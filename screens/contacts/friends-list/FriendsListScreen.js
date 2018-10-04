@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, } from 'react-native';
 
 import ContactsHeader from '../ContactsHeader';
 import ContactsSubheader from '../ContactsSubheader';
-import FriendCard from './FriendCards';
+import FriendCard from './FriendCard';
 
 export default class FriendsListScreen extends React.Component {
 
@@ -13,9 +13,6 @@ export default class FriendsListScreen extends React.Component {
                 <ContactsHeader />
                 <ContactsSubheader navigation={this.props.navigation} />
 
-                <FriendCard />
-                <FriendCard />
-                <FriendCard />
                 <FriendCard />
                 <FriendCard />
             </ScrollView>

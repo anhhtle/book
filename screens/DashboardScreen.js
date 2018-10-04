@@ -27,7 +27,6 @@ const ContactsStack = createStackNavigator(
         FriendsRequest: {screen: FriendsRequestScreen}
     },
     {
-        initialRouteName: 'FriendsList',
         headerMode: 'none'
     }
 )
