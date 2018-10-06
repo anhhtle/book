@@ -40,9 +40,12 @@ export default createBottomTabNavigator (
             screen: NotificationsScreen,
             navigationOptions: { title: 'Notifications' }
         },
+
+        // screen in dev
+        // FriendsRequest: {screen: FriendsRequestScreen}
     },
     {
-        initialRouteName: 'Home',
+        initialRouteName: 'Bookcase',
         navigationOptions: ({ navigation }) => ({      
             // icons
             tabBarIcon: ({ tintColor }) => {
@@ -68,6 +71,11 @@ export default createBottomTabNavigator (
 
                 } else if (routeName === 'Notifications') {
                     iconName += `notifications`;
+                } 
+
+                // for dev.. can be deleted in prod
+                else {
+                    iconName += 'alarm';
                 }
         
                 // You can return any component that you like here! We usually use an

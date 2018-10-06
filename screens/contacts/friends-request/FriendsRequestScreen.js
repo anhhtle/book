@@ -1,8 +1,9 @@
 import React from 'react';
-import { ScrollView, Text, StyleSheet, } from 'react-native';
+import { ScrollView, Text, View, StyleSheet, } from 'react-native';
 
 import ContactsHeader from '../ContactsHeader';
 import ContactsSubheader from '../ContactsSubheader';
+import FriendRequestCard from './FriendRequestCard';
 
 export default class FriendsRequestScreen extends React.Component {
     render () {
@@ -11,7 +12,12 @@ export default class FriendsRequestScreen extends React.Component {
                 <ContactsHeader />
                 <ContactsSubheader navigation={this.props.navigation} />
 
-                <Text>Request</Text>
+                <View style={styles.friendsRequestCardContainer}>
+                    <FriendRequestCard />
+                    <FriendRequestCard />
+                    <FriendRequestCard />
+                    <FriendRequestCard />
+                </View>
             </ScrollView>
         )
     }
@@ -21,4 +27,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
+    friendsRequestCardContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap'
+    }
 })
