@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import MainHeader from '../MainHeader';
+import CurrentReadingSection from './CurrentReadingSection';
 
 export default class BookcaseScreen extends React.Component {
     render () {
@@ -10,7 +11,7 @@ export default class BookcaseScreen extends React.Component {
 
                 <MainHeader />
 
-                <Text>Bookcase</Text>
+                <CurrentReadingSection />
             </View>
         )
     }
