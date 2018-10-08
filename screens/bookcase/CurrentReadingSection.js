@@ -2,9 +2,14 @@ import React from 'react';
 import {View, Text, TouchableOpacity, Platform, StyleSheet} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+// redux
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { changeBookStatus } from 'book/redux/actions';
+
 import CurrentReadingCard from './CurrentReadingCard';
 
-export default class CurrentReadingSection extends React.Component {
+class CurrentReadingSection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -48,18 +53,22 @@ export default class CurrentReadingSection extends React.Component {
 
     renderBooks () {
         let arr = [];
-        this.state.currentBooksArr.forEach((item, index) => {
-            arr.push(<CurrentReadingCard book={item} key={index} index={index} removeBook={this.handleRemoveBook} changeBookProgress={this.handleChangeBookProgress} />);
+        this.props.books.forEach((item, index) => {
+            if(item.status === 'Reading') {
+                arr.push(<CurrentReadingCard book={item} key={index} index={index} removeBook={this.handleRemoveBook} changeBookProgress={this.handleChangeBookProgress} />);
+            }
         });
 
         return arr;
     }
 
     handleRemoveBook (index) {
-        let newArr = this.state.currentBooksArr.slice();
-        newArr.splice(index, 1)
+        // let newArr = this.props.books.currentBooksArr.slice();
+        // newArr.splice(index, 1)
 
-        this.setState({currentBooksArr: newArr});
+        // this.setState({currentBooksArr: newArr});
+
+        this.props.changeBookStatus(index, 'Started');
     }
 
     handleChangeBookProgress (newProgress, index) {
@@ -98,3 +107,16 @@ const styles = StyleSheet.create({
         marginRight: 5
     },
 });
+
+const mapStateToProps = (state) => {
+    const { books } = state.user
+    return {books}
+};
+
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        changeBookStatus,
+    }, dispatch)
+);
+  
+export default connect(mapStateToProps, mapDispatchToProps)(CurrentReadingSection);

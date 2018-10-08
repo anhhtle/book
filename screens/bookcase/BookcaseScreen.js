@@ -10,6 +10,7 @@ import CurrentReadingSection from './CurrentReadingSection';
 import MyBooksSection from './MyBooksSection';
 
 class BookcaseScreen extends React.Component {
+    
     render () {
         return (
             <ScrollView style={styles.container}>
