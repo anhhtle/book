@@ -1,18 +1,24 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 
+// redux
+import { connect } from 'react-redux';
+
+// components
 import MainHeader from '../MainHeader';
 import CurrentReadingSection from './CurrentReadingSection';
+import MyBooksSection from './MyBooksSection';
 
-export default class BookcaseScreen extends React.Component {
+class BookcaseScreen extends React.Component {
     render () {
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
 
-                <MainHeader />
+                <MainHeader navigation={this.props.navigation} />
 
                 <CurrentReadingSection />
-            </View>
+                <MyBooksSection />
+            </ScrollView>
         )
     }
 }
@@ -22,3 +28,10 @@ const styles = StyleSheet.create({
         flex: 1
     }
 });
+
+const mapStateToProps = (state) => {
+    const { user } = state
+    return { user }
+  };
+  
+export default connect(mapStateToProps)(BookcaseScreen);

@@ -2,6 +2,13 @@ import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
+// redux
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import combineReducers from './redux/reducers/combineReducers';
+
+const store = createStore(combineReducers);
+
 // need to comment out all expo related lines on production build
 import { AppLoading, Font } from 'expo';
 
@@ -46,9 +53,11 @@ export default class App extends React.Component {
     }
 
     return (
-      <View style={styles.container}>
-        <RootStack />
-      </View>
+      <Provider store={ store } >
+        <View style={styles.container}>
+          <RootStack />
+        </View>
+      </Provider>
     );
   }
 }

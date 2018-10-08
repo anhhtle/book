@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 5,
         color: '#fff',
+        fontWeight: 'bold'
     },
     addButton: {
         width: 35,
