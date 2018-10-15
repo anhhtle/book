@@ -8,7 +8,7 @@ export default class bookCard extends Component {
     }
 
     render() {
-        const book = this.props.book
+        const book = this.props.book;
 
         return (
             <View style={styles.container}>

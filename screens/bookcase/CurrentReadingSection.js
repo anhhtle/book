@@ -1,38 +1,24 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Platform, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity, Platform, Dimensions, StyleSheet} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Modal from "react-native-modal";
 
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { changeBookStatus } from 'book/redux/actions';
+import { changeVariantStatus, changeVariantProgress } from 'book/redux/actions';
 
 import CurrentReadingCard from './CurrentReadingCard';
+import CurrentReadingModalCard from './CurrentReadingModalCard'
 
 class CurrentReadingSection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentBooksArr: [
-                {
-                    title: 'Harry: A biography of a Prince',
-                    authors: ['Angela Levin'],
-                    progress: 70
-                },
-                {
-                    title: 'Harry: A biography of a Prince2',
-                    authors: ['Angela Levin'],
-                    progress: 50
-                },
-                {
-                    title: 'Harry: A biography of a Prince3',
-                    authors: ['Angela Levin'],
-                    progress: 90
-                },
-            ]
+            isModalVisible: false
         }
 
-        this.handleRemoveBook = this.handleRemoveBook.bind(this);
+        this.handleBookSelection = this.handleBookSelection.bind(this);
         this.handleChangeBookProgress = this.handleChangeBookProgress.bind(this);
     }
 
@@ -41,10 +27,21 @@ class CurrentReadingSection extends React.Component {
             <View style={styles.container}>
                 <View style={styles.header}>
                     <Text style={styles.headerTitle}>Current reading</Text>
-                    <TouchableOpacity style={styles.addButton}>
+                    <TouchableOpacity style={styles.addButton} onPress={() => this.setState({ isModalVisible: true })}>
                         <Ionicons name={Platform.OS === 'ios' ? 'ios-add' : 'md-add'} color={'#fff'} size={24}/>
                     </TouchableOpacity>
                 </View>
+
+                <Modal isVisible={this.state.isModalVisible} onBackdropPress={() => this.setState({ isModalVisible: false })} style={styles.modalOverlay}>
+                    <View style={styles.modal}>
+                        <View style={styles.header}>
+                            <Text style={styles.headerTitle}>Select from your books collection</Text>
+                        </View>
+
+                        {this.renderModalBooks()}
+
+                    </View>
+                </Modal>
 
                 {this.renderBooks()}
             </View>
@@ -53,29 +50,36 @@ class CurrentReadingSection extends React.Component {
 
     renderBooks () {
         let arr = [];
-        this.props.books.forEach((item, index) => {
+        this.props.variants.forEach((item, index) => {
             if(item.status === 'Reading') {
-                arr.push(<CurrentReadingCard book={item} key={index} index={index} removeBook={this.handleRemoveBook} changeBookProgress={this.handleChangeBookProgress} />);
+                arr.push(<CurrentReadingCard variant={item} key={index} index={index} removeBook={this.handleBookSelection} changeBookProgress={this.handleChangeBookProgress} />);
             }
         });
 
         return arr;
     }
 
-    handleRemoveBook (index) {
-        // let newArr = this.props.books.currentBooksArr.slice();
-        // newArr.splice(index, 1)
+    renderModalBooks() {
+        let arr = []
+        this.props.variants.forEach((item, index) => {
+            if (item.status !== 'Reading') {
+                arr.push(<CurrentReadingModalCard variant={item} key={index} index={index} addBook={this.handleBookSelection}/>)
+            }
+        });
 
-        // this.setState({currentBooksArr: newArr});
+        if (arr.length === 0) {
+            return(<Text style={{marginTop: 10}}>No book to add</Text>)
+        }
 
-        this.props.changeBookStatus(index, 'Started');
+        return arr;
     }
 
-    handleChangeBookProgress (newProgress, index) {
-        let newArr = this.state.currentBooksArr.slice();
-        newArr[index].progress = newProgress;
+    handleBookSelection (index, status) {
+        this.props.changeVariantStatus(index, status);
+    }
 
-        this.setState({currentBooksArr: newArr});
+    handleChangeBookProgress (index, newProgress) {
+        this.props.changeVariantProgress(index, newProgress);
     }
 }
 
@@ -106,16 +110,28 @@ const styles = StyleSheet.create({
         borderRadius: 3,
         marginRight: 5
     },
+
+    modalOverlay: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    modal: {
+        backgroundColor: '#fff',
+        padding: 10,
+        width: Dimensions.get('window').width * 0.9
+    },
 });
 
 const mapStateToProps = (state) => {
-    const { books } = state.user
-    return {books}
+    const { variants } = state
+    return { variants }
 };
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        changeBookStatus,
+        changeVariantStatus,
+        changeVariantProgress
     }, dispatch)
 );
   

@@ -15,25 +15,25 @@ export default class CurrentReadingCard extends React.Component {
     }
 
     render () {
-        const book = this.props.book
+        const variant = this.props.variant
 
         return (
             <View style={styles.container}>
                 <View style={styles.bookDetail}>
-                    <Text style={styles.title}>{book.title}</Text>
-                    <Text style={styles.author}>{book.authors[0]}</Text>
+                    <Text style={styles.title}>{variant.book.title}</Text>
+                    <Text style={styles.author}>{variant.book.authors[0]}</Text>
                 </View>
 
                 <ModalDropdown 
                     options={this.state.dropdownOptions}
-                    defaultValue={book.progress + '%'}
+                    defaultValue={variant.progress + '%'}
                     animated={false}
                     style={{marginRight: 10}}
                     textStyle={{color: '#4885ed', fontSize: 18}}
                     onSelect={(value, index) => this.handleProgressDropdown(index * 10) }
                 />
 
-                <TouchableOpacity style={styles.removeButton} onPress={() => this.props.removeBook(this.props.index)}>
+                <TouchableOpacity style={styles.removeButton} onPress={() => this.props.removeBook(this.props.index, 'Started')}>
                     <Ionicons name={Platform.OS === 'ios' ? 'ios-remove' : 'md-remove'} color={'red'} size={24}/>
                 </TouchableOpacity>
             </View>
@@ -41,7 +41,7 @@ export default class CurrentReadingCard extends React.Component {
     }
 
     handleProgressDropdown(value) {
-        this.props.changeBookProgress(value, this.props.index) 
+        this.props.changeBookProgress(this.props.index, value) 
     }
 }
 

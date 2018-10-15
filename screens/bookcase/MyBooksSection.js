@@ -30,8 +30,8 @@ class MyBooksSection extends Component {
 
     renderBooks() {
         let arr = [];
-        this.props.user.books.map(item => {
-            arr.push(<BookCard book={item} key={item._id} />)
+        this.props.variants.map(item => {
+            arr.push(<BookCard book={item.book} key={item._id} />)
         })
 
         return arr;
@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { user } = state
-    return { user }
+    const { user, variants } = state
+    return { user, variants }
 };
   
 export default connect(mapStateToProps)(MyBooksSection);
