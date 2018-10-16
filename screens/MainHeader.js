@@ -6,7 +6,8 @@ export default class MainHeader extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            search_term: ''
+            search_term: '',
+            
         }
     };
 
@@ -23,7 +24,7 @@ export default class MainHeader extends Component {
                     />
                 </View>
 
-                <TouchableOpacity style={styles.settingsContainer}>
+                <TouchableOpacity style={styles.settingsContainer} onPress={() => this.props.navigation.navigate('Setting') }>
                     <Ionicons style={styles.settingsIcon} name={Platform.OS === 'ios' ? 'ios-settings' : 'md-settings'} color="#000"/>
                 </TouchableOpacity>
             </View>

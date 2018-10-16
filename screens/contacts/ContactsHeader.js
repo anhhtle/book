@@ -14,11 +14,13 @@ export default class ContactsHeader extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.searchContainer}>
-                    <Ionicons style={styles.searchIcon} name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'} color="#000"/>
+                    <TouchableOpacity style={styles.searchIconContainer}>
+                        <Ionicons style={styles.searchIcon} name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'} color="#000"/>
+                    </TouchableOpacity>
                     <TextInput style={styles.textInput} onChangeText={(search_term) => this.setState({search_term})} placeholder='Find friend' keyboardType='default' underlineColorAndroid='rgba(0,0,0,0)' />
                 </View>
 
-                <TouchableOpacity style={styles.settingsContainer}>
+                <TouchableOpacity style={styles.settingsContainer} onPress={() => this.props.navigation.navigate('Setting') }>
                     <Ionicons style={styles.settingsIcon} name={Platform.OS === 'ios' ? 'ios-settings' : 'md-settings'} color="#000"/>
                 </TouchableOpacity>
             </View>
@@ -44,14 +46,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fff'
     },
+    searchIconContainer: {
+        width: 40
+    },
     searchIcon: {
-        flex: 1,
         fontSize: 20,
         textAlign: 'center',
-        paddingHorizontal: 5
     },
     textInput: {
-        flex: 9,
+        flex: 1,
         backgroundColor: '#fff',
         height: 30,
         paddingLeft: 15,

@@ -8,8 +8,8 @@ import FriendRequestCard from './FriendRequestCard';
 export default class FriendsRequestScreen extends React.Component {
     render () {
         return (
-            <ScrollView style={styles.container}>
-                <ContactsHeader />
+            <ScrollView style={styles.container} removeClippedSubviews={true}>
+                <ContactsHeader navigation={this.props.navigation} />
                 <ContactsSubheader navigation={this.props.navigation} />
 
                 <View style={styles.friendsRequestCardContainer}>
