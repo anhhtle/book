@@ -8,7 +8,7 @@ export default class SettingScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <SettingHeader title={'Settings and Privacy'} navigation={this.props.navigation} style={{ marginBottom: 25 }}/>
+                <SettingHeader title={'Settings and Privacy'} navigation={this.props.navigation} style={{ marginBottom: 35 }}/>
 
                 <TouchableOpacity style={styles.optionContainer} onPress={() => this.props.navigation.navigate('EditProfile')}>
                     <Ionicons style={styles.icon} color={'#4286f4'} name={Platform.OS === 'ios' ? 'ios-person' : 'md-person'} />
@@ -50,11 +50,11 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     icon: {
-        fontSize: 40,
+        fontSize: 30,
         marginRight: 20,
     },
     option: {
-        fontSize: 20
+        fontSize: 16
     },
     divider: {
         marginHorizontal: 20,
