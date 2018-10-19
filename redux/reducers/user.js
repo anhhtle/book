@@ -11,21 +11,19 @@ const INITIAL_STATE = {
         city: "Palo Alto",
         state: "CA",
         zipcode: "95001",
-        country: "USA"
+        country: "USA",
+        additional_info: ""
     }
 };
 
 export default userReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
-        case 'CHANGE_BOOK_STATUS':
-            const { books } = state;
+        case 'CHANGE_USER_INFO':
+            const user = Object.assign({}, state);
 
-            // clone and update
-            const booksClone = books.slice();
-            booksClone[action.payload.index].status = action.payload.status;
+            user[action.payload.field] = action.payload.value;
             
-            const newState = {...state, books: booksClone};
-            return newState;
+            return user;
 
         default:
             return state

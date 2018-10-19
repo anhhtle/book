@@ -6,11 +6,15 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 export default class BasicInfoSection extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+        }
     }
 
     render() {
         return (
             <View style={styles.container}>
+                <Text>{this.state.test}</Text>
+
                 <View style={styles.header}>
                     <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-person' : 'md-person'}/>
                     <Text style={styles.headerTitle}>Basic Info</Text>
@@ -24,7 +28,7 @@ export default class BasicInfoSection extends Component {
                             <Text style={styles.label}>Name</Text>
                         </View>
 
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button} onPress={this.props.showModal}>
                             <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'} color={'grey'}/>
                         </TouchableOpacity>
                     </View>
@@ -36,7 +40,7 @@ export default class BasicInfoSection extends Component {
                             <Text style={styles.label}>Email</Text>
                         </View>
 
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button} onPress={this.props.showModal}>
                             <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'} color={'grey'}/>
                         </TouchableOpacity>
                     </View>
@@ -48,7 +52,7 @@ export default class BasicInfoSection extends Component {
                             <Text style={styles.label}>Favorite fictional character</Text>
                         </View>
 
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button} onPress={this.props.showModal}>
                             <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'} color={'grey'}/>
                         </TouchableOpacity>
                     </View>
@@ -60,7 +64,7 @@ export default class BasicInfoSection extends Component {
                             <Text style={styles.label}>Character's job</Text>
                         </View>
 
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button} onPress={this.props.showModal}>
                             <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'} color={'grey'}/>
                         </TouchableOpacity>
                     </View>
@@ -69,6 +73,10 @@ export default class BasicInfoSection extends Component {
                 </View>
             </View>
         )
+    }
+
+    handleShowModal() {
+        this.props.showModal;
     }
 }
 

@@ -16,7 +16,7 @@ export default class SettingScreen extends Component {
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.optionContainer}>
                     <Ionicons style={styles.icon} color={'#ffd472'} name={Platform.OS === 'ios' ? 'ios-notifications' : 'md-notifications'}/>
-                    <Text style={styles.option}>Notifications</Text>
+                    <Text style={styles.option}>Notification Settings</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.optionContainer}>
                     <Ionicons style={styles.icon} color={'#8c1515'} name={Platform.OS === 'ios' ? 'ios-book' : 'md-book'}/>

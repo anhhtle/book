@@ -1,3 +1,12 @@
+// user
+export const changeUserInfo = (field, value) => (
+    {
+        type: 'CHANGE_USER_INFO',
+        payload: {field, value}
+    }
+);
+
+// variant
 export const changeVariantStatus = (index, status) => (
     {
         type: 'CHANGE_VARIANT_STATUS',

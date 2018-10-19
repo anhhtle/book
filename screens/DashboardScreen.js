@@ -40,12 +40,9 @@ export default createBottomTabNavigator (
             screen: NotificationsScreen,
             navigationOptions: { title: 'Notifications' }
         },
-
-        // screen in dev
-        // FriendsRequest: {screen: FriendsRequestScreen}
     },
     {
-        initialRouteName: 'Bookcase',
+        initialRouteName: 'Home',
         navigationOptions: ({ navigation }) => ({      
             // icons
             tabBarIcon: ({ tintColor }) => {
