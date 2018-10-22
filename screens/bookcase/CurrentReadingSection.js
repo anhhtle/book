@@ -60,7 +60,7 @@ class CurrentReadingSection extends React.Component {
     }
 
     renderModalBooks() {
-        let arr = []
+        let arr = [];
         this.props.variants.forEach((item, index) => {
             if (item.status !== 'Reading') {
                 arr.push(<CurrentReadingModalCard variant={item} key={index} index={index} addBook={this.handleBookSelection}/>)

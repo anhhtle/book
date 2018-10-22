@@ -18,7 +18,11 @@ class EditProfileScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isModalVisible: false
+            isModalVisible: false,
+            changeInfoArr: [{
+                key: '',
+                label: ''
+            }],
         }
 
         this.handleChangeUserInfo = this.handleChangeUserInfo.bind(this);
@@ -52,12 +56,11 @@ class EditProfileScreen extends Component {
                     addional_info={this.props.user.address.addtional_info} />
 
                 <EditInfoModal 
+                    labels={this.state.changeInfoArr}
+
                     isModalVisible={this.state.isModalVisible} 
                     closeModal={this.handleCloseModal} 
                     />
-
-                    <Button title={'show modal'} onPress={() => this.handleShowModal()}/>
-                    <Button title={'change info'} onPress={() => this.handleChangeUserInfo('first_name', 'hi')}/>
 
             </ScrollView>
         )
@@ -66,8 +69,8 @@ class EditProfileScreen extends Component {
     handleChangeUserInfo(field, value) {
         this.props.changeUserInfo(field, value);
     }
-    handleShowModal() {
-        this.setState({ isModalVisible: true });
+    handleShowModal(values) {
+        this.setState({ isModalVisible: true, changeInfoArr: values });
     }
     handleCloseModal() {
         this.setState({ isModalVisible: false });
