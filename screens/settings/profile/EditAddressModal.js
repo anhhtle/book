@@ -1,22 +1,20 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Dimensions, StyleSheet, } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Modal from "react-native-modal";
 
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { changeUserInfo } from 'book/redux/actions';
+import { changeUserAddress } from 'book/redux/actions';
 
 
-export class EditInfoModal extends Component {
+export class EditAddressModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            newValues: ['hi', 'hello']
+            newValues: ''
         }
 
-        // this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSave = this.handleSave.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
     }
@@ -27,12 +25,18 @@ export class EditInfoModal extends Component {
             >
                 <View style={styles.modal}>
                     <View style={styles.header}>
-                        <Text style={styles.headerTitle}>Edit Info</Text>
+                        <Text style={styles.headerTitle}>Edit Address</Text>
                     </View>
 
                     <View>
 
-                        {this.renderInputs()}
+                        <View>
+                            <Text style={styles.label}>{this.props.label.label}</Text>
+                            <TextInput style={styles.textInput} underlineColorAndroid='rgba(0,0,0,0)' 
+                            value={this.props.user.address[this.props.label.key]} 
+                            onChangeText={(value) => this.handleInputChange(value)} 
+                            />
+                        </View>
                     
                         <View style={styles.buttonsContainer}>
                             <TouchableOpacity style={styles.cancelButton} onPress={this.handleCancel}>
@@ -48,42 +52,17 @@ export class EditInfoModal extends Component {
         )
     }
 
-    renderInputs() {
-        let arr = [];
-        this.props.labels.forEach((item, index) => {
-            arr.push(
-                <View key={index}>
-                    <Text style={styles.label}>{item.label}</Text>
-                    <TextInput style={styles.textInput} value={this.props.user[item.key]} underlineColorAndroid='rgba(0,0,0,0)' 
-                    onChangeText={(value) => this.handleInputChange(index, value)} 
-                    />
-                </View>
-            );
-        });
-        return arr;
-    }
-
-    handleInputChange(index, value) {
-        let arr = this.state.newValues.slice();
-        arr[index] = value;
-        this.setState({newValues: arr});
+    handleInputChange(value) {
+        this.setState({newValues: value});
     }
 
     handleSave() {
-        this.props.labels.forEach((item, index) => {
-            this.props.changeUserInfo(item.key, this.state.newValues[index]);
-        });
-
+        this.props.changeUserAddress(this.props.label.key ,this.state.newValues);
         this.props.closeModal();
     }
 
     handleCancel() {
-        let newValues = [];
-        this.props.labels.forEach((item) => {
-            newValues.push(this.props.user[item.key]);
-        })
-
-        this.setState({newValues});
+        this.setState({newValues: ''});
 
         this.props.closeModal();
     }
@@ -149,8 +128,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        changeUserInfo
+        changeUserAddress
     }, dispatch)
 );
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditInfoModal);
+export default connect(mapStateToProps, mapDispatchToProps)(EditAddressModal);

@@ -12,7 +12,7 @@ const INITIAL_STATE = {
         state: "CA",
         zipcode: "95001",
         country: "USA",
-        additional_info: ""
+        additional_info: "Suite 2"
     }
 };
 
@@ -24,6 +24,13 @@ export default userReducer = (state = INITIAL_STATE, action) => {
             user[action.payload.field] = action.payload.value;
             
             return user;
+
+        case 'CHANGE_USER_ADDRESS':
+            const user2 = Object.assign({}, state);
+
+            user2.address[action.payload.field] = action.payload.value;
+            
+            return user2;
 
         default:
             return state

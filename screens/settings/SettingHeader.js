@@ -28,10 +28,10 @@ export default class SettingHeader extends Component {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        paddingTop: 30,
+        paddingTop: 20,
         paddingHorizontal: 20,
         paddingBottom: 10,
-        height: 80,
+        height: 65,
         backgroundColor: '#B1040E',
     },
     backIconContainer: {

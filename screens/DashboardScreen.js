@@ -10,16 +10,8 @@ import FriendsListScreen from './contacts/friends-list/FriendsListScreen';
 import FriendsRequestScreen from './contacts/friends-request/FriendsRequestScreen';
 
 import BookcaseScreen from './bookcase/BookcaseScreen';
+import NotificationsScreen from './notifications/NotificationsScreen';
 
-class NotificationsScreen extends React.Component {
-    render() {
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>Notifications Screen!</Text>
-            </View>
-        );
-    }
-}
 
 const ContactsStack = createStackNavigator(
     {
@@ -42,7 +34,7 @@ export default createBottomTabNavigator (
         },
     },
     {
-        initialRouteName: 'Home',
+        initialRouteName: 'Notifications',
         navigationOptions: ({ navigation }) => ({      
             // icons
             tabBarIcon: ({ tintColor }) => {

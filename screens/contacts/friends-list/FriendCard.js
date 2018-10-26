@@ -7,7 +7,7 @@ export default class FriendCard extends React.Component {
     render () {
         return (
             <View style={styles.container}>
-                <Image source={{url: 'https://scontent-sjc3-1.xx.fbcdn.net/v/t1.0-1/p160x160/18740171_10159912486035206_6622147564938299870_n.jpg?_nc_cat=103&oh=6eb95480602160314126df82c0a378a9&oe=5C57E071'}} style={styles.contactImage} />
+                <Image resizeMethod="resize" source={{url: 'https://scontent-sjc3-1.xx.fbcdn.net/v/t1.0-1/p160x160/18740171_10159912486035206_6622147564938299870_n.jpg?_nc_cat=103&oh=6eb95480602160314126df82c0a378a9&oe=5C57E071'}} style={styles.contactImage} />
 
                 <View style={styles.rightSideContainer}>
                     <Text style={styles.contactName}>Anh Le</Text>
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         // flex: 1,
         width: 60,
         height: 60,
-        resizeMode: 'contain',
+        // resizeMode: 'contain',
         marginRight: 10
     },
     rightSideContainer: {

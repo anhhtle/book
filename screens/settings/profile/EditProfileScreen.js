@@ -3,8 +3,6 @@ import { ScrollView, StyleSheet, Button } from 'react-native';
 
 // redux
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { changeUserInfo } from 'book/redux/actions';
 
 // components
 import SettingHeader from '../SettingHeader';
@@ -12,22 +10,33 @@ import ProfilePictureSection from './ProfilePictureSection';
 import BasicInfoSection from './BasicInfoSection';
 import AddressSection from './AddressSection';
 import EditInfoModal from './EditInfoModal';
+import EditAddressModal from './EditAddressModal';
 
 
 class EditProfileScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isModalVisible: false,
+            // info
+            isInfoModalVisible: false,
             changeInfoArr: [{
                 key: '',
                 label: ''
             }],
+            // address
+            isAddressModalVisible: false,
+            changeAddress: {
+                key: '',
+                label: ''
+            },
         }
 
-        this.handleChangeUserInfo = this.handleChangeUserInfo.bind(this);
-        this.handleShowModal = this.handleShowModal.bind(this);
-        this.handleCloseModal = this.handleCloseModal.bind(this);
+        // info
+        this.handleShowInfoModal = this.handleShowInfoModal.bind(this);
+        this.handleCloseInfoModal = this.handleCloseInfoModal.bind(this);
+        // address
+        this.handleShowAddressModal = this.handleShowAddressModal.bind(this);
+        this.handleCloseAddressModal = this.handleCloseAddressModal.bind(this);
     }
 
     render() {
@@ -44,7 +53,7 @@ class EditProfileScreen extends Component {
                     alias={this.props.user.alias} 
                     job={this.props.user.job} 
                     
-                    showModal={this.handleShowModal}
+                    showModal={this.handleShowInfoModal}
                     />
 
                 <AddressSection 
@@ -53,27 +62,44 @@ class EditProfileScreen extends Component {
                     state={this.props.user.address.state} 
                     zipcode={this.props.user.address.zipcode} 
                     country={this.props.user.address.country} 
-                    addional_info={this.props.user.address.addtional_info} />
+                    additional_info={this.props.user.address.additional_info} 
+                    
+                    showModal={this.handleShowAddressModal}
+                    />
+
 
                 <EditInfoModal 
                     labels={this.state.changeInfoArr}
 
-                    isModalVisible={this.state.isModalVisible} 
-                    closeModal={this.handleCloseModal} 
+                    isModalVisible={this.state.isInfoModalVisible} 
+                    closeModal={this.handleCloseInfoModal} 
+                    />
+
+                <EditAddressModal 
+                    label={this.state.changeAddress}
+
+                    isModalVisible={this.state.isAddressModalVisible} 
+                    closeModal={this.handleCloseAddressModal} 
                     />
 
             </ScrollView>
         )
     }
 
-    handleChangeUserInfo(field, value) {
-        this.props.changeUserInfo(field, value);
+    // basic info
+    handleShowInfoModal(values) {
+        this.setState({ isInfoModalVisible: true, changeInfoArr: values });
     }
-    handleShowModal(values) {
-        this.setState({ isModalVisible: true, changeInfoArr: values });
+    handleCloseInfoModal() {
+        this.setState({ isInfoModalVisible: false });
     }
-    handleCloseModal() {
-        this.setState({ isModalVisible: false });
+
+    // address
+    handleShowAddressModal(values) {
+        this.setState({ isAddressModalVisible: true, changeAddress: values });
+    }
+    handleCloseAddressModal() {
+        this.setState({ isAddressModalVisible: false });
     }
 }
 
@@ -87,11 +113,5 @@ const mapStateToProps = (state) => {
     const { user } = state
     return { user }
 };
-
-const mapDispatchToProps = dispatch => (
-    bindActionCreators({
-        changeUserInfo
-    }, dispatch)
-);
   
-export default connect(mapStateToProps, mapDispatchToProps)(EditProfileScreen);
+export default connect(mapStateToProps)(EditProfileScreen);

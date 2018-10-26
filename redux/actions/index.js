@@ -6,6 +6,13 @@ export const changeUserInfo = (field, value) => (
     }
 );
 
+export const changeUserAddress= (field, value) => (
+    {
+        type: 'CHANGE_USER_ADDRESS',
+        payload: {field, value}
+    }
+);
+
 // variant
 export const changeVariantStatus = (index, status) => (
     {

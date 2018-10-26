@@ -81,7 +81,7 @@ export default class BasicInfoSection extends Component {
         )
     }
 
-    handleShowModal(value) {
+    handleShowModal() {
         this.props.showModal;
     }
 }

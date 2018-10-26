@@ -27,7 +27,8 @@ export default class AddressSection extends Component {
                             <Text style={styles.label}>Street</Text>
                         </View>
 
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button}
+                        onPress={() => this.props.showModal({key: 'street',label: 'Street'})}>
                             <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'} color={'grey'}/>
                         </TouchableOpacity>
                     </View>
@@ -39,7 +40,8 @@ export default class AddressSection extends Component {
                             <Text style={styles.label}>City</Text>
                         </View>
 
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button}
+                        onPress={() => this.props.showModal({key: 'city',label: 'City'})}>
                             <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'} color={'grey'}/>
                         </TouchableOpacity>
                     </View>
@@ -51,7 +53,8 @@ export default class AddressSection extends Component {
                             <Text style={styles.label}>State</Text>
                         </View>
 
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button}
+                        onPress={() => this.props.showModal({key: 'state',label: 'State'})}>
                             <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'} color={'grey'}/>
                         </TouchableOpacity>
                     </View>
@@ -63,7 +66,8 @@ export default class AddressSection extends Component {
                             <Text style={styles.label}>Zipcode</Text>
                         </View>
 
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button}
+                        onPress={() => this.props.showModal({key: 'zipcode',label: 'Zipcode'})}>
                             <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'} color={'grey'}/>
                         </TouchableOpacity>
                     </View>
@@ -75,7 +79,8 @@ export default class AddressSection extends Component {
                             <Text style={styles.label}>Country</Text>
                         </View>
 
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button}
+                        onPress={() => this.props.showModal({key: 'country',label: 'Country'})}>
                             <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'} color={'grey'}/>
                         </TouchableOpacity>
                     </View>
@@ -83,15 +88,15 @@ export default class AddressSection extends Component {
                     {/* additional info */}
                     <View style={styles.fieldContainer}>
                         <View>
-                            <Text style={styles.value}>{this.props.addtional_info}</Text>
+                            <Text style={styles.value}>{this.props.additional_info}</Text>
                             <Text style={styles.label}>Additional Info</Text>
                         </View>
 
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button}
+                        onPress={() => this.props.showModal({key: 'additional_info',label: 'Additional Info'})}>
                             <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'} color={'grey'}/>
                         </TouchableOpacity>
                     </View>
-
 
                 </View>
             </View>
@@ -101,7 +106,7 @@ export default class AddressSection extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 10,
+        marginVertical: 10,
         backgroundColor: '#fff',
         padding: 10
     },
