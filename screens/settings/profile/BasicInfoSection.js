@@ -32,7 +32,7 @@ export default class BasicInfoSection extends Component {
                         </View>
 
                         <TouchableOpacity style={styles.button}
-                        onPress={() => this.props.showModal([{key: 'first_name',label: 'First Name'}, {key: 'last_name', label: 'Last Name'}])} >
+                        onPress={() => this.props.showModal([{key: 'first_name',label: 'First Name', value: this.props.firstName}, {key: 'last_name', label: 'Last Name', value: this.props.lastName}])} >
                             <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'} color={'grey'}/>
                         </TouchableOpacity>
                     </View>
@@ -45,7 +45,7 @@ export default class BasicInfoSection extends Component {
                         </View>
 
                         <TouchableOpacity style={styles.button} 
-                        onPress={() => this.props.showModal([{key: 'email',label: 'Email'}])}>
+                        onPress={() => this.props.showModal([{key: 'email',label: 'Email', value: this.props.email}])}>
                             <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'} color={'grey'}/>
                         </TouchableOpacity>
                     </View>
@@ -58,7 +58,7 @@ export default class BasicInfoSection extends Component {
                         </View>
 
                         <TouchableOpacity style={styles.button} 
-                        onPress={() => this.props.showModal([{key: 'alias',label: 'Favorite fictional character'}])}>
+                        onPress={() => this.props.showModal([{key: 'alias',label: 'Favorite fictional character', value: this.props.alias}])}>
                             <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'} color={'grey'}/>
                         </TouchableOpacity>
                     </View>
@@ -71,7 +71,7 @@ export default class BasicInfoSection extends Component {
                         </View>
 
                         <TouchableOpacity style={styles.button}
-                         onPress={() => this.props.showModal([{key: 'job',label: `Character's job`}])}>
+                         onPress={() => this.props.showModal([{key: 'job',label: `Character's job`, value: this.props.job}])}>
                             <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'} color={'grey'}/>
                         </TouchableOpacity>
                     </View>

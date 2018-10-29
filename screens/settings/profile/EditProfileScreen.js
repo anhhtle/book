@@ -3,6 +3,8 @@ import { ScrollView, StyleSheet, Button } from 'react-native';
 
 // redux
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { changeUserInfo, changeUserAddress } from 'book/redux/actions';
 
 // components
 import SettingHeader from '../SettingHeader';
@@ -34,9 +36,11 @@ class EditProfileScreen extends Component {
         // info
         this.handleShowInfoModal = this.handleShowInfoModal.bind(this);
         this.handleCloseInfoModal = this.handleCloseInfoModal.bind(this);
+        this.handleUpdateInfoModal = this.handleUpdateInfoModal.bind(this);
         // address
         this.handleShowAddressModal = this.handleShowAddressModal.bind(this);
         this.handleCloseAddressModal = this.handleCloseAddressModal.bind(this);
+        this.handleUpdateAddressModal = this.handleUpdateAddressModal.bind(this);
     }
 
     render() {
@@ -72,6 +76,7 @@ class EditProfileScreen extends Component {
                     labels={this.state.changeInfoArr}
 
                     isModalVisible={this.state.isInfoModalVisible} 
+                    updateModal={this.handleUpdateInfoModal}
                     closeModal={this.handleCloseInfoModal} 
                     />
 
@@ -79,6 +84,7 @@ class EditProfileScreen extends Component {
                     label={this.state.changeAddress}
 
                     isModalVisible={this.state.isAddressModalVisible} 
+                    updateModal={this.handleUpdateAddressModal}
                     closeModal={this.handleCloseAddressModal} 
                     />
 
@@ -93,6 +99,11 @@ class EditProfileScreen extends Component {
     handleCloseInfoModal() {
         this.setState({ isInfoModalVisible: false });
     }
+    handleUpdateInfoModal(items) {
+        items.forEach(item => {
+            this.props.changeUserInfo(item.key, item.value);
+        });
+    }
 
     // address
     handleShowAddressModal(values) {
@@ -100,6 +111,9 @@ class EditProfileScreen extends Component {
     }
     handleCloseAddressModal() {
         this.setState({ isAddressModalVisible: false });
+    }
+    handleUpdateAddressModal(key, value) {
+        this.props.changeUserAddress(key, value);
     }
 }
 
@@ -113,5 +127,12 @@ const mapStateToProps = (state) => {
     const { user } = state
     return { user }
 };
-  
-export default connect(mapStateToProps)(EditProfileScreen);
+
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        changeUserInfo,
+        changeUserAddress
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfileScreen);

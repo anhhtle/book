@@ -32,7 +32,7 @@ const RootStack = createStackNavigator(
     EditProfile: { screen: EditProfileScreen }
   },
   {
-    initialRouteName: 'EditProfile',
+    initialRouteName: 'Dashboard',
     headerMode: 'none'
   }
 );

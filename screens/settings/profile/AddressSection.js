@@ -28,7 +28,7 @@ export default class AddressSection extends Component {
                         </View>
 
                         <TouchableOpacity style={styles.button}
-                        onPress={() => this.props.showModal({key: 'street',label: 'Street'})}>
+                        onPress={() => this.props.showModal({key: 'street',label: 'Street', value: this.props.street})}>
                             <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'} color={'grey'}/>
                         </TouchableOpacity>
                     </View>
@@ -41,7 +41,7 @@ export default class AddressSection extends Component {
                         </View>
 
                         <TouchableOpacity style={styles.button}
-                        onPress={() => this.props.showModal({key: 'city',label: 'City'})}>
+                        onPress={() => this.props.showModal({key: 'city',label: 'City', value: this.props.city})}>
                             <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'} color={'grey'}/>
                         </TouchableOpacity>
                     </View>
@@ -54,7 +54,7 @@ export default class AddressSection extends Component {
                         </View>
 
                         <TouchableOpacity style={styles.button}
-                        onPress={() => this.props.showModal({key: 'state',label: 'State'})}>
+                        onPress={() => this.props.showModal({key: 'state',label: 'State', value: this.props.state})}>
                             <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'} color={'grey'}/>
                         </TouchableOpacity>
                     </View>
@@ -67,7 +67,7 @@ export default class AddressSection extends Component {
                         </View>
 
                         <TouchableOpacity style={styles.button}
-                        onPress={() => this.props.showModal({key: 'zipcode',label: 'Zipcode'})}>
+                        onPress={() => this.props.showModal({key: 'zipcode',label: 'Zipcode', value: this.props.zipcode})}>
                             <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'} color={'grey'}/>
                         </TouchableOpacity>
                     </View>
@@ -80,7 +80,7 @@ export default class AddressSection extends Component {
                         </View>
 
                         <TouchableOpacity style={styles.button}
-                        onPress={() => this.props.showModal({key: 'country',label: 'Country'})}>
+                        onPress={() => this.props.showModal({key: 'country',label: 'Country', value: this.props.country})}>
                             <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'} color={'grey'}/>
                         </TouchableOpacity>
                     </View>
@@ -93,7 +93,7 @@ export default class AddressSection extends Component {
                         </View>
 
                         <TouchableOpacity style={styles.button}
-                        onPress={() => this.props.showModal({key: 'additional_info',label: 'Additional Info'})}>
+                        onPress={() => this.props.showModal({key: 'additional_info',label: 'Additional Info', value: this.props.additional_info})}>
                             <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'} color={'grey'}/>
                         </TouchableOpacity>
                     </View>

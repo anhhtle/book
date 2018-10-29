@@ -4,19 +4,18 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Modal from "react-native-modal";
 
 // redux
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { changeUserInfo } from 'book/redux/actions';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
+// import { changeUserInfo } from 'book/redux/actions';
 
 
-export class EditInfoModal extends Component {
+export default class EditInfoModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            newValues: ['hi', 'hello']
+            newValues: ['', '']
         }
 
-        // this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSave = this.handleSave.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
     }
@@ -48,13 +47,23 @@ export class EditInfoModal extends Component {
         )
     }
 
+    componentWillReceiveProps = props => {
+        let arr = this.state.newValues.slice();
+
+        props.labels.forEach((item, index) => {
+            arr[index] = item.value;
+        });
+
+        this.setState({ newValues : arr });
+    }
+
     renderInputs() {
         let arr = [];
         this.props.labels.forEach((item, index) => {
             arr.push(
                 <View key={index}>
                     <Text style={styles.label}>{item.label}</Text>
-                    <TextInput style={styles.textInput} value={this.props.user[item.key]} underlineColorAndroid='rgba(0,0,0,0)' 
+                    <TextInput style={styles.textInput} value={this.state.newValues[index]} underlineColorAndroid='rgba(0,0,0,0)' 
                     onChangeText={(value) => this.handleInputChange(index, value)} 
                     />
                 </View>
@@ -70,9 +79,12 @@ export class EditInfoModal extends Component {
     }
 
     handleSave() {
+        let arr = [];
         this.props.labels.forEach((item, index) => {
-            this.props.changeUserInfo(item.key, this.state.newValues[index]);
+            arr.push({key: item.key, value: this.state.newValues[index]})
         });
+
+        this.props.updateModal(arr);
 
         this.props.closeModal();
     }
@@ -80,7 +92,7 @@ export class EditInfoModal extends Component {
     handleCancel() {
         let newValues = [];
         this.props.labels.forEach((item) => {
-            newValues.push(this.props.user[item.key]);
+            newValues.push(item.value);
         })
 
         this.setState({newValues});
@@ -141,16 +153,3 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     }
 });
-
-const mapStateToProps = (state) => {
-    const { user } = state
-    return { user }
-};
-
-const mapDispatchToProps = dispatch => (
-    bindActionCreators({
-        changeUserInfo
-    }, dispatch)
-);
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditInfoModal);

@@ -1,15 +1,12 @@
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 
-// redux
-import { connect } from 'react-redux';
-
 // components
 import MainHeader from '../MainHeader';
 import CurrentReadingSection from './CurrentReadingSection';
 import MyBooksSection from './MyBooksSection';
 
-class BookcaseScreen extends React.Component {
+export default class BookcaseScreen extends React.Component {
     
     render () {
         return (
@@ -30,10 +27,3 @@ const styles = StyleSheet.create({
         marginBottom: 20
     }
 });
-
-const mapStateToProps = (state) => {
-    const { user } = state
-    return { user }
-  };
-  
-export default connect(mapStateToProps)(BookcaseScreen);

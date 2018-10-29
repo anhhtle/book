@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, StyleSheet, } from 'react-native';
+import { ScrollView, StyleSheet, } from 'react-native';
 
 import MainHeader from '../MainHeader';
 import BooksAvailableSection from './BooksAvailableSection';

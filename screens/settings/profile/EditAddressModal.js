@@ -2,13 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Dimensions, StyleSheet, } from 'react-native';
 import Modal from "react-native-modal";
 
-// redux
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { changeUserAddress } from 'book/redux/actions';
 
-
-export class EditAddressModal extends Component {
+export default class EditAddressModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -33,7 +28,7 @@ export class EditAddressModal extends Component {
                         <View>
                             <Text style={styles.label}>{this.props.label.label}</Text>
                             <TextInput style={styles.textInput} underlineColorAndroid='rgba(0,0,0,0)' 
-                            value={this.props.user.address[this.props.label.key]} 
+                            value={this.state.newValues} 
                             onChangeText={(value) => this.handleInputChange(value)} 
                             />
                         </View>
@@ -52,12 +47,16 @@ export class EditAddressModal extends Component {
         )
     }
 
+    componentWillReceiveProps = props => {
+        this.setState({ newValues : props.label.value });
+    }
+
     handleInputChange(value) {
         this.setState({newValues: value});
     }
 
     handleSave() {
-        this.props.changeUserAddress(this.props.label.key ,this.state.newValues);
+        this.props.updateModal(this.props.label.key ,this.state.newValues);
         this.props.closeModal();
     }
 
@@ -120,16 +119,3 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     }
 });
-
-const mapStateToProps = (state) => {
-    const { user } = state
-    return { user }
-};
-
-const mapDispatchToProps = dispatch => (
-    bindActionCreators({
-        changeUserAddress
-    }, dispatch)
-);
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditAddressModal);
