@@ -5,15 +5,14 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {renderDate} from 'book/screens/utility/helperFunctions';
 
 
-export default RecommendationCard = (props) => {
+export default NewFriendCard = (props) => {
     return (
-        <TouchableOpacity style={styles.container} onPress={() => props.navigation.navigate('Bookcase') }>
+        <TouchableOpacity style={styles.container} onPress={() => props.navigation.navigate('Contacts') }>
             <Image source={{uri: props.friend.image}} style={styles.profileImage}/>
             <View style={{flex: 1}}>
-                <Text>
-                    <Text style={{fontWeight: 'bold'}}>{props.friend.first_name} {props.friend.last_name} </Text>
-                    recommended a book for you:
-                    <Text style={{fontWeight: 'bold'}}> {props.book.title}</Text>
+                <Text>You and
+                    <Text style={{fontWeight: 'bold'}}> {props.friend.first_name} {props.friend.last_name} </Text>
+                    are now friends
                 </Text>
 
                 <View style={styles.dateContainer}>

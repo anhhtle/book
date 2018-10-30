@@ -24,16 +24,16 @@ const INITIAL_STATE = [
         date: new Date(2018, 9, 27, 21, 30)
     },
     {
-        type: 'Medal',
+        type: 'Bookmark',
         book: {
         },
         friend: {
         },
-        medal: {
+        bookmark: {
             _id: '12353w',
             name: 'The Fellowship',
         },
-        date: new Date(2018, 10, 4)
+        date: new Date(2018, 9, 4)
     },
     {
         type: 'New friend',
