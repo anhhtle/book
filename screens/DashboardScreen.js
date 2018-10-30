@@ -34,7 +34,7 @@ export default createBottomTabNavigator (
         },
     },
     {
-        initialRouteName: 'Notifications',
+        initialRouteName: 'Home',
         navigationOptions: ({ navigation }) => ({      
             // icons
             tabBarIcon: ({ tintColor }) => {

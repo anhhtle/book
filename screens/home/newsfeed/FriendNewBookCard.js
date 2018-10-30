@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Image, Platform, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default class NotificationsSection extends Component {
+export default class FriendNewBookCard extends Component {
     render() {
         return (
             <View style={styles.container}>
