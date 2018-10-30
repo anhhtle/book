@@ -1,92 +1,39 @@
-import React, { Component } from 'react';
-import { Text, View, Image, Platform, StyleSheet } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import React from 'react';
+import { Text, View, Image, StyleSheet } from 'react-native';
+import { renderRatingStars, renderLongDate } from 'book/screens/utility/helperFunctions';
 
-export default class FriendNewBookCard extends Component {
-    render() {
-        return (
-            <View style={styles.container}>
+export default FriendNewBookCard = (props) => {
+    return (
+        <View style={styles.container}>
 
-                <View style={styles.newsCard}>
-                    <View style={styles.cardHeading}>
-                        <Image source={{uri: 'https://scontent-sjc3-1.xx.fbcdn.net/v/t1.0-1/p160x160/18740171_10159912486035206_6622147564938299870_n.jpg?_nc_cat=103&oh=6eb95480602160314126df82c0a378a9&oe=5C57E071'}} style={styles.profileImage}/>
-                        <View style={styles.nameDateContainer}>
-                            <Text><Text style={styles.profileName}>Anh Le</Text> started a <Text style={{fontWeight: 'bold'}}>new book</Text></Text>
-                            <Text style={styles.date}>Sept 28, 2018</Text>
-                        </View>
-                    </View>
-
-                    <View style={styles.cardContent}>
-                        <Image source={{uri: 'https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/lrg/9781/4165/9781416595199.jpg'}} style={styles.bookImage}/>
-                        <View style={styles.bookTextContainer}>
-                            <Text style={styles.bookTitle} numberOfLines={2}>American Assassin</Text>
-                            <Text style={styles.author}>Vince Flynn</Text>
-                            <View style={{flexDirection: 'row'}}>
-                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
-                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
-                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
-                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
-                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star-half' : 'md-star-half'} color={'gold'} size={16} />
-                            </View>
-                        </View>
+            <View style={styles.newsCard}>
+                <View style={styles.cardHeading}>
+                    <Image source={{uri: props.friend.image}} style={styles.profileImage}/>
+                    <View style={styles.nameDateContainer}>
+                        <Text><Text style={styles.profileName}>{props.friend.first_name + ' ' + props.friend.last_name}</Text> have a <Text style={{fontWeight: 'bold'}}>new book</Text>!</Text>
+                        <Text style={styles.date}>{renderLongDate(props.date)}</Text>
                     </View>
                 </View>
 
-                <View style={styles.newsCard}>
-                    <View style={styles.cardHeading}>
-                        <Image source={{uri: 'https://scontent-sjc3-1.xx.fbcdn.net/v/t1.0-1/p160x160/18740171_10159912486035206_6622147564938299870_n.jpg?_nc_cat=103&oh=6eb95480602160314126df82c0a378a9&oe=5C57E071'}} style={styles.profileImage}/>
-                        <View style={styles.nameDateContainer}>
-                            <Text><Text style={styles.profileName}>Anh Le</Text> started a <Text style={{fontWeight: 'bold'}}>new book</Text></Text>
-                            <Text style={styles.date}>Sept 28, 2018</Text>
+                <View style={styles.cardContent}>
+                    <Image source={{uri: props.book.image }} style={styles.bookImage}/>
+                    <View style={styles.bookTextContainer}>
+                        <Text style={styles.bookTitle} numberOfLines={2}>{ props.book.title }</Text>
+                        <Text style={styles.author}>{ props.book.authors[0] }</Text>
+                        
+                        {/* ratings */}
+                        <View style={{flexDirection: 'row'}}>
+                            { renderRatingStars(props.book.ratings) }
                         </View>
-                    </View>
+                        {/* end ratings */}
 
-                    <View style={styles.cardContent}>
-                        <Image source={{uri: 'https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/lrg/9781/4165/9781416595199.jpg'}} style={styles.bookImage}/>
-                        <View style={styles.bookTextContainer}>
-                            <Text style={styles.bookTitle} numberOfLines={2}>American Assassin</Text>
-                            <Text style={styles.author}>Vince Flynn</Text>
-                            <View style={{flexDirection: 'row'}}>
-                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
-                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
-                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
-                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
-                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star-half' : 'md-star-half'} color={'gold'} size={16} />
-                            </View>
-                        </View>
                     </View>
                 </View>
-
-                <View style={styles.newsCard}>                    
-                    <View style={styles.cardHeading}>
-                        <Image source={{uri: 'https://scontent-sjc3-1.xx.fbcdn.net/v/t1.0-1/p160x160/18740171_10159912486035206_6622147564938299870_n.jpg?_nc_cat=103&oh=6eb95480602160314126df82c0a378a9&oe=5C57E071'}} style={styles.profileImage}/>
-                        <View style={styles.nameDateContainer}>
-                            <Text><Text style={styles.profileName}>Anh Le</Text> started a <Text style={{fontWeight: 'bold'}}>new book</Text></Text>
-                            <Text style={styles.date}>Sept 28, 2018</Text>
-                        </View>
-                    </View>
-
-                    <View style={styles.cardContent}>
-                        <Image source={{uri: 'https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/lrg/9781/4165/9781416595199.jpg'}} style={styles.bookImage}/>
-                        <View style={styles.bookTextContainer}>
-                            <Text style={styles.bookTitle} numberOfLines={2}>American Assassin</Text>
-                            <Text style={styles.author}>Vince Flynn</Text>
-                            <View style={{flexDirection: 'row'}}>
-                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
-                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
-                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
-                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'gold'} size={16} />
-                                <Ionicons name={Platform.OS === 'ios' ? 'ios-star-half' : 'md-star-half'} color={'gold'} size={16} />
-                            </View>
-                        </View>
-                    </View>
-                </View>
-
-
             </View>
-        );
-    }
-}
+
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
 
@@ -128,7 +75,6 @@ const styles = StyleSheet.create({
     bookImage: {
         flex: 1,
         height: 70,
-        width: 100,
         resizeMode: 'contain',
         backgroundColor: 'lightgrey',
         marginRight: 10
