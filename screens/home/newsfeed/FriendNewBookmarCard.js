@@ -1,30 +1,23 @@
 import React from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
-import { renderRatingStars, renderLongDate } from 'book/screens/utility/helperFunctions';
+import { renderLongDate } from 'book/screens/utility/helperFunctions';
 
-export default FriendNewBookCard = (props) => {
+export default FriendNewBookmarkCard = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.cardHeading}>
                 <Image source={{uri: props.friend.image}} style={styles.profileImage}/>
                 <View style={styles.nameDateContainer}>
-                    <Text><Text style={styles.profileName}>{props.friend.first_name + ' ' + props.friend.last_name}</Text> have a <Text style={{fontWeight: 'bold'}}>new book</Text>!</Text>
+                    <Text><Text style={styles.profileName}>{props.friend.first_name + ' ' + props.friend.last_name}</Text> unlocked a new <Text style={{fontWeight: 'bold'}}>bookmark</Text></Text>
                     <Text style={styles.date}>{renderLongDate(props.date)}</Text>
                 </View>
             </View>
 
             <View style={styles.cardContent}>
-                <Image source={{uri: props.book.image }} style={styles.bookImage}/>
-                <View style={styles.bookTextContainer}>
-                    <Text style={styles.bookTitle} numberOfLines={2}>{ props.book.title }</Text>
-                    <Text style={styles.author}>{ props.book.authors[0] }</Text>
-                    
-                    {/* ratings */}
-                    <View style={{flexDirection: 'row'}}>
-                        { renderRatingStars(props.book.ratings) }
-                    </View>
-                    {/* end ratings */}
-
+                <Image source={{uri: props.bookmark.image }} style={styles.bookmarkImage}/>
+                <View style={styles.bookmarkTextContainer}>
+                    <Text style={styles.bookmarkName}>{ props.bookmark.name }</Text>
+                    <Text style={styles.bookmarkQuote}>"{ props.bookmark.quote }"</Text>
                 </View>
             </View>
         </View>
@@ -66,22 +59,20 @@ const styles = StyleSheet.create({
     cardContent: {
         flexDirection: 'row'
     },
-    bookImage: {
+    bookmarkImage: {
         flex: 1,
         height: 70,
         resizeMode: 'contain',
         backgroundColor: 'lightgrey',
         marginRight: 10
     },
-    bookTextContainer: {
+    bookmarkTextContainer: {
         flex: 4
     },
-    bookTitle: {
-        marginBottom: 2
+    bookmarkName: {
+        fontWeight: 'bold'
     },
-    author: {
-        fontWeight: 'bold',
-        marginBottom: 2
-    }
-
+    bookmarkQuote: {
+        fontStyle: 'italic'
+    },
 });

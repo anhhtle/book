@@ -2,13 +2,16 @@ import React from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
 import { renderRatingStars, renderLongDate } from 'book/screens/utility/helperFunctions';
 
-export default FriendNewBookCard = (props) => {
+export default FriendSharingBookCard = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.cardHeading}>
                 <Image source={{uri: props.friend.image}} style={styles.profileImage}/>
                 <View style={styles.nameDateContainer}>
-                    <Text><Text style={styles.profileName}>{props.friend.first_name + ' ' + props.friend.last_name}</Text> have a <Text style={{fontWeight: 'bold'}}>new book</Text>!</Text>
+                    <Text>
+                        <Text style={styles.profileName}>{props.friend.first_name + ' ' + props.friend.last_name}</Text> recieved a new book courtesy of 
+                        <Text style={styles.profileName}> {props.community_member.first_name + ' ' + props.community_member.last_name}</Text>
+                    </Text>
                     <Text style={styles.date}>{renderLongDate(props.date)}</Text>
                 </View>
             </View>
@@ -34,7 +37,7 @@ export default FriendNewBookCard = (props) => {
 const styles = StyleSheet.create({
 
     container: {
-        backgroundColor: '#fff',
+        backgroundColor: '#fcfbcc',
         padding: 10,
         marginBottom: 10
     },

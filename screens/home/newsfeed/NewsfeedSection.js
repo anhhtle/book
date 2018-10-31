@@ -6,6 +6,10 @@ import { connect } from 'react-redux';
 
 // components
 import FriendNewBookCard from './FriendNewBookCard';
+import FriendCurrentReadingCard from './FriendCurrentReadingCard';
+import FriendSharingBookCard from './FriendSharingBookCard';
+import FriendRecievedBookCard from './FriendRecievedBookCard';
+import FriendNewBookmarCard from './FriendNewBookmarCard';
 
 class NewsfeedSection extends Component {
     constructor(props) {
@@ -25,6 +29,14 @@ class NewsfeedSection extends Component {
         this.props.newsfeeds.map((newsfeed, index) => {
             if (newsfeed.type === 'Friend: new book') {
                 arr.push(<FriendNewBookCard key={index} friend={newsfeed.friend} book={newsfeed.book} date={newsfeed.date} />)
+            } else if (newsfeed.type === 'Friend: reading') {
+                arr.push(<FriendCurrentReadingCard key={index} friend={newsfeed.friend} book={newsfeed.book} date={newsfeed.date} />)
+            } else if (newsfeed.type === 'Friend: sharing book') {
+                arr.push(<FriendSharingBookCard key={index} friend={newsfeed.friend} book={newsfeed.book} date={newsfeed.date} />)
+            } else if (newsfeed.type === 'Friend: received book') {
+                arr.push(<FriendRecievedBookCard key={index} friend={newsfeed.friend} community_member={newsfeed.community_member} book={newsfeed.book} date={newsfeed.date} />)
+            } else if (newsfeed.type === 'Friend: bookmark') {
+                arr.push(<FriendNewBookmarCard key={index} friend={newsfeed.friend} bookmark={newsfeed.bookmark} date={newsfeed.date} />)
             }
         });
 

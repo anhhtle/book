@@ -32,6 +32,7 @@ const INITIAL_STATE = [
         bookmark: {
             _id: '12353w',
             name: 'The Fellowship',
+            image: 'https://i.pinimg.com/originals/9a/d7/95/9ad79563b7fc172d847a0ddfbd9b2fcc.jpg'
         },
         date: new Date(2018, 9, 4)
     },

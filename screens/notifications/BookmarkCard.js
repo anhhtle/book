@@ -8,7 +8,7 @@ import {renderDate} from 'book/screens/utility/helperFunctions';
 export default BookmarkCard = (props) => {
     return (
         <TouchableOpacity style={styles.container} onPress={() => props.navigation.navigate('Bookcase') }>
-            <Image source={{uri: 'https://i.pinimg.com/originals/9a/d7/95/9ad79563b7fc172d847a0ddfbd9b2fcc.jpg'}} style={styles.profileImage}/>
+            <Image source={{uri: props.bookmark.image}} style={styles.profileImage}/>
             <View style={{flex: 1}}>
                 <Text>You earned the
                     <Text style={{fontWeight: 'bold'}}> {props.bookmark.name} </Text>
