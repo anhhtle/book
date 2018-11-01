@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView, StyleSheet, } from 'react-native';
 
 import MainHeader from '../MainHeader';
-import BooksAvailableSection from './BooksAvailableSection';
+import BooksAvailableSection from './booksAvailable/BooksAvailableSection';
 import NotificationsSection from './NotificationsSection';
 import NewsfeedSection from './newsfeed/NewsfeedSection';
 

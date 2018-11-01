@@ -1,40 +1,22 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, View, StyleSheet } from 'react-native';
+import { ScrollView, Text, View, Dimensions, StyleSheet } from 'react-native';
+import Modal from "react-native-modal";
+
+// redux
+import { connect } from 'react-redux';
 
 // component
 import BookCard from 'book/screens/utility/BookCard';
 
-export default class HomeScreen extends Component {
+class BooksAvailableSection extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            testBookData: [
-                {
-                    _id: '1',
-                    title: 'A Game of Thrones',
-                    image: 'https://cdn.waterstones.com/bookjackets/large/9780/0074/9780007448036.jpg',
-                    ratings: 4
-                },
-                {
-                    _id: '2',
-                    title: "Harry Potter and the Sorcerer's Stone",
-                    image: 'https://images-na.ssl-images-amazon.com/images/I/51HSkTKlauL._SX346_BO1,204,203,200_.jpg',
-                    ratings: 4.5
-                },
-                {
-                    _id: '3',
-                    title: 'The Dress and the Girl',
-                    image: 'https://jbrary.com/wp-content/uploads/2018/03/the-dress-and-the-girl.jpg',
-                    ratings: 4.3
-                },
-                {
-                    _id: '4',
-                    title: 'A Game of Thrones',
-                    image: 'https://cdn.waterstones.com/bookjackets/large/9780/0074/9780007448036.jpg',
-                    ratings: 4
-                },
-            ]
+            isModalVisible: false,
+            variantToShareIndex: 'hello',
         }
+
+        this.handleShowModal = this.handleShowModal.bind(this);
     }
 
     render() {
@@ -47,17 +29,27 @@ export default class HomeScreen extends Component {
                     </View>
                 </ScrollView>
                 <Text style={styles.browseLink}>Browse all...</Text>
+
+                <Modal isVisible={this.state.isModalVisible} onBackdropPress={() => this.setState({ isModalVisible: false })} style={styles.modalOverlay}>
+                    <View style={styles.modal}>
+                        <Text>{this.state.variantToShareIndex}</Text>
+                    </View>
+                </Modal>
             </View>
         );
     }
 
     renderBooks() {
         let arr = [];
-        this.state.testBookData.map(item => {
-            arr.push(<BookCard book={item} key={item._id} />)
+        this.props.variantShare.map((item, index) => {
+            arr.push(<BookCard book={item.book} key={item._id} showModal={() => this.handleShowModal(index) } />)
         })
 
         return arr;
+    }
+
+    handleShowModal(index) {
+        this.setState({isModalVisible: true, variantToShareIndex: index});
     }
 }
 
@@ -94,6 +86,24 @@ const styles = StyleSheet.create({
         color: '#4885ed',
         marginTop: 10,
         textAlign: 'right'
-    }
+    },
 
+    // modal
+    modalOverlay: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    modal: {
+        backgroundColor: '#fff',
+        padding: 10,
+        width: Dimensions.get('window').width * 0.9
+    },
 });
+
+const mapStateToProps = (state) => {
+    const { variantShare } = state;
+    return { variantShare }
+}
+
+export default connect(mapStateToProps)(BooksAvailableSection)

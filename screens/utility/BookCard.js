@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Image, Platform, Dimensions, StyleSheet } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Text, View, Image, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
 import { renderRatingStars } from 'book/screens/utility/helperFunctions';
 
 export default class bookCard extends Component {
@@ -12,13 +11,13 @@ export default class bookCard extends Component {
         const book = this.props.book;
 
         return (
-            <View style={styles.container}>
+            <TouchableOpacity style={styles.container} onPress={this.props.showModal}>
                 {this.renderImage()}
                 <View style={{flexDirection: 'row'}}>
                     {renderRatingStars(this.props.book.ratings)}
                 </View>
                 <Text style={styles.bookTitle} numberOfLines={2}>{book.title}</Text>
-            </View>
+            </TouchableOpacity>
         );
     }
 
@@ -40,7 +39,7 @@ const styles = StyleSheet.create({
     },
     bookImage: {
         height: 130,
-        width: 500,
+        width: Dimensions.get('window').width / 3.8,
         resizeMode: 'contain',
     },
     bookTitle: {

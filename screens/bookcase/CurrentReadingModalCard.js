@@ -38,5 +38,5 @@ const styles = StyleSheet.create({
     },
     addButton: {
         width: 35
-    }
+    },
 });
