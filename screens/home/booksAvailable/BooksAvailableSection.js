@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, View, Dimensions, StyleSheet } from 'react-native';
+import { ScrollView, Text, View, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
 import Modal from "react-native-modal";
 
 // redux
@@ -28,7 +28,11 @@ class BooksAvailableSection extends Component {
                         {this.renderBooks()}
                     </View>
                 </ScrollView>
-                <Text style={styles.browseLink}>Browse all...</Text>
+                
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('ShareBooksScreen')} >
+                    <Text style={styles.browseLink}>Browse all...</Text>
+                </TouchableOpacity>
+
 
                 <Modal isVisible={this.state.isModalVisible} onBackdropPress={() => this.setState({ isModalVisible: false })} style={styles.modalOverlay}>
                     <View style={styles.modal}>

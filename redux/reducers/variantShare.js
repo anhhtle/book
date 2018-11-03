@@ -17,6 +17,9 @@ const INITIAL_STATE = [
             first_name: "Anh",
             last_name: "Le",
             email: "ahtle@stanford.edu",
+            alias: '',
+            job: null,
+            image: "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.0-1/p160x160/18740171_10159912486035206_6622147564938299870_n.jpg?_nc_cat=103&oh=6eb95480602160314126df82c0a378a9&oe=5C57E071",
             address: {
                 street: "1000 Welch Rd",
                 city: "Palo Alto",
@@ -27,6 +30,7 @@ const INITIAL_STATE = [
         },
         available_for_share: true,
         status: "Reading",
+        book_condition: 'Fair',
         progress: 50,
     },
     {
@@ -47,6 +51,9 @@ const INITIAL_STATE = [
             first_name: "Anh",
             last_name: "Le",
             email: "ahtle@stanford.edu",
+            alias: 'Jamie Lannister',
+            job: `King's Guard`,
+            image: "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.0-1/p160x160/18740171_10159912486035206_6622147564938299870_n.jpg?_nc_cat=103&oh=6eb95480602160314126df82c0a378a9&oe=5C57E071",
             address: {
                 "street": "1000 Welch Rd",
                 "city": "Palo Alto",
@@ -57,6 +64,7 @@ const INITIAL_STATE = [
         },
         available_for_share: true,
         status: "Reading",
+        book_condition: 'Like new',
         progress: 70,
     },
     {
@@ -65,7 +73,7 @@ const INITIAL_STATE = [
             authors: [
                 "J.K. Rowling"
             ],
-            _id: "5bc39965f6fc0cd8ae6fad30",
+            _id: "5bc39965f6fc0cd8ae6fad31",
             google_id: "wrOQLV6xB-wC",
             title: "Harry Potter and the Sorcerer's Stone",
             description: "\"Turning the envelope over, his hand trembling, Harry saw a purple wax seal bearing a coat of arms; a lion, an eagle, a badger and a snake surrounding a large letter 'H'.\" Harry Potter has never even heard of Hogwarts when the letters start dropping on the doormat at number four, Privet Drive. Addressed in green ink on yellowish parchment with a purple seal, they are swiftly confiscated by his grisly aunt and uncle. Then, on Harry's eleventh birthday, a great beetle-eyed giant of a man called Rubeus Hagrid bursts in with some astonishing news: Harry Potter is a wizard, and he has a place at Hogwarts School of Witchcraft and Wizardry. An incredible adventure is about to begin! Pottermore has now launched the Wizarding World Book Club. Visit Pottermore to sign up and join weekly Twitter discussions at WW Book Club.",
@@ -77,6 +85,9 @@ const INITIAL_STATE = [
             first_name: "Anh",
             last_name: "Le",
             email: "ahtle@stanford.edu",
+            alias: 'Jamie Lannister',
+            job: '',
+            image: "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.0-1/p160x160/18740171_10159912486035206_6622147564938299870_n.jpg?_nc_cat=103&oh=6eb95480602160314126df82c0a378a9&oe=5C57E071",
             address: {
                 "street": "1000 Welch Rd",
                 "city": "Palo Alto",
@@ -87,6 +98,7 @@ const INITIAL_STATE = [
         },
         available_for_share: true,
         status: "Not started",
+        book_condition: 'Used',
         progress: 0,
     },
 ];

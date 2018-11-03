@@ -32,7 +32,7 @@ export default class FriendRequestCard extends React.Component {
                 </Modal>
                 {/* end more option */}
 
-                <Image resizeMethod="resize" source={{url: 'https://scontent-sjc3-1.xx.fbcdn.net/v/t1.0-1/p160x160/18740171_10159912486035206_6622147564938299870_n.jpg?_nc_cat=103&oh=6eb95480602160314126df82c0a378a9&oe=5C57E071'}} style={styles.contactImage} />
+                <Image resizeMethod="resize" source={{url: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/77/Atticus_Finch.png/250px-Atticus_Finch.png'}} style={styles.contactImage} />
 
                 <View style={styles.contactDetail}>
                     <Text style={styles.contactName}>Anh Le</Text>

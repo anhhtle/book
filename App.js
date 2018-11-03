@@ -17,6 +17,7 @@ import Ionicons from './node_modules/@expo/vector-icons/fonts/Ionicons.ttf';
 //import screens
 import DashboardScreen from './screens/DashboardScreen';
 import BookSearchResultScreen from './screens/search/bookSearchResult/BookSearchResultScreen';
+import ShareBooksScreen from './screens/share/ShareBooksScreen';
 import SettingScreen from './screens/settings/SettingScreen';
 import EditProfileScreen from './screens/settings/profile/EditProfileScreen';
 
@@ -26,13 +27,16 @@ const RootStack = createStackNavigator(
   {
     Dashboard: { screen: DashboardScreen },
     BookSearchResult: { screen: BookSearchResultScreen },
+    
+    // share books section
+    ShareBooksScreen: { screen: ShareBooksScreen },
 
     // setting section
     Setting: { screen: SettingScreen },
     EditProfile: { screen: EditProfileScreen }
   },
   {
-    initialRouteName: 'Dashboard',
+    initialRouteName: 'ShareBooksScreen',
     headerMode: 'none'
   }
 );

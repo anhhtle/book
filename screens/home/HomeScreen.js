@@ -12,7 +12,7 @@ export default class HomeScreen extends Component {
             <ScrollView style={styles.container}>
                 <MainHeader navigation={this.props.navigation} />
 
-                <BooksAvailableSection />
+                <BooksAvailableSection navigation={this.props.navigation}/>
                 <NotificationsSection />
                 <NewsfeedSection />
 
