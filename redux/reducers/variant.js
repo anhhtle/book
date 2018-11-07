@@ -26,7 +26,9 @@ const INITIAL_STATE = [
             }
         },
         available_for_share: true,
+        book_condition: 'Used',
         status: "Reading",
+        user_rating: 3,
         progress: 50,
     },
     {
@@ -56,7 +58,9 @@ const INITIAL_STATE = [
             }
         },
         available_for_share: false,
+        book_condition: 'Like new',
         status: "Reading",
+        user_rating: 4,
         progress: 70,
     },
     {
@@ -86,7 +90,9 @@ const INITIAL_STATE = [
             }
         },
         available_for_share: false,
+        book_condition: 'Fair',
         status: "Not started",
+        user_rating: 0,
         progress: 0,
     },
 ];

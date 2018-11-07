@@ -6,8 +6,20 @@ import { connect } from 'react-redux';
 
 // component
 import BookCard from 'book/screens/utility/BookCard';
+import BookDetailModal from './BookDetailModal';
 
 class MyBooksSection extends Component {
+    constructor (props) {
+        super (props);
+        this.state = {
+            isModalVisible: false,
+            indexSelected: 0,
+        }
+
+        this.handleShowModal = this.handleShowModal.bind(this);
+        this.handleSaveChanges = this.handleSaveChanges.bind(this);
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -21,8 +33,14 @@ class MyBooksSection extends Component {
                     <View style={styles.horizontalBooksContainer}>
                         {this.renderBooks()}
                     </View>
-
                 </ScrollView>
+
+                <BookDetailModal 
+                    isVisible={this.state.isModalVisible} 
+                    variant={this.props.variants[this.state.indexSelected]} 
+                    closeModal={() => this.setState({isModalVisible: false})} 
+                    saveChanges={() => this.handleSaveChanges(this.props.variants[this.state.indexSelected].book._id)}
+                    />
                 
             </View>
         );
@@ -30,11 +48,20 @@ class MyBooksSection extends Component {
 
     renderBooks() {
         let arr = [];
-        this.props.variants.map(item => {
-            arr.push(<BookCard book={item.book} key={item._id} />)
+        this.props.variants.map((item, index) => {
+            arr.push(<BookCard book={item.book} key={item._id} showModal={() => this.handleShowModal(index)} />)
         })
 
         return arr;
+    }
+    handleShowModal(index) {
+        this.setState({
+            isModalVisible: true,
+            indexSelected: index
+        });
+    }
+    handleSaveChanges(bookId) {
+        this.setState({requestBookId: bookId, isModalVisible: false});
     }
 }
 

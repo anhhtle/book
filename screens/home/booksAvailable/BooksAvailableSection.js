@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
 import { ScrollView, Text, View, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
-import Modal from "react-native-modal";
 
 // redux
 import { connect } from 'react-redux';
 
 // component
 import BookCard from 'book/screens/utility/BookCard';
+import BookDetailModal from 'book/screens/share/BookDetailModal';
 
 class BooksAvailableSection extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isModalVisible: false,
-            variantToShareIndex: 'hello',
+            indexSelected: 0,
+            requestBookId: '',
         }
 
         this.handleShowModal = this.handleShowModal.bind(this);
+        this.handleRequestBook = this.handleRequestBook.bind(this);
     }
 
     render() {
@@ -33,12 +35,12 @@ class BooksAvailableSection extends Component {
                     <Text style={styles.browseLink}>Browse all...</Text>
                 </TouchableOpacity>
 
-
-                <Modal isVisible={this.state.isModalVisible} onBackdropPress={() => this.setState({ isModalVisible: false })} style={styles.modalOverlay}>
-                    <View style={styles.modal}>
-                        <Text>{this.state.variantToShareIndex}</Text>
-                    </View>
-                </Modal>
+                <BookDetailModal 
+                    isVisible={this.state.isModalVisible} 
+                    item={this.props.variantShare[this.state.indexSelected]} 
+                    closeModal={() => this.setState({isModalVisible: false})} 
+                    requestBook={() => this.handleRequestBook(this.props.variantShare[this.state.indexSelected].book._id)}
+                    />
             </View>
         );
     }
@@ -51,9 +53,14 @@ class BooksAvailableSection extends Component {
 
         return arr;
     }
-
     handleShowModal(index) {
-        this.setState({isModalVisible: true, variantToShareIndex: index});
+        this.setState({
+            isModalVisible: true,
+            indexSelected: index
+        });
+    }
+    handleRequestBook(bookId) {
+        this.setState({requestBookId: bookId, isModalVisible: false});
     }
 }
 

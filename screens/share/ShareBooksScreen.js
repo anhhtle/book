@@ -1,6 +1,5 @@
 import React from 'React';
 import { View, Text, ScrollView, Dimensions, StyleSheet } from 'react-native';
-import Modal from "react-native-modal";
 
 import { connect } from 'react-redux';
 

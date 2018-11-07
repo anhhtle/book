@@ -34,7 +34,7 @@ export default createBottomTabNavigator (
         },
     },
     {
-        initialRouteName: 'Home',
+        initialRouteName: 'Bookcase',
         navigationOptions: ({ navigation }) => ({      
             // icons
             tabBarIcon: ({ tintColor }) => {

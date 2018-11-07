@@ -29,20 +29,20 @@ export default class BookDetailModal extends React.Component {
                         <View style={styles.header}>
                             { this.renderImage() }
                             <View style={styles.headerDetail}>
-                                <Text style={styles.author}>{props.item.book.authors ? this.props.item.book.authors[0] : ''}</Text>
+                                <Text style={styles.author}>{props.item.book.authors ? props.item.book.authors[0] : ''}</Text>
 
                                 {/* ratings */}
                                 <View style={{flexDirection: 'row'}}>
                                     { renderRatingStars(props.item.book.ratings) }
                                 </View>
 
-                                <Text>Book condition: <Text style={styles.bookCondition}>{this.props.item.book_condition.toUpperCase()}</Text></Text>
+                                <Text>Book condition: <Text style={styles.bookCondition}>{props.item.book_condition.toUpperCase()}</Text></Text>
                             </View>
                         </View>
                         {/* end header */}
 
                         <View style={styles.descriptionContainer}>
-                            <Text>{this.props.item.book.description}</Text>
+                            <Text>{props.item.book.description}</Text>
                         </View>
 
                         {/* owner section */}
