@@ -1,6 +1,7 @@
 import React from 'React';
-import { ScrollView, View, Image, Text, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
+import { ScrollView, View, Image, Text, TouchableOpacity, Dimensions, Platform, StyleSheet } from 'react-native';
 import Modal from "react-native-modal";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import ModalDropdown from 'react-native-modal-dropdown';
 
@@ -11,12 +12,15 @@ export default class BookDetailModal extends React.Component {
         super(props);
         this.state = {
             userRatingModalVisible: false,
+            userRating: 0,
 
             bookConditionDropdown: ['New', 'Like new', 'Fair', 'Used'],
             bookStatusDropdown: ['Read', 'Reading', 'Not started' ,'Watch list'],
             bookProgressDropdown: ['0%','10%','20%','30%','40%','50%','60%','70%','80%','90%','100%'],
             bookAvailableForShareDropdown: ['Yes', 'No'],
         }
+
+        this.handleChangeUserRating = this.handleChangeUserRating.bind(this);
     }
 
     render () {
@@ -50,11 +54,41 @@ export default class BookDetailModal extends React.Component {
                                         { renderUserRatingStars(props.variant.user_rating) }
                                     </TouchableOpacity>
 
+                                    <Text>{this.state.userRating}</Text>
+
                                     <Modal isVisible={this.state.userRatingModalVisible} onBackdropPress={() => this.setState({userRatingModalVisible: false})} style={styles.modalOverlay}>
                                         <View style={styles.userRatingModal}>
-                                            <View style={{backgroundColor: '#8c1515', padding: 10}}>
-                                                <Text>How do you like this book?</Text>
+                                            <View style={{backgroundColor: '#8c1515', padding: 10, marginBottom: 10}}>
+                                                <Text style={{color: '#fff'}}>How do you like this book?</Text>
                                             </View>
+                                            <View style={{paddingLeft: 20}}>
+                                                <TouchableOpacity style={styles.userRatingStarsContainer} onPress={() => this.handleChangeUserRating(1)}>
+                                                    <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'#8c1515'} size={16}/>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity style={styles.userRatingStarsContainer} onPress={() => this.handleChangeUserRating(2)}>
+                                                    <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'#8c1515'} size={16}/>
+                                                    <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'#8c1515'} size={16}/>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity style={styles.userRatingStarsContainer} onPress={() => this.handleChangeUserRating(3)}>
+                                                    <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'#8c1515'} size={16}/>
+                                                    <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'#8c1515'} size={16}/>
+                                                    <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'#8c1515'} size={16}/>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity style={styles.userRatingStarsContainer} onPress={() => this.handleChangeUserRating(4)}>
+                                                    <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'#8c1515'} size={16}/>
+                                                    <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'#8c1515'} size={16}/>
+                                                    <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'#8c1515'} size={16}/>
+                                                    <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'#8c1515'} size={16}/>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity style={styles.userRatingStarsContainer} onPress={() => this.handleChangeUserRating(5)}>
+                                                    <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'#8c1515'} size={16}/>
+                                                    <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'#8c1515'} size={16}/>
+                                                    <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'#8c1515'} size={16}/>
+                                                    <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'#8c1515'} size={16}/>
+                                                    <Ionicons name={Platform.OS === 'ios' ? 'ios-star' : 'md-star'} color={'#8c1515'} size={16}/>
+                                                </TouchableOpacity>
+                                            </View>
+                                            
                                         </View>
                                     </Modal>
 
@@ -145,12 +179,19 @@ export default class BookDetailModal extends React.Component {
         )
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({userRating: nextProps.variant.user_rating});
+    }
+
     renderImage() {
         if (this.props.variant.book.image) {
             return <Image source={{ uri: this.props.variant.book.image }} style={styles.bookImage} />
         }
 
         return <Image source={{ uri: 'https://www.edsportrallysupplies.ie/media/catalog/product/cache/1/image/256x256/9df78eab33525d08d6e5fb8d27136e95/i/m/image-placeholder-alt_2_1.jpg' }} style={styles.bookImage} />
+    }
+    handleChangeUserRating(rating) {
+        this.setState({userRating: rating, userRatingModalVisible: false})
     }
 
 }
@@ -170,6 +211,10 @@ const styles = StyleSheet.create({
     },
     userRatingModal: {
         backgroundColor: '#fff'
+    },
+    userRatingStarsContainer: {
+        flexDirection: 'row',
+        marginBottom: 5
     },
 
     // body
