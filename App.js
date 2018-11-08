@@ -10,7 +10,7 @@ import combineReducers from './redux/reducers/combineReducers';
 const store = createStore(combineReducers);
 
 // need to comment out all expo related lines on production build
-// import { AppLoading, Font } from 'expo';
+import { AppLoading, Font } from 'expo';
 
 import Ionicons from './node_modules/@expo/vector-icons/fonts/Ionicons.ttf';
 

@@ -29,7 +29,7 @@ export function renderLongDate(date) {
     }
 }
 
-export function renderRatingStars(ratingNum) {
+export function renderRatingStars(ratingNum, parentProp) {
     let fullStar = Math.floor(ratingNum / 1);
     let halfStar = Math.round(ratingNum % fullStar);
     let emptyStar = 5 - fullStar - halfStar;

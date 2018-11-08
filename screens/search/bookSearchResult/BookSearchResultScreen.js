@@ -4,23 +4,6 @@ import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import BookSearchResultHeader from './BookSearchResultHeader';
 import ResultCard from './ResultCard'
 
-// const data = {
-//     items: [
-//         {
-//             id: "ilc0DwAAQBAJ",
-//             volumeInfo: {
-//                 title: "Harry Potter - A Journey Through A History of Magic",
-//                 authors: [
-//                     "British Library"
-//                 ],
-//                 averageRating: 4,
-//                 imageLinks: {
-//                     smallThumbnail: "http://books.google.com/books/content?id=ilc0DwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
-//                 }
-//             }
-//         }
-//     ]
-// }
 
 export default class BookSearchResultScreen extends React.Component {
     constructor(props) {

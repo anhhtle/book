@@ -10,6 +10,8 @@ export default class BookDetailModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            userRatingModalVisible: false,
+
             bookConditionDropdown: ['New', 'Like new', 'Fair', 'Used'],
             bookStatusDropdown: ['Read', 'Reading', 'Not started' ,'Watch list'],
             bookProgressDropdown: ['0%','10%','20%','30%','40%','50%','60%','70%','80%','90%','100%'],
@@ -44,10 +46,19 @@ export default class BookDetailModal extends React.Component {
                                 {/* user ratings */}
                                 <View style={{flexDirection: 'row'}}>
                                     <Text style={{marginRight: 10}}>My rating:</Text>
-                                    { renderUserRatingStars(props.variant.user_rating) }
-                                </View>
+                                    <TouchableOpacity style={{flexDirection: 'row'}} onPress={() => this.setState({userRatingModalVisible: true})} >
+                                        { renderUserRatingStars(props.variant.user_rating) }
+                                    </TouchableOpacity>
 
-                            
+                                    <Modal isVisible={this.state.userRatingModalVisible} onBackdropPress={() => this.setState({userRatingModalVisible: false})} style={styles.modalOverlay}>
+                                        <View style={styles.userRatingModal}>
+                                            <View style={{backgroundColor: '#8c1515', padding: 10}}>
+                                                <Text>How do you like this book?</Text>
+                                            </View>
+                                        </View>
+                                    </Modal>
+
+                                </View>
                             </View>
                         </View>
                         {/* end header */}
@@ -156,6 +167,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         padding: 10,
         width: Dimensions.get('window').width * 0.9
+    },
+    userRatingModal: {
+        backgroundColor: '#fff'
     },
 
     // body
