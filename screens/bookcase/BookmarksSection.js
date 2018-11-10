@@ -40,7 +40,7 @@ class BookmarksSection extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 10,
+        marginBottom: 10,
         backgroundColor: '#fff'
     },
     header: {

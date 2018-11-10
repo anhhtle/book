@@ -5,10 +5,10 @@ import { ScrollView, Text, View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 // component
+import RecommendedBookModal from './RecommendedBookModal';
 import BookCard from 'book/screens/utility/BookCard';
-import BookDetailModal from './BookDetailModal';
 
-class MyBooksSection extends Component {
+class RecommendedBookSection extends Component {
     constructor (props) {
         super (props);
         this.state = {
@@ -17,14 +17,13 @@ class MyBooksSection extends Component {
         }
 
         this.handleShowModal = this.handleShowModal.bind(this);
-        this.handleSaveChanges = this.handleSaveChanges.bind(this);
     }
 
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={styles.headerTitle}>My books</Text>
+                    <Text style={styles.headerTitle}>Recommended to you</Text>
 
                     <Text style={styles.browseLink}>Browse all...</Text>
                 </View>
@@ -35,11 +34,11 @@ class MyBooksSection extends Component {
                     </View>
                 </ScrollView>
 
-                <BookDetailModal 
+                <RecommendedBookModal 
                     isVisible={this.state.isModalVisible} 
                     variant={this.props.variants[this.state.indexSelected]} 
                     closeModal={() => this.setState({isModalVisible: false})} 
-                    saveChanges={() => this.handleSaveChanges(this.props.variants[this.state.indexSelected].book._id)}
+                    saveChanges={() => this.handleSaveChanges()}
                     />
                 
             </View>
@@ -49,7 +48,8 @@ class MyBooksSection extends Component {
     renderBooks() {
         let arr = [];
         this.props.variants.map((item, index) => {
-            arr.push(<BookCard book={item.book} key={item._id} showModal={() => this.handleShowModal(index)} />)
+            if (item.status === 'Recommended')
+            arr.push(<BookCard book={item.book} key={item._id} showModal={() => this.handleShowModal(index)}/>)
         })
 
         return arr;
@@ -60,8 +60,8 @@ class MyBooksSection extends Component {
             indexSelected: index
         });
     }
-    handleSaveChanges(bookId) {
-        this.setState({requestBookId: bookId, isModalVisible: false});
+    handleSaveChanges() {
+        this.setState({isModalVisible: false});
     }
 }
 
@@ -95,8 +95,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { user, variants } = state
-    return { user, variants }
+    const { variants } = state
+    return { variants }
 };
   
-export default connect(mapStateToProps)(MyBooksSection);
+export default connect(mapStateToProps)(RecommendedBookSection);

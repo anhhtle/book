@@ -11,9 +11,14 @@ import FriendSharingBookCard from './FriendSharingBookCard';
 import FriendRecievedBookCard from './FriendRecievedBookCard';
 import FriendNewBookmarCard from './FriendNewBookmarCard';
 
+
 class NewsfeedSection extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            isModalVisible: false,
+        }
     }
 
     render() {
