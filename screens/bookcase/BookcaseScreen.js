@@ -5,6 +5,7 @@ import { ScrollView, StyleSheet } from 'react-native';
 import MainHeader from '../MainHeader';
 import CurrentReadingSection from './CurrentReadingSection';
 import MyBooksSection from './MyBooksSection';
+import BookmarksSection from './BookmarksSection';
 
 export default class BookcaseScreen extends React.Component {
     
@@ -16,6 +17,7 @@ export default class BookcaseScreen extends React.Component {
 
                 <CurrentReadingSection />
                 <MyBooksSection />
+                <BookmarksSection />
             </ScrollView>
         )
     }
@@ -24,6 +26,5 @@ export default class BookcaseScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginBottom: 20
     }
 });
