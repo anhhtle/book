@@ -48,7 +48,7 @@ export default class BookDetailModal extends React.Component {
                         {/* owner section */}
                         <Text style={{color: '#8c1515', marginBottom: 10}}>OWNER</Text>
                         <View style={styles.ownerContainer}>
-                            <Image source={{uri: props.item.user.image}} style={styles.profileImage}/>
+                            <Image source={{uri: props.item.user.avatar.image}} style={styles.profileImage}/>
                             <View>
                                 <Text>{props.item.user.first_name} {props.item.user.last_name}</Text>
                                 <Text>{this.renderAlias()}{this.renderJob()}</Text>

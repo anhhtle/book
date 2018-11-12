@@ -17,6 +17,17 @@ const INITIAL_STATE = [
             first_name: "Anh",
             last_name: "Le",
             email: "ahtle@stanford.edu",
+            avatar: {
+                _id: '1235sad',
+                name: 'The Giver',
+                avatar: {
+                    _id: '1235sad',
+                    name: 'The Giver',
+                    image: "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.0-1/p160x160/18740171_10159912486035206_6622147564938299870_n.jpg?_nc_cat=103&oh=6eb95480602160314126df82c0a378a9&oe=5C57E071",
+                    quote: 'Test test'
+                },
+                quote: 'Test test'
+            },
             address: {
                 street: "1000 Welch Rd",
                 city: "Palo Alto",
@@ -51,6 +62,12 @@ const INITIAL_STATE = [
             first_name: "Anh",
             last_name: "Le",
             email: "ahtle@stanford.edu",
+            avatar: {
+                _id: '1235sad',
+                name: 'The Giver',
+                image: "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.0-1/p160x160/18740171_10159912486035206_6622147564938299870_n.jpg?_nc_cat=103&oh=6eb95480602160314126df82c0a378a9&oe=5C57E071",
+                quote: 'Test test'
+            },
             address: {
                 "street": "1000 Welch Rd",
                 "city": "Palo Alto",
@@ -85,6 +102,12 @@ const INITIAL_STATE = [
             first_name: "Anh",
             last_name: "Le",
             email: "ahtle@stanford.edu",
+            avatar: {
+                _id: '1235sad',
+                name: 'The Giver',
+                image: "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.0-1/p160x160/18740171_10159912486035206_6622147564938299870_n.jpg?_nc_cat=103&oh=6eb95480602160314126df82c0a378a9&oe=5C57E071",
+                quote: 'Test test'
+            },
             address: {
                 "street": "1000 Welch Rd",
                 "city": "Palo Alto",
@@ -119,6 +142,12 @@ const INITIAL_STATE = [
             first_name: "Anh",
             last_name: "Le",
             email: "ahtle@stanford.edu",
+            avatar: {
+                _id: '1235sad',
+                name: 'The Giver',
+                image: "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.0-1/p160x160/18740171_10159912486035206_6622147564938299870_n.jpg?_nc_cat=103&oh=6eb95480602160314126df82c0a378a9&oe=5C57E071",
+                quote: 'Test test'
+            },
             address: {
                 "street": "1000 Welch Rd",
                 "city": "Palo Alto",
@@ -134,7 +163,12 @@ const INITIAL_STATE = [
             email: "ahtle@stanford.edu",
             alias: 'Jamie Lannister',
             job: `King's Guard`,
-            image: "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.0-1/p160x160/18740171_10159912486035206_6622147564938299870_n.jpg?_nc_cat=103&oh=6eb95480602160314126df82c0a378a9&oe=5C57E071",
+            avatar: {
+                _id: '1235sad',
+                name: 'The Giver',
+                image: "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.0-1/p160x160/18740171_10159912486035206_6622147564938299870_n.jpg?_nc_cat=103&oh=6eb95480602160314126df82c0a378a9&oe=5C57E071",
+                quote: 'Test test'
+            },
             address: {
                 "street": "1000 Welch Rd",
                 "city": "Palo Alto",

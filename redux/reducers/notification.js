@@ -47,7 +47,12 @@ const INITIAL_STATE = [
             email: "eddie.le@stanford.edu",
             alias: 'Atticus Finch',
             job: 'Lawyer',
-            image: "https://upload.wikimedia.org/wikipedia/en/thumb/7/77/Atticus_Finch.png/250px-Atticus_Finch.png",
+            avatar: {
+                _id: '1235sad',
+                name: 'The Giver',
+                image: "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.0-1/p160x160/18740171_10159912486035206_6622147564938299870_n.jpg?_nc_cat=103&oh=6eb95480602160314126df82c0a378a9&oe=5C57E071",
+                quote: 'Test test'
+            },
             address: {
                 street: "1000 ABC Rd",
                 city: "Star City",
@@ -70,7 +75,12 @@ const INITIAL_STATE = [
             email: "eddie.le@stanford.edu",
             alias: 'Atticus Finch',
             job: 'Lawyer',
-            image: "https://upload.wikimedia.org/wikipedia/en/thumb/7/77/Atticus_Finch.png/250px-Atticus_Finch.png",
+            avatar: {
+                _id: '1235sad',
+                name: 'The Giver',
+                image: "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.0-1/p160x160/18740171_10159912486035206_6622147564938299870_n.jpg?_nc_cat=103&oh=6eb95480602160314126df82c0a378a9&oe=5C57E071",
+                quote: 'Test test'
+            },
             address: {
                 street: "1000 ABC Rd",
                 city: "Star City",

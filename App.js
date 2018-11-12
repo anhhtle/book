@@ -16,10 +16,10 @@ import Ionicons from './node_modules/@expo/vector-icons/fonts/Ionicons.ttf';
 
 //import screens
 import DashboardScreen from './screens/DashboardScreen';
-import BookSearchResultScreen from './screens/search/bookSearchResult/BookSearchResultScreen';
-import ShareBooksScreen from './screens/share/ShareBooksScreen';
-import SettingScreen from './screens/settings/SettingScreen';
-import EditProfileScreen from './screens/settings/profile/EditProfileScreen';
+import BookSearchResultScreen from './screens/search/bookSearchResult';
+import ShareBooksScreen from './screens/share';
+import SettingScreen from './screens/settings';
+import EditProfileScreen from './screens/settings/profile';
 
 
 

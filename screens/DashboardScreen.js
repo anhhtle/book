@@ -4,13 +4,13 @@ import { createBottomTabNavigator, createStackNavigator } from 'react-navigation
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import HomeScreen from './home/HomeScreen';
+import HomeScreen from './home/index';
 // contacts stack
-import FriendsListScreen from './contacts/friends-list/FriendsListScreen';
-import FriendsRequestScreen from './contacts/friends-request/FriendsRequestScreen';
+import FriendsListScreen from './contacts/friends-list';
+import FriendsRequestScreen from './contacts/friends-request';
 
-import BookcaseScreen from './bookcase/BookcaseScreen';
-import NotificationsScreen from './notifications/NotificationsScreen';
+import BookcaseScreen from './bookcase';
+import NotificationsScreen from './notifications';
 
 
 const ContactsStack = createStackNavigator(

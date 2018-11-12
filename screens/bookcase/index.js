@@ -3,10 +3,10 @@ import { ScrollView, StyleSheet } from 'react-native';
 
 // components
 import MainHeader from '../MainHeader';
-import CurrentReadingSection from './CurrentReadingSection';
-import MyBooksSection from './MyBooksSection';
-import RecommendedBookSection from './RecommendedBookSection';
-import AvatarsSection from './AvatarsSection';
+import CurrentReadingSection from './currentReadingSection';
+import MyBooksSection from './myBooksSection';
+import RecommendedBookSection from './recommendedBooksSection';
+import AvatarsSection from './avatarsSection';
 
 export default class BookcaseScreen extends React.Component {
     

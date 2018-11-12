@@ -48,7 +48,7 @@ class EditProfileScreen extends Component {
             <ScrollView style={styles.container}>
                 <SettingHeader navigation={this.props.navigation} title={'Edit profile'} />
 
-                <ProfilePictureSection image={this.props.user.image === '' ? 'https://static.intercomassets.com/avatars/2346654/square_128/person-placeholder-8-1535450106.png?1535450106' : this.props.user.image} />
+                <ProfilePictureSection image={this.props.user.avatar.image} />
 
                 <BasicInfoSection 
                     firstName={this.props.user.first_name} 

@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, } from 'react-native';
 
 import MainHeader from '../MainHeader';
 import BooksAvailableSection from './booksAvailable/BooksAvailableSection';
-import NotificationsSection from './NotificationsSection';
+import NotificationsSection from './notifications';
 import NewsfeedSection from './newsfeed/NewsfeedSection';
 
 export default class HomeScreen extends Component {
