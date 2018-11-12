@@ -1,7 +1,6 @@
 import React from 'React';
 import { ScrollView, View, Image, Text, TouchableOpacity, Dimensions, Platform, StyleSheet } from 'react-native';
 import Modal from "react-native-modal";
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import { renderRatingStars } from 'book/screens/utility/helperFunctions';
 
@@ -50,7 +49,7 @@ export default class BookDetailModal extends React.Component {
                         {/* friend that recommended the book */}
                         <Text style={{color: '#8c1515', marginBottom: 10}}>RECOMMENDED BY</Text>
                         <View style={styles.friendContainer}>
-                            <Image source={{uri: props.variant.friend.image}} style={styles.profileImage}/>
+                            <Image source={{uri: props.variant.friend.avatar.image}} style={styles.profileImage}/>
                             <View>
                                 <Text>{props.variant.friend.first_name} {props.variant.friend.last_name}</Text>
                                 <Text>{this.renderAlias()}{this.renderJob()}</Text>
@@ -60,10 +59,10 @@ export default class BookDetailModal extends React.Component {
 
                         {/* action buttons */}
                         <View style={styles.buttonsContainer}>
-                            <TouchableOpacity style={styles.cancleButton} onPress={props.closeModal}>
-                                <Text style={{color: '#fff'}}>DELETE</Text>
+                            <TouchableOpacity style={styles.deleteButton} onPress={props.closeModal}>
+                                <Text style={{color: '#8c1515'}}>DELETE</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.requestButton} onPress={props.saveChanges}>
+                            <TouchableOpacity style={styles.addButton} onPress={props.saveChanges}>
                                 <Text style={{color: '#000'}}>ADD TO BOOKCASE</Text>
                             </TouchableOpacity>
                         </View>
@@ -180,14 +179,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-end'
     },
-    cancleButton: {
-        backgroundColor: '#8c1515',
-        paddingVertical: 5,
-        paddingHorizontal: 10,
-        marginRight: 20,
-        borderRadius: 5,
+    deleteButton: {
+        position: 'absolute',
+        left: 0
     },
-    requestButton: {
+    addButton: {
         backgroundColor: 'gold',
         paddingVertical: 5,
         paddingHorizontal: 10,

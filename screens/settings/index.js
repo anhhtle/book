@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Platform, StyleSheet, } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import SettingHeader from './SettingHeader';
+import GoBackHeader from '../utility/GoBackHeader';
 
 export default class SettingScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <SettingHeader title={'Settings and Privacy'} navigation={this.props.navigation} style={{ marginBottom: 35 }}/>
+                <GoBackHeader title={'Settings and Privacy'} navigation={this.props.navigation} style={{ marginBottom: 35 }}/>
 
                 <TouchableOpacity style={styles.optionContainer} onPress={() => this.props.navigation.navigate('EditProfile')}>
                     <Ionicons style={styles.icon} color={'#4286f4'} name={Platform.OS === 'ios' ? 'ios-person' : 'md-person'} />

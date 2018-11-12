@@ -17,9 +17,9 @@ export default class BookcaseScreen extends React.Component {
                 <MainHeader navigation={this.props.navigation} />
 
                 <CurrentReadingSection />
-                <MyBooksSection />
-                <RecommendedBookSection />
-                <AvatarsSection />
+                <MyBooksSection navigation={this.props.navigation} />
+                <RecommendedBookSection navigation={this.props.navigation} />
+                <AvatarsSection navigation={this.props.navigation} />
             </ScrollView>
         )
     }

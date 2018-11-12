@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { changeUserInfo, changeUserAddress } from 'book/redux/actions';
 
 // components
-import SettingHeader from '../SettingHeader';
+import GoBackHeader from 'book/screens/utility/GoBackHeader';
 import ProfilePictureSection from './ProfilePictureSection';
 import BasicInfoSection from './BasicInfoSection';
 import AddressSection from './AddressSection';
@@ -46,7 +46,7 @@ class EditProfileScreen extends Component {
     render() {
         return (
             <ScrollView style={styles.container}>
-                <SettingHeader navigation={this.props.navigation} title={'Edit profile'} />
+                <GoBackHeader navigation={this.props.navigation} title={'Edit profile'} />
 
                 <ProfilePictureSection image={this.props.user.avatar.image} />
 

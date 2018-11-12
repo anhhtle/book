@@ -54,8 +54,6 @@ export default class BookDetailModal extends React.Component {
                                         { renderUserRatingStars(props.variant.user_rating) }
                                     </TouchableOpacity>
 
-                                    <Text>{this.state.userRating}</Text>
-
                                     <Modal isVisible={this.state.userRatingModalVisible} onBackdropPress={() => this.setState({userRatingModalVisible: false})} style={styles.modalOverlay}>
                                         <View style={styles.userRatingModal}>
                                             <View style={{backgroundColor: '#8c1515', padding: 10, marginBottom: 10}}>
@@ -146,7 +144,7 @@ export default class BookDetailModal extends React.Component {
                             </View>
                             {/* sharing? */}
                             <View style={styles.statusGroup}>
-                                <Text style={styles.dropdownShareLabel}>Share with community?</Text>
+                                <Text style={styles.dropdownLabel}>Share with community?</Text>
                                 <ModalDropdown 
                                     options={this.state.bookAvailableForShareDropdown}
                                     defaultValue={props.available_for_share ? 'Yes' : 'No'}
@@ -163,10 +161,13 @@ export default class BookDetailModal extends React.Component {
 
                         {/* action buttons */}
                         <View style={styles.buttonsContainer}>
+                            <TouchableOpacity style={styles.deleteButton} onPress={props.closeModal}>
+                                <Text style={{color: '#8c1515'}}>DELETE</Text>
+                            </TouchableOpacity>
                             <TouchableOpacity style={styles.cancleButton} onPress={props.closeModal}>
                                 <Text style={{color: '#fff'}}>CANCLE</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.requestButton} onPress={props.saveChanges}>
+                            <TouchableOpacity style={styles.saveButton} onPress={props.saveChanges}>
                                 <Text style={{color: '#000'}}>SAVE</Text>
                             </TouchableOpacity>
                         </View>
@@ -290,7 +291,12 @@ const styles = StyleSheet.create({
     //  action buttons section
     buttonsContainer: {
         flexDirection: 'row',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        alignItems: 'center'
+    },
+    deleteButton: {
+        position: 'absolute',
+        left: 0
     },
     cancleButton: {
         backgroundColor: '#8c1515',
@@ -299,7 +305,7 @@ const styles = StyleSheet.create({
         marginRight: 20,
         borderRadius: 5,
     },
-    requestButton: {
+    saveButton: {
         backgroundColor: 'gold',
         paddingVertical: 5,
         paddingHorizontal: 10,

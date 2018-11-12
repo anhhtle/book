@@ -5,11 +5,15 @@ import { createBottomTabNavigator, createStackNavigator } from 'react-navigation
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import HomeScreen from './home/index';
+
 // contacts stack
 import FriendsListScreen from './contacts/friends-list';
 import FriendsRequestScreen from './contacts/friends-request';
 
+// bookcase stack
 import BookcaseScreen from './bookcase';
+import MyBooksDetailedScreen from './bookcase/myBooksSection/detailedScreen'
+
 import NotificationsScreen from './notifications';
 
 
@@ -23,11 +27,21 @@ const ContactsStack = createStackNavigator(
     }
 )
 
+const BookcaseStack = createStackNavigator(
+    {
+        Bookcase: {screen: BookcaseScreen},
+        MyBooks: {screen: MyBooksDetailedScreen}
+    },
+    {
+        headerMode: 'none'
+    }
+)
+
 export default createBottomTabNavigator (
     {
         Home: HomeScreen,
         Contacts: ContactsStack,
-        Bookcase: BookcaseScreen,
+        Bookcase: BookcaseStack,
         Notifications: {
             screen: NotificationsScreen,
             navigationOptions: { title: 'Notifications' }

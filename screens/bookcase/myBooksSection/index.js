@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, View, StyleSheet } from 'react-native';
+import { ScrollView, Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 
 // redux
 import { connect } from 'react-redux';
@@ -26,7 +26,9 @@ class MyBooksSection extends Component {
                 <View style={styles.header}>
                     <Text style={styles.headerTitle}>My books</Text>
 
-                    <Text style={styles.browseLink}>Browse all...</Text>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('MyBooks')}>
+                        <Text style={styles.browseLink}>Browse all...</Text>
+                    </TouchableOpacity>
                 </View>
 
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -48,8 +50,10 @@ class MyBooksSection extends Component {
 
     renderBooks() {
         let arr = [];
-        this.props.variants.map((item, index) => {
-            arr.push(<BookCard book={item.book} key={item._id} showModal={() => this.handleShowModal(index)} />)
+        this.props.variants.map((variant, index) => {
+            if (variant.status !== 'Recommended') {
+                arr.push(<BookCard book={variant.book} key={variant._id} showModal={() => this.handleShowModal(index)} />)
+            }
         })
 
         return arr;
@@ -95,8 +99,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { user, variants } = state
-    return { user, variants }
+    const { variants } = state
+    return { variants }
 };
   
 export default connect(mapStateToProps)(MyBooksSection);

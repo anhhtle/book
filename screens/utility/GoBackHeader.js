@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Platform, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default class SettingHeader extends Component {
+export default class goBackHeader extends Component {
     constructor(props) {
         super(props);
         this.state = {
