@@ -4,13 +4,13 @@ import variantReducer from './variant';
 import variantShareReducer from './variantShare';
 import notificationReducer from './notification';
 import newsfeedReducer from './newsfeed';
-import bookmarkReducer from './bookmark';
+import avatarReducer from './avatar';
 
 export default combineReducers({
-    user: userReducer,
-    bookmarks: bookmarkReducer,
+    avatars: avatarReducer,
     newsfeeds: newsfeedReducer,
     notifications: notificationReducer,
+    user: userReducer,
     variants: variantReducer,
     variantShare: variantShareReducer,
 });

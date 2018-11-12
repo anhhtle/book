@@ -24,12 +24,12 @@ const INITIAL_STATE = [
         date: new Date(2018, 9, 27, 21, 30)
     },
     {
-        type: 'Bookmark',
+        type: 'Avatar',
         book: {
         },
         friend: {
         },
-        bookmark: {
+        avatar: {
             _id: '12353w',
             name: 'The Fellowship',
             image: 'https://i.pinimg.com/originals/9a/d7/95/9ad79563b7fc172d847a0ddfbd9b2fcc.jpg'

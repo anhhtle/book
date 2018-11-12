@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 // components
 import MainHeader from '../MainHeader';
 import RecommendationCard from './RecommendationCard';
-import BookmarkCard from './BookmarkCard';
+import AvatarCard from './AvatarCard';
 import NewFriendCard from './NewFriendCard';
 import FriendRequestCard from './FriendRequestCard';
 
@@ -28,8 +28,8 @@ class NotificationsScreen extends React.Component {
         this.props.notifications.map((notification, index) => {
             if(notification.type === 'Recommendation') {
                 arr.push(<RecommendationCard key={index} friend={notification.friend} book={notification.book} date={notification.date} navigation={this.props.navigation}/>)
-            } else if (notification.type === 'Bookmark') {
-                arr.push(<BookmarkCard key={index} bookmark={notification.bookmark} date={notification.date} navigation={this.props.navigation}/>)
+            } else if (notification.type === 'Avatar') {
+                arr.push(<AvatarCard key={index} avatar={notification.avatar} date={notification.date} navigation={this.props.navigation}/>)
             } else if (notification.type === 'New friend') {
                 arr.push(<NewFriendCard key={index} friend={notification.friend} date={notification.date} navigation={this.props.navigation}/>)
             } else if (notification.type === 'Friend request') {

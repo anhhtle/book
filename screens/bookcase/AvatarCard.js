@@ -1,14 +1,14 @@
 import React from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
 
-export default BookmarkCard = (props) => {
+export default AvatarCard = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.cardContent}>
-                <Image source={{uri: props.bookmark.image }} style={styles.bookmarkImage}/>
-                <View style={styles.bookmarkTextContainer}>
-                    <Text style={styles.bookmarkName}>{ props.bookmark.name }</Text>
-                    <Text style={styles.bookmarkQuote}>"{ props.bookmark.quote }"</Text>
+                <Image source={{uri: props.avatar.image }} style={styles.avatarImage}/>
+                <View style={styles.avatarTextContainer}>
+                    <Text style={styles.avatarName}>{ props.avatar.name }</Text>
+                    <Text style={styles.avatarQuote}>"{ props.avatar.quote }"</Text>
                 </View>
             </View>
         </View>
@@ -27,20 +27,20 @@ const styles = StyleSheet.create({
     cardContent: {
         flexDirection: 'row'
     },
-    bookmarkImage: {
+    avatarImage: {
         flex: 1,
         height: 70,
         resizeMode: 'contain',
         backgroundColor: 'lightgrey',
         marginRight: 10
     },
-    bookmarkTextContainer: {
+    avatarTextContainer: {
         flex: 4
     },
-    bookmarkName: {
+    avatarName: {
         fontWeight: 'bold'
     },
-    bookmarkQuote: {
+    avatarQuote: {
         fontStyle: 'italic'
     },
 });

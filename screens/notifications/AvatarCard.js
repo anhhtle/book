@@ -5,14 +5,14 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {renderDate} from 'book/screens/utility/helperFunctions';
 
 
-export default BookmarkCard = (props) => {
+export default AvatarCard = (props) => {
     return (
         <TouchableOpacity style={styles.container} onPress={() => props.navigation.navigate('Bookcase') }>
-            <Image source={{uri: props.bookmark.image}} style={styles.profileImage}/>
+            <Image source={{uri: props.avatar.image}} style={styles.profileImage}/>
             <View style={{flex: 1}}>
                 <Text>You earned the
-                    <Text style={{fontWeight: 'bold'}}> {props.bookmark.name} </Text>
-                    bookmark!
+                    <Text style={{fontWeight: 'bold'}}> {props.avatar.name} </Text>
+                    avatar!
                 </Text>
 
                 <View style={styles.dateContainer}>

@@ -13,7 +13,7 @@ const INITIAL_STATE = [
     }
 ];
 
-export default bookmarkReducer = (state = INITIAL_STATE, action) => {
+export default avatarReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
 
         default:

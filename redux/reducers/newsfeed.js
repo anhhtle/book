@@ -145,10 +145,10 @@ const INITIAL_STATE = [
         date: new Date(2018, 8, 28, 21, 30)
     },
     {
-        type: 'Friend: bookmark',
+        type: 'Friend: avatar',
         book: {
         },
-        bookmark: {
+        avatar: {
             _id: 'asdfij32i0aosdnvjsk20h',
             name: 'The Giver',
             image: 'https://i.pinimg.com/originals/9a/d7/95/9ad79563b7fc172d847a0ddfbd9b2fcc.jpg',

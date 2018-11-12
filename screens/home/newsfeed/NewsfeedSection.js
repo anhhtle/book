@@ -40,8 +40,8 @@ class NewsfeedSection extends Component {
                 arr.push(<FriendSharingBookCard key={index} friend={newsfeed.friend} book={newsfeed.book} date={newsfeed.date} />)
             } else if (newsfeed.type === 'Friend: received book') {
                 arr.push(<FriendRecievedBookCard key={index} friend={newsfeed.friend} community_member={newsfeed.community_member} book={newsfeed.book} date={newsfeed.date} />)
-            } else if (newsfeed.type === 'Friend: bookmark') {
-                arr.push(<FriendNewBookmarCard key={index} friend={newsfeed.friend} bookmark={newsfeed.bookmark} date={newsfeed.date} />)
+            } else if (newsfeed.type === 'Friend: avatar') {
+                arr.push(<FriendNewBookmarCard key={index} friend={newsfeed.friend} avatar={newsfeed.avatar} date={newsfeed.date} />)
             }
         });
 

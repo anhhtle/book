@@ -4,9 +4,9 @@ import {Text, View, StyleSheet } from 'react-native';
 // redux
 import { connect } from 'react-redux';
 
-import BookmarkCard from './BookmarkCard';
+import AvatarCard from './AvatarCard';
 
-class BookmarksSection extends Component {
+class AvatarsSection extends Component {
     constructor (props) {
         super (props);
         this.state = {
@@ -17,21 +17,21 @@ class BookmarksSection extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={styles.headerTitle}>Bookmarks unlocked ({this.props.bookmarks.length}/10)</Text>
+                    <Text style={styles.headerTitle}>Avatars unlocked ({this.props.avatars.length}/10)</Text>
 
                     <Text style={styles.browseLink}>Browse all...</Text>
                 </View>
 
-                {this.renderBookmarks()}
+                {this.renderAvatars()}
                 
             </View>
         );
     }
 
-    renderBookmarks() {
+    renderAvatars() {
         let arr = [];
-        this.props.bookmarks.map((bookmark, index) => {
-            arr.push(<BookmarkCard key={index} bookmark={bookmark} />)
+        this.props.avatars.map((avatar, index) => {
+            arr.push(<AvatarCard key={avatar._id} avatar={avatar} />)
         })
 
         return arr;
@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { bookmarks } = state
-    return { bookmarks }
+    const { avatars } = state
+    return { avatars }
 };
   
-export default connect(mapStateToProps)(BookmarksSection);
+export default connect(mapStateToProps)(AvatarsSection);
