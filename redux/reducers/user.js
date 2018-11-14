@@ -6,11 +6,12 @@ const INITIAL_STATE = {
     alias: 'Jamie Lannister',
     job: `King's Guard`,
     avatar: {
-        _id: '1235sad',
+        _id: 'asdfij32i0aosdnvjsk20h',
         name: 'The Giver',
         image: "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.0-1/p160x160/18740171_10159912486035206_6622147564938299870_n.jpg?_nc_cat=103&oh=6eb95480602160314126df82c0a378a9&oe=5C57E071",
         quote: 'Test test'
     },
+    avatarUnlocked: [0, 2],
     address: {
         street: "1000 Welch Rd",
         city: "Palo Alto",

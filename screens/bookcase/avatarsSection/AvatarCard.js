@@ -1,9 +1,9 @@
 import React from 'react';
-import { Text, View, Image, StyleSheet } from 'react-native';
+import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
 export default AvatarCard = (props) => {
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={props.showModal}>
             <View style={styles.cardContent}>
                 <Image source={{uri: props.avatar.image }} style={styles.avatarImage}/>
                 <View style={styles.avatarTextContainer}>
@@ -11,7 +11,7 @@ export default AvatarCard = (props) => {
                     <Text style={styles.avatarQuote}>"{ props.avatar.quote }"</Text>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 

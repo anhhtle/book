@@ -49,7 +49,7 @@ export default class BookDetailModal extends React.Component {
                         {/* friend that recommended the book */}
                         <Text style={{color: '#8c1515', marginBottom: 10}}>RECOMMENDED BY</Text>
                         <View style={styles.friendContainer}>
-                            <Image source={{uri: props.variant.friend.avatar.image}} style={styles.profileImage}/>
+                            <Image source={{uri: props.variant.friend.avatar ? props.variant.friend.avatar.image : ''}} style={styles.profileImage}/>
                             <View>
                                 <Text>{props.variant.friend.first_name} {props.variant.friend.last_name}</Text>
                                 <Text>{this.renderAlias()}{this.renderJob()}</Text>
@@ -177,7 +177,8 @@ const styles = StyleSheet.create({
     //  action buttons section
     buttonsContainer: {
         flexDirection: 'row',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        alignItems: 'center'
     },
     deleteButton: {
         position: 'absolute',

@@ -13,6 +13,7 @@ import FriendsRequestScreen from './contacts/friends-request';
 // bookcase stack
 import BookcaseScreen from './bookcase';
 import MyBooksDetailedScreen from './bookcase/myBooksSection/detailedScreen'
+import RecommendedBooksDetailedScreen from './bookcase/recommendedBooksSection/detailedScreen'
 
 import NotificationsScreen from './notifications';
 
@@ -30,7 +31,8 @@ const ContactsStack = createStackNavigator(
 const BookcaseStack = createStackNavigator(
     {
         Bookcase: {screen: BookcaseScreen},
-        MyBooks: {screen: MyBooksDetailedScreen}
+        MyBooks: {screen: MyBooksDetailedScreen},
+        RecommendedBooks: {screen: RecommendedBooksDetailedScreen}
     },
     {
         headerMode: 'none'

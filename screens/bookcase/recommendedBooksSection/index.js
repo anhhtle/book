@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, View, StyleSheet } from 'react-native';
+import { ScrollView, Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 
 // redux
 import { connect } from 'react-redux';
@@ -24,8 +24,10 @@ class RecommendedBookSection extends Component {
             <View style={styles.container}>
                 <View style={styles.header}>
                     <Text style={styles.headerTitle}>Recommended to you</Text>
-
-                    <Text style={styles.browseLink}>Browse all...</Text>
+                    
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('RecommendedBooks')}>
+                        <Text style={styles.browseLink}>Browse all...</Text>
+                    </TouchableOpacity>
                 </View>
 
                 <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>

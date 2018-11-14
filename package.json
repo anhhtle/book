@@ -16,6 +16,7 @@
     "react-native-fontawesome": "^5.7.0",
     "react-native-modal": "^6.5.0",
     "react-native-modal-dropdown": "^0.6.2",
+    "react-native-switch": "^1.5.0",
     "react-native-vector-icons": "^5.0.0",
     "react-navigation": "^2.17.0",
     "react-redux": "^5.0.7",

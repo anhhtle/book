@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 
 import GoBackHeader from 'book/screens/utility/GoBackHeader';
 import BookCard from './BookCard';
-import BookDetailModal from '../BookDetailModal'; 
+import RecommendedBookModal from '../RecommendedBookModal'; 
 
 
-class MyBooksDetailedScreen extends React.Component {
+class RecommendedBooksDetailedScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -23,11 +23,11 @@ class MyBooksDetailedScreen extends React.Component {
     render () {
         return (
             <ScrollView>
-                <GoBackHeader title={'My Books'} navigation={this.props.navigation} />
+                <GoBackHeader title={'Recommnended Books'} navigation={this.props.navigation} />
 
                 {this.renderBookCards()}
 
-                <BookDetailModal 
+                <RecommendedBookModal 
                     isVisible={this.state.isModalVisible} 
                     variant={this.props.variants[this.state.indexSelected]} 
                     closeModal={() => this.setState({isModalVisible: false})} 
@@ -41,7 +41,7 @@ class MyBooksDetailedScreen extends React.Component {
     renderBookCards() {
         let arr = [];
         this.props.variants.forEach((variant, index) => {
-            if (variant.status !== 'Recommended') {
+            if (variant.status === 'Recommended') {
                 arr.push(<BookCard variant={variant} key={variant._id} showModal={() => this.handleShowModal(index)} />)
             }
         });
@@ -68,4 +68,4 @@ const mapStateToProps = (state) => {
     return { variants }
 };
   
-export default connect(mapStateToProps)(MyBooksDetailedScreen);
+export default connect(mapStateToProps)(RecommendedBooksDetailedScreen);

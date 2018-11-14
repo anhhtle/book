@@ -1,13 +1,13 @@
 import React from 'React';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-
 import { renderRatingStars } from 'book/screens/utility/helperFunctions';
 
-export default class ResultCard extends React.Component {
+export default class BookCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            variant: this.props.variant
+            variant: this.props.variant,
+            switchValue: true 
         };
     }
 
@@ -22,14 +22,14 @@ export default class ResultCard extends React.Component {
                     <Text style={styles.author}>{this.state.variant.book.authors ? this.state.variant.book.authors[0] : ''}</Text>
 
                     {/* ratings */}
-                    <View style={{flexDirection: 'row'}}>
+                    <View style={{flexDirection: 'row', marginBottom: 5}}>
                         { renderRatingStars(this.state.variant.book.ratings) }
                     </View>
 
-                    {/* action button */}
-                    <TouchableOpacity style={styles.statusContainer}>
-                        <Text style={styles.status}>{this.state.variant.status.toUpperCase()}</Text>
-                    </TouchableOpacity>
+                    {/* recommmended by */}
+                    <Text style={{marginRight: 10}}>Recommended by <Text style={{fontWeight: 'bold'}}>{this.state.variant.friend.first_name + ' ' + this.state.variant.friend.last_name }</Text>
+                    </Text>
+
                 </View>
             </TouchableOpacity>
         )
@@ -77,9 +77,16 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     statusContainer: {
-        alignSelf: 'flex-end',
+        // alignSelf: 'flex-end',
     },
     status: {
         color: '#8c1515'
+    },
+    switchContainer: {
+        flexDirection: 'row'
+        // position: 'absolute',
+        // bottom: 0,
+        // right: 0,
+        // transform: [{ scaleX: .7 }, { scaleY: .6 }]
     }
 })
