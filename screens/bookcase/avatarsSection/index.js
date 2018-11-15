@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Text, View, StyleSheet } from 'react-native';
+import {Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 
 // redux
 import { connect } from 'react-redux';
@@ -26,9 +26,11 @@ class AvatarsSection extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={styles.headerTitle}>Avatars unlocked ({this.props.avatars.length}/10)</Text>
+                    <Text style={styles.headerTitle}>Avatars unlocked ({this.props.user.avatarUnlocked.length}/{this.props.avatars.length})</Text>
 
-                    <Text style={styles.browseLink}>Browse all...</Text>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Avatars')}>
+                        <Text style={styles.browseLink}>Browse all...</Text>
+                    </TouchableOpacity>
                 </View>
 
                 {this.renderAvatars()}

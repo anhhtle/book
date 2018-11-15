@@ -1,26 +1,27 @@
 import React from 'react';
-import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, View, Image, StyleSheet } from 'react-native';
 
-export default AvatarCard = (props) => {
+export default AvatarLockedCard = (props) => {
     return (
-        <TouchableOpacity style={styles.container} onPress={props.showModal}>
+        <View style={styles.container} >
             <View style={styles.cardContent}>
                 <View style={styles.imageContainer}>
-                    <Image source={{uri: props.avatar.image }} style={styles.image}/>
+                    <Image source={require('book/assets/book.jpg')} style={styles.image}/>
                 </View>
                 <View style={styles.avatarTextContainer}>
-                    <Text style={styles.avatarName}>{ props.avatar.name }</Text>
-                    <Text style={styles.avatarQuote}>"{ props.avatar.quote }"</Text>
+                    <Text style={styles.avatarName}>???</Text>
+                    <Text style={styles.lockLabel}>TO UNLOCK</Text>
+                    <Text style={styles.lockText}>{ props.avatar.lock }</Text>
                 </View>
             </View>
-        </TouchableOpacity>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
 
     container: {
-        backgroundColor: '#fff',
+        backgroundColor: '#ededed',
         padding: 10,
     },
 
@@ -41,9 +42,11 @@ const styles = StyleSheet.create({
         flex: 4
     },
     avatarName: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginBottom: 5
     },
-    avatarQuote: {
-        fontStyle: 'italic'
-    },
+    lockLabel: {
+        color: '#8c1515',
+        marginBottom: 3
+    }
 });

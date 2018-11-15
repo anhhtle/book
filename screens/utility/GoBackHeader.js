@@ -2,32 +2,23 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Platform, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default class goBackHeader extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        }
-    };
+export default goBackHeader = (props) => {
 
-    render() {
-        return (
-            <View style={styles.container}>
-                <TouchableOpacity style={styles.backIconContainer} onPress={() => this.props.navigation.goBack() }>
-                    <Ionicons style={styles.backIcon} name={Platform.OS === 'ios' ? 'ios-arrow-round-back' : 'md-arrow-round-back'}/>
-                </TouchableOpacity>
-
-                <View style={styles.headerTitleContainer}>
-                    <Text style={styles.headerTitle}>{this.props.title}</Text>
-                </View>
-
+    return (
+        <View style={styles.container}>
+            <View style={styles.headerTitleContainer}>
+                <Text style={styles.headerTitle}>{props.title}</Text>
             </View>
-        )
-    }
+
+            <TouchableOpacity style={styles.backIconContainer} onPress={() => props.navigation.goBack() }>
+                <Ionicons style={styles.backIcon} name={Platform.OS === 'ios' ? 'ios-arrow-round-back' : 'md-arrow-round-back'}/>
+            </TouchableOpacity>
+        </View>
+    )
 };
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
         paddingTop: 20,
         paddingHorizontal: 20,
         paddingBottom: 10,
@@ -35,7 +26,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#B1040E',
     },
     backIconContainer: {
-        width: 40,
+        position: 'absolute',
+        top: 20,
+        left: 5,
+        width: 50,
         justifyContent: 'center'
     },
     backIcon: {
@@ -46,8 +40,7 @@ const styles = StyleSheet.create({
     },
 
     headerTitleContainer: {
-        flex: 9,
-        flexDirection: 'row',
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
