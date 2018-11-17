@@ -8,7 +8,7 @@ import {renderDate} from 'book/screens/utility/helperFunctions';
 export default FriendRequestCard = (props) => {
     return (
         <TouchableOpacity style={styles.container} onPress={() => props.navigation.navigate('FriendsRequest') }>
-            <Image source={{uri: props.friend.image}} style={styles.profileImage}/>
+            <Image source={{uri: props.friend.avatar.image}} style={styles.profileImage}/>
             <View style={{flex: 1}}>
                 <Text>
                     <Text style={{fontWeight: 'bold'}}> {props.friend.first_name} {props.friend.last_name} </Text>

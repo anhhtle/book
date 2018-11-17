@@ -7,7 +7,7 @@ import {renderDate} from 'book/screens/utility/helperFunctions';
 
 export default AvatarCard = (props) => {
     return (
-        <TouchableOpacity style={styles.container} onPress={() => props.navigation.navigate('Bookcase') }>
+        <TouchableOpacity style={styles.container} onPress={() => props.navigation.navigate('Avatars') }>
             <Image source={{uri: props.avatar.image}} style={styles.profileImage}/>
             <View style={{flex: 1}}>
                 <Text>You earned the

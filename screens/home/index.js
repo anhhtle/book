@@ -1,24 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { ScrollView, StyleSheet, } from 'react-native';
 
 import MainHeader from '../MainHeader';
-import BooksAvailableSection from './booksAvailable/BooksAvailableSection';
+import BooksAvailableSection from './booksAvailable';
 import NotificationsSection from './notifications';
 import NewsfeedSection from './newsfeed/NewsfeedSection';
 
-export default class HomeScreen extends Component {
-    render() {
-        return (
-            <ScrollView style={styles.container}>
-                <MainHeader navigation={this.props.navigation} />
+export default HomeScreen = (props) => {
+    return (
+        <ScrollView style={styles.container}>
+            <MainHeader navigation={props.navigation} />
 
-                <BooksAvailableSection navigation={this.props.navigation}/>
-                <NotificationsSection />
-                <NewsfeedSection />
+            <BooksAvailableSection navigation={props.navigation}/>
+            <NotificationsSection navigation={props.navigation}/>
+            <NewsfeedSection />
 
-            </ScrollView>
-        );
-    }
+        </ScrollView>
+    );
 }
 
 const styles = StyleSheet.create({

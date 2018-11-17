@@ -79,17 +79,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
         justifyContent: 'space-between'
     },
-    bookCard: {
-        flex: 1,
-        height: 180,
-        alignItems: 'center',
-        margin: 5,
-    },
-    bookImage: {
-        height: 130,
-        width: 500,
-        resizeMode: 'contain',
-    },
     bookTitle: {
         marginTop: 5
     },
@@ -97,18 +86,6 @@ const styles = StyleSheet.create({
         color: '#4885ed',
         marginTop: 10,
         textAlign: 'right'
-    },
-
-    // modal
-    modalOverlay: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    modal: {
-        backgroundColor: '#fff',
-        padding: 10,
-        width: Dimensions.get('window').width * 0.9
     },
 });
 

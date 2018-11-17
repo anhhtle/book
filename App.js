@@ -20,7 +20,8 @@ import BookSearchResultScreen from './screens/search/bookSearchResult';
 import ShareBooksScreen from './screens/share';
 import SettingScreen from './screens/settings';
 import EditProfileScreen from './screens/settings/profile';
-
+import CommunityRequestsScreen from './screens/requests/communityRequests'
+import MyRequestsScreen from './screens/requests/myRequests'
 
 
 const RootStack = createStackNavigator(
@@ -33,7 +34,11 @@ const RootStack = createStackNavigator(
 
     // setting section
     Setting: { screen: SettingScreen },
-    EditProfile: { screen: EditProfileScreen }
+    EditProfile: { screen: EditProfileScreen },
+
+    // manage requests
+    CommunityRequests: { screen: CommunityRequestsScreen },
+    MyRequests: { screen: MyRequestsScreen },
   },
   {
     initialRouteName: 'Dashboard',
