@@ -4,10 +4,10 @@ import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 
 // components
-import EarlierRequestCard from './EarlierRequestCard';
+import CurrentRequestCard from './CurrentRequestCard';
 
 
-class EarlierRequestsSection extends React.Component {
+class CurrentRequestsSection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,7 +18,7 @@ class EarlierRequestsSection extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={styles.headerTitle}>Earlier</Text>
+                    <Text style={styles.headerTitle}>Current Requests</Text>
                 </View>
 
                 {this.renderRequests()}
@@ -29,8 +29,8 @@ class EarlierRequestsSection extends React.Component {
     renderRequests() {
         let arr = [];
         this.props.requests.map((request) => {
-            if (request.requester._id === this.props.user._id && (request.status === 'Recieved' || request.status === 'Cancelled')) {
-                arr.push(<EarlierRequestCard key={request._id} request={request} />);
+            if (request.owner._id === this.props.user._id && (request.status === 'Requesting' || request.status === 'Accepted')) {
+                arr.push(<CurrentRequestCard key={request._id} request={request} />);
             }
         })
         if (arr.length > 0) {
@@ -48,7 +48,6 @@ class EarlierRequestsSection extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        marginVertical: 10, 
         backgroundColor: '#fff'
     },
     header: {
@@ -75,4 +74,4 @@ const mapStateToProps = (state) => {
     return { requests, user }
 }
 
-export default connect(mapStateToProps)(EarlierRequestsSection);
+export default connect(mapStateToProps)(CurrentRequestsSection);

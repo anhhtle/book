@@ -33,7 +33,15 @@ class CurrentRequestsSection extends React.Component {
                 arr.push(<CurrentRequestCard key={request._id} request={request} />);
             }
         })
-        return arr;
+        if (arr.length > 0) {
+            return arr;
+        } else {
+            return (
+                <View style={styles.noRequestContainer}>
+                    <Text>No request</Text>
+                </View>
+            )
+        }
     }
 }
 
@@ -53,6 +61,12 @@ const styles = StyleSheet.create({
     headerTitle: {
         fontWeight: 'bold'
     },
+    noRequestContainer: {
+        padding: 10,
+        backgroundColor: '#fff',
+        borderBottomColor: 'grey',
+        borderBottomWidth: StyleSheet.hairlineWidth
+    }
 });
 
 const mapStateToProps = (state) => {

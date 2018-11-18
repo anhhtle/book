@@ -30,7 +30,6 @@ export default class CurrentRequestCard extends React.Component {
                         <Text style={styles.date}>{renderDate(props.request.date)}</Text>
                     </View>
 
-                    {this.renderHideRequest()}
                 </View>
             </View>
         )
@@ -41,60 +40,58 @@ export default class CurrentRequestCard extends React.Component {
             return this.renderRequesting();
         } else if (this.props.request.status === 'Accepted') {
             return this.renderAccepted();
-        } else if (this.props.request.status === 'Sent') {
-            return this.renderSent();
         }
     }
     renderRequesting () {
         return (
-            <Text style={styles.cardText}>Your request for <Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text> is pending <Text style={{fontWeight: 'bold'}}>{this.props.request.owner.first_name + ' ' + this.props.request.owner.last_name}</Text>'s response.</Text>
+            <Text style={styles.cardText}><Text style={{fontWeight: 'bold'}}>{this.props.request.requester.first_name + ' ' + this.props.request.requester.last_name}</Text> is requesting <Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text> from you. Accept request?</Text>
         )
     }
     renderAccepted () {
         return (
-            <Text style={styles.cardText}><Text style={{fontWeight: 'bold'}}>{this.props.request.owner.first_name + ' ' + this.props.request.owner.last_name}</Text> accepted your request for <Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text>.</Text>
+            <Text style={styles.cardText}>You accepted <Text style={{fontWeight: 'bold'}}>{this.props.request.requester.first_name + ' ' + this.props.request.requester.last_name}</Text>'s request for <Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text>. Let <Text style={{fontWeight: 'bold'}}>{this.props.request.requester.first_name + ' ' + this.props.request.requester.last_name}</Text> know once you mailed the book.</Text>
         )
     }
     renderSent () {
         return (
-            <Text style={styles.cardText}><Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text> is on the way, courtesy of <Text style={{fontWeight: 'bold'}}>{this.props.request.owner.first_name + ' ' + this.props.request.owner.last_name}</Text>.</Text>
+            <Text style={styles.cardText}><Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text> is on the way, courtesy of <Text style={{fontWeight: 'bold'}}>{this.props.request.requester.first_name + ' ' + this.props.request.requester.last_name}</Text>.</Text>
         )
     }
     renderHelperText () {
-        if (this.props.request.status === 'Requesting') {
+        if (this.props.request.status === 'Requesting' || this.props.request.status === 'Accepted') {
             return (
                 <View style={styles.helperTextContainer}>
-                    <Text style={styles.helperText}>The request will be automatically cancelled if the owner does not accept within 5 days. You will be refunded 1 book token</Text>
-                </View>
-            )
-        } else if (this.props.request.status === 'Accepted') {
-            return (
-                <View style={styles.helperTextContainer}>
-                    <Text style={styles.helperText}>You will be notified when the book is on its way</Text>
+                    <Text style={styles.helperText}>Mailing address:</Text>
+                    <Text style={styles.address}>{this.props.request.requester.address.country}</Text>
+                    <Text style={styles.address}>{this.props.request.requester.address.street}</Text>
+                    <Text style={styles.address}>{this.props.request.requester.address.city + ', ' + this.props.request.requester.address.state + ' ' + this.props.request.requester.address.zipcode}</Text>
+                    <Text style={styles.address}>{this.props.request.requester.address.additional_info}</Text>
                 </View>
             )
         }
     }
     renderButtons () {
-        if (this.props.request.status === 'Sent') {
+        if (this.props.request.status === 'Requesting') {
             return (
                 <View style={styles.buttonsContainer}>
-                    <TouchableOpacity style={styles.recievedButton}>
-                        <Text style={{textAlign: 'center'}}>RECIEVED</Text>
+                    <TouchableOpacity style={styles.positiveButton}>
+                        <Text style={{textAlign: 'center'}}>ACCEPT</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.neverArrivedButton}>
-                        <Text style={{textAlign: 'center', color: '#fff'}}>NEVER ARRIVED</Text>
+                    <TouchableOpacity style={styles.negativeButton}>
+                        <Text style={{textAlign: 'center', color: '#fff'}}>DECLINE</Text>
                     </TouchableOpacity>
                 </View>
             )
-        }
-    }
-    renderHideRequest () {
-        if (this.props.request.status === 'Accepted') {
+        } else if (this.props.request.status === 'Accepted') { 
             return (
-                <TouchableOpacity style={styles.hideRequestContainer}>
-                    <Text style={{color: '#8c1515'}}>Hide Request</Text>
-                </TouchableOpacity>
+                <View style={styles.buttonsContainer}>
+                    <TouchableOpacity style={styles.positiveButton}>
+                        <Text style={{textAlign: 'center'}}>SENT</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.negativeButton}>
+                        <Text style={{textAlign: 'center', color: '#fff', fontSize: 13}}>CANCEL REQUEST</Text>
+                    </TouchableOpacity>
+                </View>
             )
         }
     }
@@ -119,7 +116,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     helperTextContainer: {
-        marginBottom: 32,
+        marginBottom: 10,
         backgroundColor: 'lightgrey',
         padding: 5,
         borderRadius: 5
@@ -127,20 +124,24 @@ const styles = StyleSheet.create({
     helperText: {
         fontStyle: 'italic'
     },
+    address: {
+        marginLeft: 20,
+        fontWeight: 'bold'
+    },
     buttonsContainer: {
         marginBottom: 32,
         flexDirection: 'row',
         justifyContent: 'space-around'
     },
-    recievedButton: {
+    positiveButton: {
         paddingVertical: 5,
-        width: 120,
+        width: 130,
         borderRadius: 5,
         backgroundColor: 'gold'
     },
-    neverArrivedButton: {
+    negativeButton: {
         paddingVertical: 5,
-        width: 120,
+        width: 130,
         borderRadius: 5,
         backgroundColor: '#8c1515'
     },

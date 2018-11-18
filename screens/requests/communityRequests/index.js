@@ -1,12 +1,13 @@
 import React from 'react';
-import { Text, ScrollView, StyleSheet } from 'react-native';
-
-import { connect } from 'react-redux';
+import { ScrollView, StyleSheet } from 'react-native';
 
 // components
 import GoBackHeader from 'book/screens/utility/GoBackHeader';
+import CurrentRequestsSection from './currentRequestsSection';
+import EarlierRequestsSection from './earlierRequestsSection';
 
-class CommunityRequestsScreen extends React.Component {
+
+export default class CommunityRequestsScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,17 +19,10 @@ class CommunityRequestsScreen extends React.Component {
             <ScrollView style={styles.container}>
                 <GoBackHeader title={"Community's Requests"} navigation={this.props.navigation} />
 
-                {this.renderRequests()}
+                <CurrentRequestsSection />
+                <EarlierRequestsSection />
             </ScrollView>
         )
-    }
-
-    renderRequests() {
-        let arr = [];
-        this.props.requests.map((request, index) => {
-            arr.push(<Text>{request.status}</Text>);
-        })
-        return arr;
     }
 }
 
@@ -37,10 +31,3 @@ const styles = StyleSheet.create({
         flex: 1,
     }
 });
-
-const mapStateToProps = (state) => {
-    const { requests, user } = state;
-    return { requests, user }
-}
-
-export default connect(mapStateToProps)(CommunityRequestsScreen);
