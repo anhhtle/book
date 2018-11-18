@@ -41,7 +41,7 @@ const RootStack = createStackNavigator(
     MyRequests: { screen: MyRequestsScreen },
   },
   {
-    initialRouteName: 'CommunityRequests',
+    initialRouteName: 'Dashboard',
     headerMode: 'none'
   }
 );
