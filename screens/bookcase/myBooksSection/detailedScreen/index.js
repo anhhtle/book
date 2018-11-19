@@ -1,5 +1,5 @@
 import React from 'React';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView } from 'react-native';
 
 import { connect } from 'react-redux';
 
@@ -56,12 +56,6 @@ class MyBooksDetailedScreen extends React.Component {
     }
 
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-});
 
 const mapStateToProps = (state) => {
     const { variants } = state

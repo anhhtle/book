@@ -8,7 +8,7 @@ import { changeUserInfo, changeUserAddress } from 'book/redux/actions';
 
 // components
 import GoBackHeader from 'book/screens/utility/GoBackHeader';
-import ProfilePictureSection from './ProfilePictureSection';
+import AvatarSection from './AvatarSection';
 import BasicInfoSection from './BasicInfoSection';
 import AddressSection from './AddressSection';
 import EditInfoModal from './EditInfoModal';
@@ -48,7 +48,7 @@ class EditProfileScreen extends Component {
             <ScrollView style={styles.container}>
                 <GoBackHeader navigation={this.props.navigation} title={'Edit profile'} />
 
-                <ProfilePictureSection image={this.props.user.avatar.image} />
+                <AvatarSection image={this.props.user.avatar.image} navigation={this.props.navigation}/>
 
                 <BasicInfoSection 
                     firstName={this.props.user.first_name} 

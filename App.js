@@ -18,11 +18,12 @@ import Ionicons from './node_modules/@expo/vector-icons/fonts/Ionicons.ttf';
 import DashboardScreen from './screens/DashboardScreen';
 import BookSearchResultScreen from './screens/search/bookSearchResult';
 import ShareBooksScreen from './screens/share';
-import SettingScreen from './screens/settings';
-import EditProfileScreen from './screens/settings/profile';
 import CommunityRequestsScreen from './screens/requests/communityRequests'
 import MyRequestsScreen from './screens/requests/myRequests'
 
+import SettingScreen from './screens/settings';
+import EditProfileScreen from './screens/settings/profile';
+import NotificationSettingsScreen from './screens/settings/notifications'
 
 const RootStack = createStackNavigator(
   {
@@ -35,6 +36,7 @@ const RootStack = createStackNavigator(
     // setting section
     Setting: { screen: SettingScreen },
     EditProfile: { screen: EditProfileScreen },
+    NotificationSettings: { screen: NotificationSettingsScreen },
 
     // manage requests
     CommunityRequests: { screen: CommunityRequestsScreen },
