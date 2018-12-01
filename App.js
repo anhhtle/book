@@ -4,10 +4,11 @@ import { createStackNavigator } from 'react-navigation';
 
 // redux
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import combineReducers from './redux/reducers/combineReducers';
 
-const store = createStore(combineReducers);
+const store = createStore(combineReducers, applyMiddleware(thunk));
 
 // need to comment out all expo related lines on production build
 import { AppLoading, Font } from 'expo';
@@ -15,6 +16,7 @@ import { AppLoading, Font } from 'expo';
 import Ionicons from './node_modules/@expo/vector-icons/fonts/Ionicons.ttf';
 
 //import screens
+import SignInScreen from './screens/sign-in';
 import DashboardScreen from './screens/DashboardScreen';
 import BookSearchResultScreen from './screens/search/bookSearchResult';
 import ShareBooksScreen from './screens/share';
@@ -27,6 +29,8 @@ import NotificationSettingsScreen from './screens/settings/notifications'
 
 const RootStack = createStackNavigator(
   {
+    SignIn: { screen: SignInScreen },
+
     Dashboard: { screen: DashboardScreen },
     BookSearchResult: { screen: BookSearchResultScreen },
     
@@ -43,7 +47,7 @@ const RootStack = createStackNavigator(
     MyRequests: { screen: MyRequestsScreen },
   },
   {
-    initialRouteName: 'Dashboard',
+    initialRouteName: 'SignIn',
     headerMode: 'none'
   }
 );

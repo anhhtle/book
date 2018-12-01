@@ -11,7 +11,7 @@ const INITIAL_STATE = {
         image: "https://scontent-sjc3-1.xx.fbcdn.net/v/t1.0-1/p160x160/18740171_10159912486035206_6622147564938299870_n.jpg?_nc_cat=103&oh=6eb95480602160314126df82c0a378a9&oe=5C57E071",
         quote: 'Test test'
     },
-    avatarUnlocked: [0, 2],
+    avatars_unlocked: [0, 2],
     address: {
         street: "1000 Welch Rd",
         city: "Palo Alto",
@@ -24,6 +24,26 @@ const INITIAL_STATE = {
 
 export default userReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
+
+        case 'GET_USER_TOKEN_REQUEST':
+            return {...state, loading: true};
+
+        case 'GET_USER_TOKEN_SUCCESS':
+            if (action.payload.error) {
+                return {...state, error: action.payload.error, loading: false};
+            } else {
+                return {...state, token: action.payload.token, loading: false};
+            }
+
+        case 'GET_USER_TOKEN_ERROR':
+            return {...state, testError: action.payload.error , loading: false};
+
+
+
+
+
+
+            
         case 'CHANGE_USER_INFO':
             const user = Object.assign({}, state);
 
