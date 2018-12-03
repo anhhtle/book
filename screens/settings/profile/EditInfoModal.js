@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Dimensions, StyleSheet, } from 'react-native';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Modal from "react-native-modal";
-
-// redux
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
-// import { changeUserInfo } from 'book/redux/actions';
 
 
 export default class EditInfoModal extends Component {

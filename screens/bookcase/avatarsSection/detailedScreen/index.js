@@ -32,7 +32,7 @@ class AvatarDetailedScreen extends React.Component {
 
                 <AvatarDetailModal 
                     isVisible={this.state.isModalVisible} 
-                    avatar={this.props.avatars[this.state.indexSelected]} 
+                    avatar={this.props.avatars.avatars[this.state.indexSelected]} 
                     closeModal={this.handleCloseModal} 
                     saveChanges={this.handleSaveChanges}
                     profileAvatar={this.state.profileAvatar}
@@ -44,10 +44,10 @@ class AvatarDetailedScreen extends React.Component {
 
     renderAvatars() {
         let arr = [];
-        this.props.avatars.map((avatar, index) => {
+        this.props.avatars.avatars.map((avatar, index) => {
             let match = false;
-            this.props.user.avatarUnlocked.map((index2) => {
-                if (index === index2) {
+            this.props.user.avatars_unlocked.map((avatarUnlocked) => {
+                if (avatar._id === avatarUnlocked) {
                     match = true;
                 }
             })

@@ -47,7 +47,7 @@ const RootStack = createStackNavigator(
     MyRequests: { screen: MyRequestsScreen },
   },
   {
-    initialRouteName: 'SignIn',
+    initialRouteName: 'Dashboard',
     headerMode: 'none'
   }
 );

@@ -6,7 +6,7 @@ import Modal from "react-native-modal";
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { changeVariantStatus, changeVariantProgress } from 'book/redux/actions';
+import { changeVariantStatus, changeVariantProgress } from 'book/redux/actions/user';
 
 import CurrentReadingCard from './CurrentReadingCard';
 import CurrentReadingModalCard from './CurrentReadingModalCard'

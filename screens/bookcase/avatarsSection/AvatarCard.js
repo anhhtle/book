@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         flex: 1,
         resizeMode: 'cover',
         width: null, 
-        height: null,
+        height: 70,
     },
     avatarTextContainer: {
         flex: 4

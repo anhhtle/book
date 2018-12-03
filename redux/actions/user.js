@@ -1,8 +1,8 @@
 const API_BASE_URL = 'https://books-app-server-dev.herokuapp.com/api/v1';
 
 // *********************** user ****************************
+// sign in and get token
 export const getUserToken = (loginObj) => dispatch => {
-
     dispatch(getUserTokenRequest());
 
     return fetch(`${API_BASE_URL}/user/login`, 
@@ -43,6 +43,53 @@ export const getUserTokenError = (error) => (
         payload: error
     }
 );
+
+// get current user
+export const getCurrentUser = (token) => dispatch => {
+    dispatch(getCurrentUserRequest());
+
+    return fetch(`${API_BASE_URL}/user/current`, 
+    {
+        method: 'GET',
+        headers: {
+            'Authorization': `Token ${token}`,
+        }
+    }
+    ).then(res => {
+        return res.json();
+    }).then(user => {
+        dispatch(getCurrentUserSuccess(user, token));
+    }).catch(err => {
+        console.log(err);
+        dispatch(getCurrentUserError(error));
+    });
+}
+
+export const getCurrentUserRequest = () => (
+    {
+        type: 'GET_CURRENT_USER_REQUEST'
+    }
+);
+
+export const getCurrentUserSuccess = (user, token) => (
+    {
+        type: 'GET_CURRENT_USER_SUCCESS',
+        payload: {user, token}
+    }
+);
+
+export const getCurrentUserError = (error) => (
+    {
+        type: 'GET_CURRENT_USER_ERROR',
+        payload: error
+    }
+);
+
+
+
+
+
+
 
 
 

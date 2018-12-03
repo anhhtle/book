@@ -172,12 +172,20 @@ const INITIAL_STATE = [
             }
         },
         date: new Date(2018, 8, 28, 21, 30)
-    },
-   
+    }, 
 ];
 
 export default newsfeedReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        // get newsfeeds
+        case 'GET_NEWSFEEDS_REQUEST':
+            return {...state, loading: true};
+
+        case 'GET_NEWSFEEDS_SUCCESS':
+            return {...action.payload.newsfeeds, error: null, loading: false};
+
+        case 'GET_NEWSFEEDS_ERROR':
+            return {...state, error: action.payload.error , loading: false};
 
         default:
             return state

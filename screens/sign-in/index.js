@@ -3,7 +3,7 @@ import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-nativ
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getUserToken } from 'book/redux/actions';
+import { getUserToken, getCurrentUser } from 'book/redux/actions/user';
 
 class SignInScreen extends React.Component {
     constructor(props) {
@@ -42,6 +42,8 @@ class SignInScreen extends React.Component {
     }
 
     handleLogin() {
+        // this.props.getCurrentUser('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaC5odC5sZUBnbWFpbC5jb20iLCJpZCI6IjZiOWIxNTIyMTFkY2IzMDY3NTY1OWUwNSIsImV4cCI6MTU0ODk2NDk4NCwiaWF0IjoxNTQzNzgwOTg0fQ.24IYvapi5PVBpNPOuzjn9EZPb5bLn1AOM_u3i4Wo5lI');
+
         const loginObj = {
             user: {
                 email: this.state.email,
@@ -50,9 +52,14 @@ class SignInScreen extends React.Component {
         }
         this.props.getUserToken(loginObj)
             .then(() => {
-                console.log(this.props.user.token)
                 if (this.props.user.token) {
-                    this.props.navigation.navigate('Home');
+                    this.props.getCurrentUser(this.props.user.token)
+                    .then(() => {
+                        console.log(this.props.user)
+                            if (!this.props.user.error) {
+                                this.props.navigation.navigate('Home');
+                            }
+                        })
                 }
             });
 
@@ -63,6 +70,9 @@ class SignInScreen extends React.Component {
                 <Text style={styles.errorText}>{this.props.user.error}</Text>
             )
         }
+    }
+    getCurrentUser() {
+
     }
 
     componentDidMount() {
@@ -108,6 +118,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
         getUserToken,
+        getCurrentUser,
     }, dispatch)
 );
 

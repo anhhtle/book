@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import appStaterReducer from './appState';
 import avatarReducer from './avatar';
+import friendRequestsReducer from './friendRequest';
 import newsfeedReducer from './newsfeed';
 import notificationReducer from './notification';
 import requestsReducer from './requests';
@@ -12,6 +13,7 @@ import variantShareReducer from './variantShare';
 export default combineReducers({
     appState: appStaterReducer,
     avatars: avatarReducer,
+    friendRequests: friendRequestsReducer,
     newsfeeds: newsfeedReducer,
     notifications: notificationReducer,
     requests: requestsReducer,

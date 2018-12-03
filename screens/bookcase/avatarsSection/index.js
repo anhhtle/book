@@ -26,7 +26,7 @@ class AvatarsSection extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={styles.headerTitle}>Avatars unlocked ({this.props.user.avatarUnlocked.length}/{this.props.avatars.length})</Text>
+                    <Text style={styles.headerTitle}>Avatars unlocked ({this.props.user.avatars_unlocked.length}/{this.props.avatars.avatars.length})</Text>
 
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Avatars')}>
                         <Text style={styles.browseLink}>Browse all...</Text>
@@ -37,7 +37,7 @@ class AvatarsSection extends Component {
 
                 <AvatarDetailModal 
                     isVisible={this.state.isModalVisible} 
-                    avatar={this.props.avatars[this.state.indexSelected]} 
+                    avatar={this.props.avatars.avatars[this.state.indexSelected]} 
                     closeModal={this.handleCloseModal} 
                     saveChanges={this.handleSaveChanges}
                     profileAvatar={this.state.profileAvatar}
@@ -47,12 +47,22 @@ class AvatarsSection extends Component {
         );
     }
 
+    componentDidMount() {
+        console.log(this.props.avatars)
+    }
+
     renderAvatars() {
         let arr = [];
-        this.props.user.avatarUnlocked.map((index) => {
-            arr.push(<AvatarCard key={this.props.avatars[index]._id} avatar={this.props.avatars[index]} showModal={() => this.handleShowModal(index, this.props.avatars[index]._id)} /> )
-        })
+        this.props.avatars.avatars.map((avatar, index) => {
+            this.props.user.avatars_unlocked.map((avatarUnlocked,index) => {
+                if (avatar._id === avatarUnlocked) {
+                    arr.push(<AvatarCard key={avatar._id} avatar={avatar} showModal={() => this.handleShowModal(index, avatar._id)} /> )
+                    
+                }
+            })
 
+        })
+        
         return arr;
     }
     handleShowModal(index, key) {

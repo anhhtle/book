@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, Button } from 'react-native';
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { changeUserInfo, changeUserAddress } from 'book/redux/actions';
+import { changeUserInfo, changeUserAddress } from 'book/redux/actions/user';
 
 // components
 import GoBackHeader from 'book/screens/utility/GoBackHeader';
