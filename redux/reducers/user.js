@@ -22,7 +22,8 @@ const INITIAL_STATE = {
         "c367851d914237495b576e01",
         "f26923e2fa2a74a4ff8a6063"
     ],
-    friends: [],
+    friends: [
+    ],
     deleted: false,
     _id: "6b9b152211dcb30675659e05",
     first_name: "Anh",

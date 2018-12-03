@@ -2,18 +2,23 @@ import React, { Component } from 'react';
 import { View, TextInput, TouchableOpacity, Platform, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default class MainHeader extends Component {
+export default class FriendsSearchResultHeader extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            search_term: '',
-            
+            search_term: ''
         }
     };
 
     render() {
+        const {goBack} = this.props.navigation;
+
         return (
             <View style={styles.container}>
+                <TouchableOpacity style={styles.goBackContainer} onPress={ () => goBack() }>
+                    <Ionicons style={styles.goBackIcon} name={Platform.OS === 'ios' ? 'ios-arrow-round-back' : 'md-arrow-round-back'} color="#000"/>
+                </TouchableOpacity>
+
                 <View style={styles.searchContainer}>
                     <TouchableOpacity style={styles.searchIconContainer} onPress={this.onSearchSubmit}>
                         <Ionicons style={styles.searchIcon} name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'} color="#000"/>
@@ -23,10 +28,6 @@ export default class MainHeader extends Component {
                         onSubmitEditing={this.onSearchSubmit}
                     />
                 </View>
-
-                <TouchableOpacity style={styles.settingsContainer} onPress={() => this.props.navigation.navigate('Setting') }>
-                    <Ionicons style={styles.settingsIcon} name={Platform.OS === 'ios' ? 'ios-settings' : 'md-settings'} color="#000"/>
-                </TouchableOpacity>
             </View>
         )
     }
@@ -35,7 +36,7 @@ export default class MainHeader extends Component {
         fetch(`https://www.googleapis.com/books/v1/volumes?q=${this.state.search_term}`)
             .then(res => res.json())
             .then(resJson => {
-                this.props.navigation.navigate('BookSearchResult', { data: resJson });
+                this.props.updateState(resJson);
             }).catch(err => {
                 console.error(err);
             });
@@ -53,22 +54,40 @@ const styles = StyleSheet.create({
     },
 
     // left side
+    goBackContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 5,
+    },
+    goBackIcon: {
+        color: '#FFF',
+        fontSize: 35,
+        fontWeight: `700`
+    },
+
+    // right side
     searchContainer: {
         flex: 9,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
     },
     searchIconContainer: {
-        width: 40
+        width: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: 0
     },
     searchIcon: {
         fontSize: 20,
-        textAlign: 'center'
+        textAlign: 'center',
+        padding: 5,
+        marginLeft: 0
     },
     textInput: {
-        flex: 1,
+        flex: 9,
         backgroundColor: '#fff',
         height: 30,
         paddingLeft: 15,
@@ -78,15 +97,4 @@ const styles = StyleSheet.create({
         borderLeftColor: '#d6d7da',
     },
 
-    // right side
-    settingsContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginLeft: 5
-    },
-    settingsIcon: {
-        color: '#FFF',
-        fontSize: 20,
-    }
 });

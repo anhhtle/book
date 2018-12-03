@@ -9,6 +9,7 @@ import HomeScreen from './home/index';
 // contacts stack
 import FriendsListScreen from './contacts/friends-list';
 import FriendsRequestScreen from './contacts/friends-request';
+import FriendsSearchResultScreen from './contacts/friend-search';
 
 // bookcase stack
 import BookcaseScreen from './bookcase';
@@ -22,7 +23,8 @@ import NotificationsScreen from './notifications';
 const ContactsStack = createStackNavigator(
     {
         FriendsList: {screen: FriendsListScreen},
-        FriendsRequest: {screen: FriendsRequestScreen}
+        FriendsRequest: {screen: FriendsRequestScreen},
+        FriendsSearchResult: {screen: FriendsSearchResultScreen}
     },
     {
         headerMode: 'none'
@@ -52,7 +54,7 @@ export default createBottomTabNavigator (
         },
     },
     {
-        initialRouteName: 'Home',
+        initialRouteName: 'Contacts',
         navigationOptions: ({ navigation }) => ({      
             // icons
             tabBarIcon: ({ tintColor }) => {
