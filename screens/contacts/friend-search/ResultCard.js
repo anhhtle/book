@@ -23,7 +23,7 @@ class ResultCard extends React.Component {
                 <View style={styles.cardDetail}>
                     <View>
                         <Text style={styles.name}>{friend.first_name + ' ' + friend.last_name}</Text>
-                        <Text>{this.renderAlias()}{this.renderJob()}</Text>
+                        <Text style={{fontWeight: 'bold'}}>{this.renderAlias()}{this.renderJob()}</Text>
                     </View>
 
                     {/* action button */}
@@ -67,6 +67,19 @@ class ResultCard extends React.Component {
                 return;
             }
         })
+
+        this.props.friendRequests.map(request => {
+            if(request.requester._id === this.state.friend._id || request.requestee._id === this.state.friend._id) {
+                res = (
+                    <View style={styles.friendedContainer}>
+                        <Ionicons name={Platform.OS === 'ios' ? 'ios-checkmark' : 'md-checkmark'} style={styles.friendedIcon}/>
+                        <Text>Requested</Text>
+                    </View>
+                );
+                return;
+            }
+        });
+
         return res;
     }
 
@@ -101,7 +114,6 @@ const styles = StyleSheet.create({
     },
     alias: {
         marginBottom: 10,
-        fontWeight: 'bold',
         color: '#8c1515'
     },
     actionIconContainer: {
@@ -119,7 +131,7 @@ const styles = StyleSheet.create({
         color: '#fff'
     },
     friendedContainer: {
-        width: 80,
+        width: 110,
         paddingHorizontal: 10,
         flexDirection: 'row',
         alignSelf: 'flex-end',
@@ -135,8 +147,8 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = (state) => {
-    const { user } = state;
-    return { user }
+    const { user, friendRequests } = state;
+    return { user, friendRequests }
 }
 
 export default connect(mapStateToProps)(ResultCard)

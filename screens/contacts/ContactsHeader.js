@@ -58,24 +58,24 @@ class ContactsHeader extends Component {
 
     onSearchSubmit = () => {
         // dev
-        this.props.navigation.navigate('FriendsSearchResult', { data: this.state.search_result });
+        // this.props.navigation.navigate('FriendsSearchResult', { data: this.state.search_result });
 
-        // fetch(`${API_BASE_URL}/user/friend/search`, 
-        //     {
-        //         method: 'POST',
-        //         headers: {
-        //             'Authorization': `Token ${this.props.user.token}`,
-        //             "Content-Type": "application/json",
-        //         },
-        //         body: JSON.stringify({query: this.state.search_term})
-        //     }
-        // ).then(res => {
-        //     return res.json();
-        // }).then(resJson => {
-        //     this.props.navigation.navigate('FriendsSearchResult', { data: resJson });
-        // }).catch(err => {
-        //     console.log(err);
-        // });
+        fetch(`${API_BASE_URL}/user/friend/search`, 
+            {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Token ${this.props.user.token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({query: this.state.search_term})
+            }
+        ).then(res => {
+            return res.json();
+        }).then(resJson => {
+            this.props.navigation.navigate('FriendsSearchResult', { data: resJson });
+        }).catch(err => {
+            console.log(err);
+        });
     }
 };
 

@@ -25,18 +25,15 @@ export default class FriendRequestCard extends React.Component {
                         <TouchableOpacity style={{padding: 5}}>
                             <Text>Delete</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{padding: 5}}>
-                            <Text>Block user</Text>
-                        </TouchableOpacity>
                     </View>
                 </Modal>
                 {/* end more option */}
 
-                <Image resizeMethod="resize" source={{url: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/77/Atticus_Finch.png/250px-Atticus_Finch.png'}} style={styles.contactImage} />
+                <Image resizeMethod="resize" source={{url: this.props.request.requester.avatar.image}} style={styles.contactImage} />
 
                 <View style={styles.contactDetail}>
-                    <Text style={styles.contactName}>Anh Le</Text>
-                    <Text style={styles.contactAliasContainer}><Text style={styles.contactAlias}>Jamie Lannister</Text>, King's Guard</Text>
+                    <Text style={styles.contactName}>{this.props.request.requester.first_name + ' ' + this.props.request.requester.last_name}</Text>
+                    <Text style={styles.contactAliasContainer}>{this.renderAlias()}{this.renderJob()}</Text>
                 </View>
 
                 <TouchableOpacity style={styles.button}>
@@ -46,16 +43,30 @@ export default class FriendRequestCard extends React.Component {
             </View>
         );
     }
+
+    renderAlias() {
+        if (this.props.request.requester.alias) {
+            return (<Text style={styles.contactAlias}>{this.props.request.requester.alias}</Text>)
+        }
+    }
+    renderJob() {
+        if (this.props.request.requester.alias && this.props.request.requester.job) {
+            return ', ' + this.props.request.requester.job
+        } else if (this.props.request.requester.job) {
+            return this.props.request.requester.job;
+        }
+    }
 }
 
 const styles = StyleSheet.create({
     container: {
-        width: Dimensions.get('window').width / 2,
+        width: Dimensions.get('window').width * 0.7,
         backgroundColor: '#fff',
         padding: 10,
         borderWidth: 0.5,
         borderColor: 'lightgrey',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginVertical: 10
     },
     contactImage: {
         width: 70,
@@ -73,10 +84,10 @@ const styles = StyleSheet.create({
     },
     contactAliasContainer: {
         fontSize: 14,
-        textAlign: 'center'
+        textAlign: 'center',
+        fontWeight: 'bold'
     },
     contactAlias: {
-        fontWeight: 'bold',
         color: '#8c1515'
     },
     button: {

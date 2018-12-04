@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 import { View, TextInput, TouchableOpacity, Platform, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default class FriendsSearchResultHeader extends Component {
+import {API_BASE_URL} from 'book/screens/utility/helperFunctions';
+
+// redux
+import { connect } from 'react-redux';
+
+
+class FriendsSearchResultHeader extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -33,12 +39,21 @@ export default class FriendsSearchResultHeader extends Component {
     }
 
     onSearchSubmit = () => {
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=${this.state.search_term}`)
-            .then(res => res.json())
-            .then(resJson => {
+        fetch(`${API_BASE_URL}/user/friend/search`, 
+            {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Token ${this.props.user.token}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({query: this.state.search_term})
+            }
+            ).then(res => {
+                return res.json();
+            }).then(resJson => {
                 this.props.updateState(resJson);
             }).catch(err => {
-                console.error(err);
+                console.log(err);
             });
     }
 };
@@ -98,3 +113,10 @@ const styles = StyleSheet.create({
     },
 
 });
+
+const mapStateToProps = (state) => {
+    const { user } = state;
+    return { user }
+}
+
+export default connect(mapStateToProps)(FriendsSearchResultHeader)
