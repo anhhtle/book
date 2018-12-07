@@ -39,7 +39,7 @@ class FriendsSearchResultHeader extends Component {
     }
 
     onSearchSubmit = () => {
-        fetch(`${API_BASE_URL}/user/friend/search`, 
+        fetch(`${API_BASE_URL}/user/search`, 
             {
                 method: 'POST',
                 headers: {

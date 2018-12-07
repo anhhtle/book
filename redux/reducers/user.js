@@ -59,7 +59,7 @@ export default userReducer = (state = INITIAL_STATE, action) => {
             }
 
         case 'GET_USER_TOKEN_ERROR':
-            return {...state, testError: action.payload.error , loading: false};
+            return {...state, error: action.payload.error , loading: false};
 
         // get current user
         case 'GET_CURRENT_USER_REQUEST':
@@ -73,7 +73,7 @@ export default userReducer = (state = INITIAL_STATE, action) => {
             }
 
         case 'GET_CURRENT_USER_ERROR':
-            return {...state, testError: action.payload.error , loading: false};
+            return {...state, error: action.payload.error , loading: false};
 
         // change user info... not implemented in API yet
             

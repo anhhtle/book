@@ -26,14 +26,14 @@ class FriendsRequestScreen extends React.Component {
 
     renderCards() {
         let arr = [];
-        this.props.friendRequests.map(request => {
+        this.props.friendRequests.friend_requests.map(request => {
             if(request.requestee._id === this.props.user._id) {
                 arr.push(<FriendRequestCard key={request._id} request={request} />)
             }
         })
         
         if (arr.length === 0) {
-            arr = <Text>No request</Text>
+            arr = <Text style={{marginTop: 20}}>No request</Text>
         }
         return arr;
     }

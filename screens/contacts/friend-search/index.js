@@ -33,6 +33,9 @@ export default class FriendsSearchResultScreen extends React.Component {
             </ScrollView>
         )
     }
+    componentWillReceiveProps(nextProps){
+        this.setState({data: nextProps});
+    }
 
     renderResultCards() {
         let arr = [];

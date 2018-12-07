@@ -4,6 +4,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // redux
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { createFriendRequest } from 'book/redux/actions/friend';
 
 class ResultCard extends React.Component {
     constructor(props) {
@@ -50,7 +52,7 @@ class ResultCard extends React.Component {
     }
     renderActionButton() {
         let res = (
-            <TouchableOpacity style={styles.actionIconContainer}>
+            <TouchableOpacity style={styles.actionIconContainer} onPress={() => this.handleCreateFriendRequest()}>
                 <Ionicons name={Platform.OS === 'ios' ? 'ios-person-add' : 'md-person-add'} style={styles.actionIcon}/>
                 <Text style={{color: '#fff'}}>Add Friend</Text>
             </TouchableOpacity>
@@ -68,7 +70,7 @@ class ResultCard extends React.Component {
             }
         })
 
-        this.props.friendRequests.map(request => {
+        this.props.friendRequests.friend_requests.map(request => {
             if(request.requester._id === this.state.friend._id || request.requestee._id === this.state.friend._id) {
                 res = (
                     <View style={styles.friendedContainer}>
@@ -82,11 +84,17 @@ class ResultCard extends React.Component {
 
         return res;
     }
-
+    handleCreateFriendRequest() {
+        this.props.createFriendRequest(this.props.user.token, this.state.friend._id)
+            .then(() => {
+            })
+    }
     componentWillReceiveProps(nextProps) {
-        this.setState({friend: nextProps});
+        this.setState({friend: nextProps.friend});
     }
 
+    mounted() {
+    }
 }
 
 const styles = StyleSheet.create({
@@ -151,4 +159,10 @@ const mapStateToProps = (state) => {
     return { user, friendRequests }
 }
 
-export default connect(mapStateToProps)(ResultCard)
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        createFriendRequest,
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ResultCard)

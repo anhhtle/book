@@ -12,25 +12,6 @@ class ContactsHeader extends Component {
         super(props);
         this.state = {
             search_term: '',
-            search_result: [
-                {
-                    "alias": 'Hodor',
-                    "job": "Holding doors",
-                    "avatar": {
-                        "_id": "c367851d914237495b576e01",
-                        "name": "The Knight",
-                        "image": "https://i.pinimg.com/originals/9a/d7/95/9ad79563b7fc172d847a0ddfbd9b2fcc.jpg",
-                        "quote": "A reader lives a thousand lives before he dies, said Jojen. The man who never reads lives only one.",
-                        "quote_author": "George R.R. Martin",
-                        "lock": "",
-                        "unlocked": "For being a reader"
-                    },
-                    "_id": "a22bcba0fbc61672285a2e59",
-                    "first_name": "Edd",
-                    "last_name": "Lee",
-                    "email": "ahtle@stanford.edu"
-                }
-            ]
         }
     };
 
@@ -57,10 +38,7 @@ class ContactsHeader extends Component {
     }
 
     onSearchSubmit = () => {
-        // dev
-        // this.props.navigation.navigate('FriendsSearchResult', { data: this.state.search_result });
-
-        fetch(`${API_BASE_URL}/user/friend/search`, 
+        fetch(`${API_BASE_URL}/user/search`, 
             {
                 method: 'POST',
                 headers: {
