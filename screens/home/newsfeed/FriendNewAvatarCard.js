@@ -6,7 +6,7 @@ export default FriendNewAvatarCard = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.cardHeading}>
-                <Image source={{uri: props.friend.image}} style={styles.profileImage}/>
+                <Image source={{uri: props.friend.avatar.image}} style={styles.profileImage}/>
                 <View style={styles.nameDateContainer}>
                     <Text><Text style={styles.profileName}>{props.friend.first_name + ' ' + props.friend.last_name}</Text> unlocked a new <Text style={{fontWeight: 'bold'}}>avatar</Text></Text>
                     <Text style={styles.date}>{renderLongDate(props.date)}</Text>

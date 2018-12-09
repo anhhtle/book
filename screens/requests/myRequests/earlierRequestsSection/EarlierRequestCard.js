@@ -35,34 +35,44 @@ export default class EarlierRequestCard extends React.Component {
     renderCardBody () {
         if (this.props.request.status === 'Cancelled') {
             return this.renderCancelled();
-        } else if (this.props.request.status === 'Recieved') {
-            return this.renderRecieved();
+        } else if (this.props.request.status === 'Received') {
+            return this.renderReceived();
+        } else if (this.props.request.status === 'Not received') {
+            return this.renderNotReceived()
         }
     }
     renderCancelled () {
         return (
-            <Text style={styles.cardText}>Your request for <Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text> from <Text style={{fontWeight: 'bold'}}>{this.props.request.owner.first_name + ' ' + this.props.request.owner.last_name}</Text> was cancelled. You were refunded 1 book token.</Text>
+            <Text style={styles.cardText}>Your request for <Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text> from <Text style={{fontWeight: 'bold'}}>{this.props.request.original_owner.first_name + ' ' + this.props.request.original_owner.last_name}</Text> was cancelled. You were refunded 1 book token.</Text>
         )
     }
-    renderRecieved () {
+    renderNotReceived () {
         return (
-            <Text style={styles.cardText}>You recieved <Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text> courtesy of <Text style={{fontWeight: 'bold'}}>{this.props.request.owner.first_name + ' ' + this.props.request.owner.last_name}</Text>. Happy reading!</Text>
+            <Text style={styles.cardText}>You indicated that your request for <Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text> from <Text style={{fontWeight: 'bold'}}>{this.props.request.original_owner.first_name + ' ' + this.props.request.original_owner.last_name}</Text> never arrived. You were refunded 1 book token.</Text>
+        )
+    }
+    renderReceived () {
+        return (
+            <Text style={styles.cardText}>You recieved <Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text> courtesy of <Text style={{fontWeight: 'bold'}}>{this.props.request.original_owner.first_name + ' ' + this.props.request.original_owner.last_name}</Text>. Happy reading!</Text>
         )
     }
     renderButtons () {
-        if (this.props.request.status === 'Recieved') {
+        if (this.props.request.status === 'Received') {
             if (!this.props.request.thanked_owner) {
                 return (
                     <View style={styles.buttonsContainer}>
-                        <TouchableOpacity style={styles.thanksButton}>
-                            <Text style={{textAlign: 'center'}}>THANKS {this.props.request.owner.first_name.toUpperCase() + ' ' + this.props.request.owner.last_name.toUpperCase()}</Text>
+                        <TouchableOpacity style={styles.thanksButton} 
+                        onPress={() => this.props.action(
+                            {request_id: this.props.request._id, thanked_owner: true})
+                        }>
+                            <Text style={{textAlign: 'center'}}>THANKS {this.props.request.original_owner.first_name.toUpperCase() + ' ' + this.props.request.original_owner.last_name.toUpperCase()}</Text>
                         </TouchableOpacity>
                     </View>
                 )
             } else {
                 return (
                     <View style={styles.thankedContainer}>
-                        <Text style={{textAlign: 'center'}}>You thanked <Text style={{fontWeight: 'bold'}}>{this.props.request.owner.first_name + ' ' + this.props.request.owner.last_name}</Text></Text>
+                        <Text style={{textAlign: 'center'}}>You thanked <Text style={{fontWeight: 'bold'}}>{this.props.request.original_owner.first_name + ' ' + this.props.request.original_owner.last_name}</Text></Text>
                     </View>
                 )
             }

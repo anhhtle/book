@@ -1,7 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
+// redux
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getBookRequests, updateBookRequests } from 'book/redux/actions/request';
+
 
 // components
 import CurrentRequestCard from './CurrentRequestCard';
@@ -12,6 +16,8 @@ class CurrentRequestsSection extends React.Component {
         super(props);
         this.state = {
         }
+
+        this.handleAction = this.handleAction.bind(this);
     }
 
     render () {
@@ -28,9 +34,9 @@ class CurrentRequestsSection extends React.Component {
 
     renderRequests() {
         let arr = [];
-        this.props.requests.map((request) => {
-            if (request.owner._id === this.props.user._id && (request.status === 'Requesting' || request.status === 'Accepted')) {
-                arr.push(<CurrentRequestCard key={request._id} request={request} />);
+        this.props.requests.requests.map((request) => {
+            if (request.original_owner._id === this.props.user._id && (request.status === 'Requesting' || request.status === 'Accepted')) {
+                arr.push(<CurrentRequestCard key={request._id} request={request} action={this.handleAction}/>);
             }
         })
         if (arr.length > 0) {
@@ -42,6 +48,14 @@ class CurrentRequestsSection extends React.Component {
                 </View>
             )
         }
+    }
+    handleAction(actionObj) {
+        this.props.updateBookRequests(this.props.user.token, actionObj)
+            .then(() => {
+                if(!this.props.requests.error) {
+                    this.props.getBookRequests(this.props.user.token)
+                }
+            })
     }
 }
 
@@ -74,4 +88,11 @@ const mapStateToProps = (state) => {
     return { requests, user }
 }
 
-export default connect(mapStateToProps)(CurrentRequestsSection);
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        getBookRequests,
+        updateBookRequests
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(CurrentRequestsSection);

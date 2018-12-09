@@ -12,7 +12,7 @@ export default class CurrentRequestCard extends React.Component {
     }
 
     render () {
-        let props = this.props;
+        const props = this.props;
 
         return (
             <View style={styles.container}>
@@ -27,7 +27,7 @@ export default class CurrentRequestCard extends React.Component {
 
                     <View style={styles.dateContainer}>
                         <Ionicons name={Platform.OS === 'ios' ? 'ios-calendar' : 'md-calendar'} color={'#8c1515'} size={20}/>
-                        <Text style={styles.date}>{renderDate(props.request.date)}</Text>
+                        <Text style={styles.date}>{renderDate(props.request.updatedAt)}</Text>
                     </View>
 
                 </View>
@@ -74,10 +74,16 @@ export default class CurrentRequestCard extends React.Component {
         if (this.props.request.status === 'Requesting') {
             return (
                 <View style={styles.buttonsContainer}>
-                    <TouchableOpacity style={styles.positiveButton}>
+                    <TouchableOpacity style={styles.acceptButton} 
+                    onPress={() => this.props.action(
+                        {request_id: this.props.request._id, status: 'Accepted'})
+                    }>
                         <Text style={{textAlign: 'center'}}>ACCEPT</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.negativeButton}>
+                    <TouchableOpacity style={styles.negativeButton} 
+                    onPress={() => this.props.action(
+                        {request_id: this.props.request._id, status: 'Cancelled'})
+                    }>
                         <Text style={{textAlign: 'center', color: '#fff'}}>DECLINE</Text>
                     </TouchableOpacity>
                 </View>
@@ -85,10 +91,16 @@ export default class CurrentRequestCard extends React.Component {
         } else if (this.props.request.status === 'Accepted') { 
             return (
                 <View style={styles.buttonsContainer}>
-                    <TouchableOpacity style={styles.positiveButton}>
+                    <TouchableOpacity style={styles.sentButton}
+                    onPress={() => this.props.action(
+                        {request_id: this.props.request._id, status: 'Sent'})
+                    }>
                         <Text style={{textAlign: 'center'}}>SENT</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.negativeButton}>
+                    <TouchableOpacity style={styles.negativeButton}
+                    onPress={() => this.props.action(
+                        {request_id: this.props.request._id, status: 'Cancelled'})
+                    }>
                         <Text style={{textAlign: 'center', color: '#fff', fontSize: 13}}>CANCEL REQUEST</Text>
                     </TouchableOpacity>
                 </View>
@@ -105,7 +117,6 @@ const styles = StyleSheet.create({
         borderBottomColor: 'grey',
         borderBottomWidth: StyleSheet.hairlineWidth
     },
-
     bookImage: {
         height: 100,
         width: Dimensions.get('window').width / 4.5,
@@ -133,7 +144,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around'
     },
-    positiveButton: {
+    acceptButton: {
+        paddingVertical: 5,
+        width: 130,
+        borderRadius: 5,
+        backgroundColor: '#afc7ed'
+    },
+    sentButton: {
         paddingVertical: 5,
         width: 130,
         borderRadius: 5,

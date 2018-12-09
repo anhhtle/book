@@ -9,7 +9,7 @@ import FriendNewBookCard from './FriendNewBookCard';
 import FriendCurrentReadingCard from './FriendCurrentReadingCard';
 import FriendSharingBookCard from './FriendSharingBookCard';
 import FriendRecievedBookCard from './FriendRecievedBookCard';
-import FriendNewBookmarCard from './FriendNewBookmarCard';
+import FriendNewAvatarCard from './FriendNewAvatarCard';
 
 
 class NewsfeedSection extends Component {
@@ -31,7 +31,7 @@ class NewsfeedSection extends Component {
 
     renderNewsfeeds() {
         let arr = [];
-        this.props.newsfeeds.map((newsfeed, index) => {
+        this.props.newsfeeds.newsfeeds.map((newsfeed, index) => {
             if (newsfeed.type === 'Friend: new book') {
                 arr.push(<FriendNewBookCard key={index} friend={newsfeed.friend} book={newsfeed.book} date={newsfeed.date} />)
             } else if (newsfeed.type === 'Friend: reading') {
@@ -41,7 +41,7 @@ class NewsfeedSection extends Component {
             } else if (newsfeed.type === 'Friend: received book') {
                 arr.push(<FriendRecievedBookCard key={index} friend={newsfeed.friend} community_member={newsfeed.community_member} book={newsfeed.book} date={newsfeed.date} />)
             } else if (newsfeed.type === 'Friend: avatar') {
-                arr.push(<FriendNewBookmarCard key={index} friend={newsfeed.friend} avatar={newsfeed.avatar} date={newsfeed.date} />)
+                arr.push(<FriendNewAvatarCard key={index} friend={newsfeed.friend} avatar={newsfeed.avatar} date={newsfeed.date} />)
             }
         });
 

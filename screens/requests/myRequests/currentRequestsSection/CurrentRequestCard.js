@@ -47,17 +47,17 @@ export default class CurrentRequestCard extends React.Component {
     }
     renderRequesting () {
         return (
-            <Text style={styles.cardText}>Your request for <Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text> is pending <Text style={{fontWeight: 'bold'}}>{this.props.request.owner.first_name + ' ' + this.props.request.owner.last_name}</Text>'s response.</Text>
+            <Text style={styles.cardText}>Your request for <Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text> is pending <Text style={{fontWeight: 'bold'}}>{this.props.request.original_owner.first_name + ' ' + this.props.request.original_owner.last_name}</Text>'s response.</Text>
         )
     }
     renderAccepted () {
         return (
-            <Text style={styles.cardText}><Text style={{fontWeight: 'bold'}}>{this.props.request.owner.first_name + ' ' + this.props.request.owner.last_name}</Text> accepted your request for <Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text>.</Text>
+            <Text style={styles.cardText}><Text style={{fontWeight: 'bold'}}>{this.props.request.original_owner.first_name + ' ' + this.props.request.original_owner.last_name}</Text> accepted your request for <Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text>.</Text>
         )
     }
     renderSent () {
         return (
-            <Text style={styles.cardText}><Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text> is on the way, courtesy of <Text style={{fontWeight: 'bold'}}>{this.props.request.owner.first_name + ' ' + this.props.request.owner.last_name}</Text>.</Text>
+            <Text style={styles.cardText}><Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text> is on the way, courtesy of <Text style={{fontWeight: 'bold'}}>{this.props.request.original_owner.first_name + ' ' + this.props.request.original_owner.last_name}</Text>.</Text>
         )
     }
     renderHelperText () {
@@ -79,10 +79,17 @@ export default class CurrentRequestCard extends React.Component {
         if (this.props.request.status === 'Sent') {
             return (
                 <View style={styles.buttonsContainer}>
-                    <TouchableOpacity style={styles.recievedButton}>
+                    <TouchableOpacity style={styles.recievedButton}
+                    onPress={() => this.props.action(
+                        {request_id: this.props.request._id, status: 'Received'})
+                    }>
                         <Text style={{textAlign: 'center'}}>RECIEVED</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.neverArrivedButton}>
+
+                    <TouchableOpacity style={styles.neverArrivedButton}
+                    onPress={() => this.props.action(
+                        {request_id: this.props.request._id, status: 'Not received'})
+                    }>
                         <Text style={{textAlign: 'center', color: '#fff'}}>NEVER ARRIVED</Text>
                     </TouchableOpacity>
                 </View>
@@ -92,7 +99,10 @@ export default class CurrentRequestCard extends React.Component {
     renderHideRequest () {
         if (this.props.request.status === 'Accepted') {
             return (
-                <TouchableOpacity style={styles.hideRequestContainer}>
+                <TouchableOpacity style={styles.hideRequestContainer}
+                onPress={() => this.props.action(
+                    {request_id: this.props.request._id, hide_request: true})
+                }>
                     <Text style={{color: '#8c1515'}}>Hide Request</Text>
                 </TouchableOpacity>
             )

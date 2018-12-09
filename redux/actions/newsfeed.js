@@ -2,24 +2,21 @@ import {API_BASE_URL} from 'book/screens/utility/helperFunctions';
 
 // *********************** user ****************************
 // sign in and get token
-export const getNewsfeeds = (loginObj) => dispatch => {
+export const getNewsfeeds = (token) => dispatch => {
     dispatch(getNewsfeedsRequest());
 
-    return fetch(`${API_BASE_URL}/user/login`, 
+    return fetch(`${API_BASE_URL}/newsfeeds/`, 
         {
-            method: 'POST',
             headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
+                "Authorization": `Token ${token}`,
             },
-            body: JSON.stringify(loginObj)
         }
     ).then(res => {
         return res.json();
-    }).then(token => {
-        dispatch(getNewsfeedsSuccess(token));
+    }).then(resJson => {
+        dispatch(getNewsfeedsSuccess(resJson));
     }).catch(err => {
-        console.log(err);
+        console.error(err);
         dispatch(getNewsfeedsError(error));
     });
 };

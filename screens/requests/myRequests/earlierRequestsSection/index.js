@@ -1,7 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
+// redux
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getBookRequests, updateBookRequests } from 'book/redux/actions/request';
 
 // components
 import EarlierRequestCard from './EarlierRequestCard';
@@ -12,6 +15,9 @@ class EarlierRequestsSection extends React.Component {
         super(props);
         this.state = {
         }
+
+
+        this.handleAction = this.handleAction.bind(this);
     }
 
     render () {
@@ -28,9 +34,9 @@ class EarlierRequestsSection extends React.Component {
 
     renderRequests() {
         let arr = [];
-        this.props.requests.map((request) => {
-            if (request.requester._id === this.props.user._id && (request.status === 'Recieved' || request.status === 'Cancelled')) {
-                arr.push(<EarlierRequestCard key={request._id} request={request} />);
+        this.props.requests.requests.map((request) => {
+            if (request.requester._id === this.props.user._id && (request.status === 'Received' || request.status === 'Not received' || request.status === 'Cancelled' )) {
+                arr.push(<EarlierRequestCard key={request._id} request={request} action={this.handleAction}/>);
             }
         })
         if (arr.length > 0) {
@@ -43,8 +49,15 @@ class EarlierRequestsSection extends React.Component {
             )
         }
     }
+    handleAction(actionObj) {
+        this.props.updateBookRequests(this.props.user.token, actionObj)
+            .then(() => {
+                if(!this.props.requests.error) {
+                    this.props.getBookRequests(this.props.user.token)
+                }
+            })
+    }
 }
-
 
 const styles = StyleSheet.create({
     container: {
@@ -75,4 +88,11 @@ const mapStateToProps = (state) => {
     return { requests, user }
 }
 
-export default connect(mapStateToProps)(EarlierRequestsSection);
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        getBookRequests,
+        updateBookRequests
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(EarlierRequestsSection);

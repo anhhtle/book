@@ -28,7 +28,7 @@ const ContactsStack = createStackNavigator(
     },
     {
         headerMode: 'none',
-        initialRouteName: 'FriendsRequest'
+        initialRouteName: 'FriendsList'
     }
 )
 
@@ -55,7 +55,7 @@ export default createBottomTabNavigator (
         },
     },
     {
-        initialRouteName: 'Contacts',
+        initialRouteName: 'Home',
         navigationOptions: ({ navigation }) => ({      
             // icons
             tabBarIcon: ({ tintColor }) => {
