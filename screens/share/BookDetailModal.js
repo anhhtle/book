@@ -36,7 +36,7 @@ export default class BookDetailModal extends React.Component {
                                     { renderRatingStars(props.item.book.ratings) }
                                 </View>
 
-                                <Text>Book condition: <Text style={styles.bookCondition}>{props.item.book_condition.toUpperCase()}</Text></Text>
+                                <Text>Book condition: <Text style={styles.bookCondition}>{this.renderBookCondition()}</Text></Text>
                             </View>
                         </View>
                         {/* end header */}
@@ -60,7 +60,7 @@ export default class BookDetailModal extends React.Component {
                             <TouchableOpacity style={styles.cancleButton} onPress={props.closeModal}>
                                 <Text style={{color: '#fff'}}>CANCLE</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.requestButton} onPress={props.requestBook}>
+                            <TouchableOpacity style={styles.requestButton} onPress={() => props.requestBook(props.item._id)}>
                                 <Text style={{color: '#000'}}>REQUEST BOOK</Text>
                             </TouchableOpacity>
                         </View>
@@ -78,6 +78,13 @@ export default class BookDetailModal extends React.Component {
         }
 
         return <Image source={{ uri: 'https://www.edsportrallysupplies.ie/media/catalog/product/cache/1/image/256x256/9df78eab33525d08d6e5fb8d27136e95/i/m/image-placeholder-alt_2_1.jpg' }} style={styles.bookImage} />
+    }
+    renderBookCondition() {
+        if (this.props.item.book_condition) {
+            return this.props.item.book_condition.toUpperCase();
+        } else {
+            return 'N/A';
+        }
     }
     renderAlias() {
         if (this.props.item.user.alias) {

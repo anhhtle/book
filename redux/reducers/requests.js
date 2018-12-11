@@ -17,6 +17,16 @@ export default requestsReducer = (state = INITIAL_STATE, action) => {
         case 'GET_BOOK_REQUESTS_ERROR':
             return {...state, error: action.payload, loading: false};
 
+        // create book requests
+        case 'CREATE_BOOK_REQUEST_REQUEST':
+            return {...state, loading: true};
+
+        case 'CREATE_BOOK_REQUEST_SUCCESS':
+            return {...state, error: null, loading: false};
+
+        case 'CREATE_BOOK_REQUEST_ERROR':
+            return {...state, error: action.payload, loading: false};
+            
         // update book requests
         case 'UPDATE_BOOK_REQUESTS_REQUEST':
             return {...state, loading: true};

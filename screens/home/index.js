@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { getAvatars } from 'book/redux/actions/avatar';
 import { getNewsfeeds } from 'book/redux/actions/newsfeed';
 import { getBookRequests } from 'book/redux/actions/request';
+import { getVariantsShare } from 'book/redux/actions/variantShare';
 
 // component
 import MainHeader from '../MainHeader';
@@ -39,6 +40,7 @@ class HomeScreen extends React.Component {
             this.props.getAvatars(this.props.user.token);
             this.props.getNewsfeeds(this.props.user.token);
             this.props.getBookRequests(this.props.user.token);
+            this.props.getVariantsShare(this.props.user.token);
         }
     }
 }
@@ -56,7 +58,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        getAvatars, getNewsfeeds, getBookRequests
+        getAvatars, getNewsfeeds, getBookRequests, getVariantsShare
     }, dispatch)
 );
 

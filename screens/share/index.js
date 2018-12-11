@@ -1,5 +1,5 @@
 import React from 'React';
-import { View, Text, ScrollView, Dimensions, StyleSheet } from 'react-native';
+import { Text, ScrollView, Dimensions, StyleSheet } from 'react-native';
 
 import { connect } from 'react-redux';
 
@@ -22,7 +22,7 @@ class ShareBooksScreen extends React.Component {
     }
 
     render () {
-        if (this.props.variantShare.length === 0) {
+        if (this.props.variantsShare.variants_share.length === 0) {
             return (
                 <ScrollView style={styles.container}>
                     <ShareHeader navigation={this.props.navigation} />
@@ -39,30 +39,31 @@ class ShareBooksScreen extends React.Component {
 
                 <BookDetailModal 
                     isVisible={this.state.isModalVisible} 
-                    item={this.props.variantShare[this.state.indexSelected]} 
+                    item={this.props.variantsShare.variants_share[this.state.indexSelected]} 
                     closeModal={() => this.setState({isModalVisible: false})} 
-                    requestBook={() => this.handleRequestBook(this.props.variantShare[this.state.indexSelected].book._id)}
+                    requestBook={this.handleRequestBook}
                     />
             </ScrollView>
         )
     }
-
     renderResultCards() {
         let arr = [];
-        this.props.variantShare.forEach((item, index) => {
+        this.props.variantsShare.variants_share.forEach((item, index) => {
             arr.push(<ResultCard item={item} key={index} showModal={() => this.handleShowModal(index)} />)
         });
 
         return arr;
     }
     handleShowModal(index) {
+        console.log('close modal')
         this.setState({
             isModalVisible: true,
             indexSelected: index
         });
     }
-    handleRequestBook(bookId) {
-        this.setState({requestBookId: bookId, isModalVisible: false});
+    handleRequestBook() {
+        console.log('requesting book');
+        // console.log(bookId);
     }
 
 }
@@ -86,8 +87,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const  { variantShare } = state;
-    return { variantShare }
+    const  { variantsShare } = state;
+    return { variantsShare }
 }
 
 export default connect(mapStateToProps)(ShareBooksScreen);

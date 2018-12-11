@@ -1,6 +1,5 @@
 import {API_BASE_URL} from 'book/screens/utility/helperFunctions';
 
-// *********************** user ****************************
 // get book requests
 export const getBookRequests = (token) => dispatch => {
     dispatch(getBookRequestsRequest());
@@ -37,6 +36,50 @@ export const getBookRequestsSuccess = (requests) => (
 export const getBookRequestsError = (error) => (
     {
         type: 'GET_BOOK_REQUESTS_ERROR',
+        payload: error
+    }
+);
+
+
+// create book requests
+export const createBookRequest = (token, createObj) => dispatch => {
+    dispatch(createBookRequestRequest());
+
+    return fetch(`${API_BASE_URL}/requests/`, 
+        {
+            method: 'POST',
+            headers: {
+                "Authorization": `Token ${token}`,
+                "Content-type": 'application/json'
+            },
+            body: JSON.stringify(createObj)
+        }
+    ).then(res => {
+        return res.json();
+    }).then(resJson => {
+        dispatch(createBookRequestSuccess(resJson));
+    }).catch(err => {
+        console.error(err);
+        dispatch(createBookRequestError(error));
+    });
+};
+
+export const createBookRequestRequest = () => (
+    {
+        type: 'CREATE_BOOK_REQUEST_REQUEST'
+    }
+);
+
+export const createBookRequestSuccess = (requests) => (
+    {
+        type: 'CREATE_BOOK_REQUEST_SUCCESS',
+        payload: requests
+    }
+);
+
+export const createBookRequestError = (error) => (
+    {
+        type: 'CREATE_BOOK_REQUEST_ERROR',
         payload: error
     }
 );

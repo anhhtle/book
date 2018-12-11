@@ -20,5 +20,5 @@ export default combineReducers({
     settings: settingssReducer,
     user: userReducer,
     variants: variantReducer,
-    variantShare: variantShareReducer,
+    variantsShare: variantShareReducer,
 });

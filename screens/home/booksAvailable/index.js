@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, View, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
+import { ScrollView, Text, View, Alert, TouchableOpacity, StyleSheet } from 'react-native';
 
 // redux
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getBookRequests, createBookRequest } from 'book/redux/actions/request';
+import { getVariantsShare } from 'book/redux/actions/variantShare';
 
 // component
 import BookCard from 'book/screens/utility/BookCard';
@@ -14,7 +17,6 @@ class BooksAvailableSection extends Component {
         this.state = {
             isModalVisible: false,
             indexSelected: 0,
-            requestBookId: '',
         }
 
         this.handleShowModal = this.handleShowModal.bind(this);
@@ -37,24 +39,30 @@ class BooksAvailableSection extends Component {
                     </View>
                 </ScrollView>
                 
-
-                <BookDetailModal 
-                    isVisible={this.state.isModalVisible} 
-                    item={this.props.variantShare[this.state.indexSelected]} 
-                    closeModal={() => this.setState({isModalVisible: false})} 
-                    requestBook={() => this.handleRequestBook(this.props.variantShare[this.state.indexSelected].book._id)}
-                    />
+                {this.renderModal()}
             </View>
         );
     }
 
     renderBooks() {
         let arr = [];
-        this.props.variantShare.map((item, index) => {
+        this.props.variantsShare.variants_share.map((item, index) => {
             arr.push(<BookCard book={item.book} key={item._id} showModal={() => this.handleShowModal(index) } />)
         })
 
         return arr;
+    }
+    renderModal() {
+        if (this.props.variantsShare.variants_share.length > 0) {
+            return (
+                <BookDetailModal 
+                    isVisible={this.state.isModalVisible} 
+                    item={this.props.variantsShare.variants_share[this.state.indexSelected]} 
+                    closeModal={() => this.setState({isModalVisible: false})} 
+                    requestBook={this.handleRequestBook}
+                    />
+            )
+        }
     }
     handleShowModal(index) {
         this.setState({
@@ -62,8 +70,62 @@ class BooksAvailableSection extends Component {
             indexSelected: index
         });
     }
-    handleRequestBook(bookId) {
-        this.setState({requestBookId: bookId, isModalVisible: false});
+    handleRequestBook(id) {
+        Alert.alert(
+            'Request confirmation',
+            'Are you sure?',
+            [
+                {
+                    text: 'Yes',
+                    onPress: () => {
+                        this.requestInitiate(id)
+                    }
+                },
+                {   
+                    text: 'Cancel', 
+                    onPress: () => {
+                        this.setState({
+                            isModalVisible: false,
+                            indexSelected: 0
+                        })
+                    }
+                },
+            ]
+        )
+        
+    }
+    requestInitiate(id) {
+        this.props.createBookRequest(this.props.user.token, {variant_id: id})
+            .then(() => {
+                this.props.getBookRequests(this.props.user.token)
+                    .then(() => {
+                        if(!this.props.variantsShare.error) {
+                            this.props.getVariantsShare(this.props.user.token);
+                            this.setState({
+                                isModalVisible: false,
+                                indexSelected: 0
+                            });
+                            this.props.navigation.navigate('MyRequests');
+                        } else {
+                            Alert.alert(
+                                'Request not sent',
+                                'Book is not available at the moment',
+                                [
+                                    {
+                                        text: 'OK',
+                                        onPress: () => {
+                                            this.props.getVariantsShare(this.props.user.token);
+                                            this.setState({
+                                                isModalVisible: false,
+                                                indexSelected: 0
+                                            })
+                                        }
+                                    },
+                                ]
+                            )
+                        }
+                    })
+            })
     }
 }
 
@@ -94,8 +156,15 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { variantShare } = state;
-    return { variantShare }
+    const { user, variantsShare } = state;
+    return { user, variantsShare }
 }
 
-export default connect(mapStateToProps)(BooksAvailableSection)
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        getBookRequests, createBookRequest, getVariantsShare
+    }, dispatch)
+);
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(BooksAvailableSection)
