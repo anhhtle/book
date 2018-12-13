@@ -2,19 +2,24 @@ import React, { Component } from 'react';
 import { View, TextInput, TouchableOpacity, Platform, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default class ShareHeader extends Component {
+// redux
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getVariantsShare, searchVariantsShare } from 'book/redux/actions/variantShare';
+
+class ShareHeader extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            search_term: ''
+            search_term: '',
+            searched: false
         }
     };
 
     render() {
-
         return (
             <View style={styles.container}>
-                <TouchableOpacity style={styles.goBackContainer} onPress={ () => this.props.navigation.navigate('Home') }>
+                <TouchableOpacity style={styles.goBackContainer} onPress={this.navigateHome}>
                     <Ionicons style={styles.goBackIcon} name={Platform.OS === 'ios' ? 'ios-arrow-round-back' : 'md-arrow-round-back'} />
                 </TouchableOpacity>
 
@@ -30,15 +35,27 @@ export default class ShareHeader extends Component {
             </View>
         )
     }
-
     onSearchSubmit = () => {
-        // fetch(`https://www.googleapis.com/books/v1/volumes?q=${this.state.search_term}`)
-        //     .then(res => res.json())
-        //     .then(resJson => {
-        //         this.props.updateState(resJson);
-        //     }).catch(err => {
-        //         console.error(err);
-        //     });
+        let bodyObj = {
+            query: this.state.search_term,
+            page: 1
+        }
+        this.props.searchVariantsShare(this.props.user.token, bodyObj)
+            .then(() => {
+                this.setState({searched: true})
+                this.props.setSearchTerm(this.state.search_term);
+            });
+    }
+    navigateHome = () => {
+        if (this.state.searched || this.props.searched) {
+            let bodyObj = {
+                page: 1
+            }
+            this.props.getVariantsShare(this.props.user.token, bodyObj)
+                .then(() => this.props.navigation.navigate('Home'));
+        } else {
+            this.props.navigation.navigate('Home')
+        }
     }
 };
 
@@ -98,3 +115,18 @@ const styles = StyleSheet.create({
     },
 
 });
+
+
+const mapStateToProps = (state) => {
+    const { user, variantsShare } = state;
+    return { user, variantsShare }
+}
+
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        searchVariantsShare, getVariantsShare
+    }, dispatch)
+);
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShareHeader)

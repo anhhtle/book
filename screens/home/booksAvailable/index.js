@@ -100,7 +100,7 @@ class BooksAvailableSection extends Component {
                 this.props.getBookRequests(this.props.user.token)
                     .then(() => {
                         if(!this.props.variantsShare.error) {
-                            this.props.getVariantsShare(this.props.user.token);
+                            this.props.getVariantsShare(this.props.user.token, {page: 1});
                             this.setState({
                                 isModalVisible: false,
                                 indexSelected: 0
@@ -114,7 +114,7 @@ class BooksAvailableSection extends Component {
                                     {
                                         text: 'OK',
                                         onPress: () => {
-                                            this.props.getVariantsShare(this.props.user.token);
+                                            this.props.getVariantsShare(this.props.user.token, {page: 1});
                                             this.setState({
                                                 isModalVisible: false,
                                                 indexSelected: 0

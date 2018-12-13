@@ -8,7 +8,6 @@ export default class ResultCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            item: this.props.item
         };
     }
 
@@ -19,15 +18,15 @@ export default class ResultCard extends React.Component {
                 { this.renderImage() }
 
                 <View style={styles.cardDetail}>
-                    <Text style={styles.title}>{this.state.item.book.title}</Text>
-                    <Text style={styles.author}>{this.state.item.book.authors ? this.state.item.book.authors[0] : ''}</Text>
+                    <Text style={styles.title}>{this.props.item.book.title}</Text>
+                    <Text style={styles.author}>{this.props.item.book.authors ? this.props.item.book.authors[0] : ''}</Text>
 
                     {/* ratings */}
                     <View style={{flexDirection: 'row', marginBottom: 5}}>
-                        { renderRatingStars(this.state.item.book.ratings) }
+                        { renderRatingStars(this.props.item.book.ratings) }
                     </View>
 
-                    <Text style={{fontWeight: 'bold'}}>{this.state.item.book_condition.toUpperCase()}</Text>
+                    <Text style={{fontWeight: 'bold'}}>{this.props.item.book_condition.toUpperCase()}</Text>
 
                     {/* action button */}
                     <TouchableOpacity style={styles.actionIconContainer} onPress={this.props.showModal}>
@@ -39,17 +38,12 @@ export default class ResultCard extends React.Component {
     }
 
     renderImage() {
-        if (this.state.item.book.image) {
-            return <Image source={{ uri: this.state.item.book.image }} style={styles.cardImage} />
+        if (this.props.item.book.image) {
+            return <Image source={{ uri: this.props.item.book.image }} style={styles.cardImage} />
         }
 
         return <Image source={{ uri: 'https://www.edsportrallysupplies.ie/media/catalog/product/cache/1/image/256x256/9df78eab33525d08d6e5fb8d27136e95/i/m/image-placeholder-alt_2_1.jpg' }} style={styles.cardImage} />
     }
-
-    componentWillReceiveProps(nextProps) {
-        this.setState({book: nextProps.item});
-    }
-
 }
 
 const styles = StyleSheet.create({

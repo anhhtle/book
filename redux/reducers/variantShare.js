@@ -36,23 +36,72 @@ const INITIAL_STATE = {
         }
     ],
     loading: false,
-    error: null
+    error: null,
+    total: null,
+    limit: null,
+    page: null,
+    pages: null
 };
 
 export default variantShareReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        // get all variant share (excluding user's)
         case 'GET_VARIANTS_SHARE_REQUEST':
             return {...state, loading: true};
 
         case 'GET_VARIANTS_SHARE_SUCCESS':
             if (action.payload.error) {
-                return {...state, error: action.payload.error, loading: false };
+                return {...state, error: action.payload.error, 
+                    total: null, 
+                    limit: null, 
+                    page: null,
+                    pages: null,
+                    loading: false 
+                };
             } else {
-                return {variants_share: action.payload, loading: false, error: null };
+                return {
+                    variants_share: action.payload.docs, 
+                    total: action.payload.total, 
+                    limit: action.payload.limit, 
+                    page: action.payload.page, 
+                    pages: action.payload.pages,
+                    loading: false, error: null 
+                };
             }
 
-        case 'GET_VARIANTS_SHARE_ERROR':
-            return {...state, error: action.payload.error , loading: false};
+        // search variant share by title or authors
+        case 'SEARCH_VARIANTS_SHARE_REQUEST':
+            return {...state, loading: true};
+
+        case 'SEARCH_VARIANTS_SHARE_SUCCESS':
+            if (action.payload.error) {
+                return {...state, error: action.payload.error, 
+                    total: null, 
+                    limit: null, 
+                    page: null,
+                    pages: null,
+                    loading: false 
+                };
+            } else {
+                return {
+                    variants_share: action.payload.docs, 
+                    total: action.payload.total, 
+                    limit: action.payload.limit, 
+                    page: action.payload.page, 
+                    pages: action.payload.pages,
+                    loading: false, error: null 
+                };
+            }
+
+        // error
+        case 'VARIANTS_SHARE_ERROR':
+            return {...state, error: action.payload.error, 
+                total: null, 
+                limit: null, 
+                page: null,
+                pages: null,
+                loading: false
+            };
 
         default:
             return state

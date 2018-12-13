@@ -40,7 +40,7 @@ class HomeScreen extends React.Component {
             this.props.getAvatars(this.props.user.token);
             this.props.getNewsfeeds(this.props.user.token);
             this.props.getBookRequests(this.props.user.token);
-            this.props.getVariantsShare(this.props.user.token);
+            this.props.getVariantsShare(this.props.user.token, {page: 1});
         }
     }
 }
