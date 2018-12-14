@@ -88,8 +88,6 @@ export const createBookRequestError = (error) => (
 export const updateBookRequests = (token, updateObj) => dispatch => {
     dispatch(updateBookRequestsRequest());
 
-    console.log(updateObj);
-
     return fetch(`${API_BASE_URL}/requests/`, 
         {
             method: 'PUT',

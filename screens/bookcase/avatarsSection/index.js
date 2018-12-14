@@ -47,10 +47,6 @@ class AvatarsSection extends Component {
         );
     }
 
-    componentDidMount() {
-        console.log(this.props.avatars)
-    }
-
     renderAvatars() {
         let arr = [];
         this.props.avatars.avatars.map((avatar, index) => {

@@ -1,7 +1,38 @@
 import {API_BASE_URL} from 'book/screens/utility/helperFunctions';
 
-// *********************** user ****************************
-// sign in and get token
+
+// get friend requests
+export const getFriendRequests = (token, friend_id) => dispatch => {
+    dispatch(getFriendRequestsRequest());
+
+    return fetch(`${API_BASE_URL}/friend-requests`, 
+    {
+        headers: {
+            'Authorization': `Token ${token}`,
+        }
+    }
+    ).then(res => {
+        return res.json();
+    }).then(resJson => {
+        dispatch(getFriendRequestsSuccess(resJson));
+    }).catch(err => {
+        console.log(err);
+        dispatch(friendRequestsError(error));
+    });
+}
+
+export const getFriendRequestsRequest= () => (
+    {
+        type: 'GET_FRIEND_REQUESTS_REQUEST'
+    }
+);
+
+export const getFriendRequestsSuccess = (friend_requests) => (
+    {
+        type: 'GET_FRIEND_REQUESTS_SUCCESS',
+        payload: friend_requests
+    }
+);
 
 // create friend request
 export const createFriendRequest = (token, friend_id) => dispatch => {
@@ -22,7 +53,7 @@ export const createFriendRequest = (token, friend_id) => dispatch => {
         dispatch(createFriendRequestSuccess(resJson));
     }).catch(err => {
         console.log(err);
-        dispatch(createFriendRequestError(error));
+        dispatch(friendRequestError(error));
     });
 }
 
@@ -39,9 +70,9 @@ export const createFriendRequestSuccess = (friend_request) => (
     }
 );
 
-export const createFriendRequestError = (error) => (
+export const friendRequestsError = (error) => (
     {
-        type: 'CREATE_FRIEND_REQUEST_ERROR',
+        type: 'FRIEND_REQUESTS_ERROR',
         payload: error
     }
 );

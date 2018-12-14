@@ -58,9 +58,6 @@ export default userReducer = (state = INITIAL_STATE, action) => {
                 return {...state, error: null, token: action.payload.token, loading: false};
             }
 
-        case 'GET_USER_TOKEN_ERROR':
-            return {...state, error: action.payload.error , loading: false};
-
         // get current user
         case 'GET_CURRENT_USER_REQUEST':
             return {...state, loading: true};
@@ -71,9 +68,6 @@ export default userReducer = (state = INITIAL_STATE, action) => {
             } else {
                 return {...action.payload.user, token: action.payload.token, error: null, loading: false};
             }
-
-        case 'GET_CURRENT_USER_ERROR':
-            return {...state, error: action.payload.error , loading: false};
 
         // change user info... not implemented in API yet
             
@@ -92,6 +86,11 @@ export default userReducer = (state = INITIAL_STATE, action) => {
             user2.address[action.payload.field] = action.payload.value;
             
             return user2;
+
+
+        // error
+        case 'USER_ERROR':
+            return {...state, error: action.payload.error , loading: false};
 
         default:
             return state

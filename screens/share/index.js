@@ -1,10 +1,11 @@
 import React from 'React';
-import { View, Text, ScrollView, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Dimensions, Alert, StyleSheet } from 'react-native';
 
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getVariantsShare, searchVariantsShare } from 'book/redux/actions/variantShare';
+import { getBookRequests, createBookRequest } from 'book/redux/actions/request';
 
 import ShareHeader from './ShareHeader';
 import ResultCard from './ResultCard';
@@ -95,14 +96,66 @@ class ShareBooksScreen extends React.Component {
         }
     }
     handleShowModal(index) {
-        console.log('close modal')
         this.setState({
             isModalVisible: true,
             indexSelected: index
         });
     }
-    handleRequestBook() {
-        console.log('requesting book');
+    handleRequestBook(id) {
+        Alert.alert(
+            'Request confirmation',
+            'Are you sure?',
+            [
+                {
+                    text: 'Yes',
+                    onPress: () => {
+                        this.requestInitiate(id)
+                    }
+                },
+                {   
+                    text: 'Cancel', 
+                    onPress: () => {
+                        this.setState({
+                            isModalVisible: false,
+                            indexSelected: 0
+                        })
+                    }
+                },
+            ]
+        )
+    }
+    requestInitiate(id) {
+        this.props.createBookRequest(this.props.user.token, {variant_id: id})
+            .then(() => {
+                this.props.getBookRequests(this.props.user.token)
+                    .then(() => {
+                        if(!this.props.variantsShare.error) {
+                            this.props.getVariantsShare(this.props.user.token, {page: 1});
+                            this.setState({
+                                isModalVisible: false,
+                                indexSelected: 0
+                            });
+                            this.props.navigation.navigate('MyRequests');
+                        } else {
+                            Alert.alert(
+                                'Request not sent',
+                                'Book is not available at the moment',
+                                [
+                                    {
+                                        text: 'OK',
+                                        onPress: () => {
+                                            this.props.getVariantsShare(this.props.user.token, {page: 1});
+                                            this.setState({
+                                                isModalVisible: false,
+                                                indexSelected: 0
+                                            })
+                                        }
+                                    },
+                                ]
+                            )
+                        }
+                    })
+            })
     }
     handleNext() {
         let bodyObj = {
@@ -178,7 +231,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        searchVariantsShare, getVariantsShare
+        searchVariantsShare, getVariantsShare, 
+        getBookRequests, createBookRequest
     }, dispatch)
 );
 

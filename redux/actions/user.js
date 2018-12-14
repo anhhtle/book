@@ -20,7 +20,7 @@ export const getUserToken = (loginObj) => dispatch => {
         dispatch(getUserTokenSuccess(token));
     }).catch(err => {
         console.log(err);
-        dispatch(getUserTokenError(error));
+        dispatch(userError(error));
     });
 };
 
@@ -34,13 +34,6 @@ export const getUserTokenSuccess = (token) => (
     {
         type: 'GET_USER_TOKEN_SUCCESS',
         payload: token
-    }
-);
-
-export const getUserTokenError = (error) => (
-    {
-        type: 'GET_USER_TOKEN_ERROR',
-        payload: error
     }
 );
 
@@ -61,7 +54,7 @@ export const getCurrentUser = (token) => dispatch => {
         dispatch(getCurrentUserSuccess(user, token));
     }).catch(err => {
         console.log(err);
-        dispatch(getCurrentUserError(error));
+        dispatch(userError(error));
     });
 }
 
@@ -78,9 +71,9 @@ export const getCurrentUserSuccess = (user, token) => (
     }
 );
 
-export const getCurrentUserError = (error) => (
+export const userError = (error) => (
     {
-        type: 'GET_CURRENT_USER_ERROR',
+        type: 'USER_ERROR',
         payload: error
     }
 );

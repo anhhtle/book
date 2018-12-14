@@ -4,9 +4,11 @@ import { ScrollView, StyleSheet, } from 'react-native';
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { getCurrentUser } from 'book/redux/actions/user';
 import { getAvatars } from 'book/redux/actions/avatar';
 import { getNewsfeeds } from 'book/redux/actions/newsfeed';
 import { getBookRequests } from 'book/redux/actions/request';
+import { getFriendRequests } from 'book/redux/actions/friend';
 import { getVariantsShare } from 'book/redux/actions/variantShare';
 
 // component
@@ -36,12 +38,16 @@ class HomeScreen extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.appState.env === 'production') {
-            this.props.getAvatars(this.props.user.token);
-            this.props.getNewsfeeds(this.props.user.token);
-            this.props.getBookRequests(this.props.user.token);
-            this.props.getVariantsShare(this.props.user.token, {page: 1});
+        if (this.props.appState.env === 'dev') {
+            this.props.getCurrentUser(this.props.user.token);
         }
+
+        this.props.getAvatars(this.props.user.token);
+        this.props.getNewsfeeds(this.props.user.token);
+        this.props.getFriendRequests(this.props.user.token);
+        this.props.getBookRequests(this.props.user.token);
+        this.props.getVariantsShare(this.props.user.token, {page: 1});
+
     }
 }
 
@@ -58,7 +64,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        getAvatars, getNewsfeeds, getBookRequests, getVariantsShare
+        getCurrentUser,
+        getAvatars, getNewsfeeds, getBookRequests, getVariantsShare,
+        getFriendRequests
     }, dispatch)
 );
 
