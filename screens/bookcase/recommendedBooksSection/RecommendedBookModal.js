@@ -4,7 +4,7 @@ import Modal from "react-native-modal";
 
 import { renderRatingStars } from 'book/screens/utility/helperFunctions';
 
-export default class BookDetailModal extends React.Component {
+export default class RecommendedBookModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

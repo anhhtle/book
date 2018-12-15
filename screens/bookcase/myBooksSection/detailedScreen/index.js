@@ -40,7 +40,7 @@ class MyBooksDetailedScreen extends React.Component {
 
     renderBookCards() {
         let arr = [];
-        this.props.variants.forEach((variant, index) => {
+        this.props.variants.variants.forEach((variant, index) => {
             if (variant.status !== 'Recommended') {
                 arr.push(<BookCard variant={variant} key={variant._id} showModal={() => this.handleShowModal(index)} />)
             }

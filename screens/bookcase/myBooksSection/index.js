@@ -12,8 +12,9 @@ class MyBooksSection extends Component {
     constructor (props) {
         super (props);
         this.state = {
+            needModal: false,
             isModalVisible: false,
-            indexSelected: 0,
+            indexSelected: null,
         }
 
         this.handleShowModal = this.handleShowModal.bind(this);
@@ -37,22 +38,45 @@ class MyBooksSection extends Component {
                     </View>
                 </ScrollView>
 
-                <BookDetailModal 
-                    isVisible={this.state.isModalVisible} 
-                    variant={this.props.variants[this.state.indexSelected]} 
-                    closeModal={() => this.setState({isModalVisible: false})} 
-                    saveChanges={() => this.handleSaveChanges(this.props.variants[this.state.indexSelected].book._id)}
-                    />
+                {this.renderModal()}
                 
             </View>
         );
     }
-
+    componentDidMount() {
+        this.setModalIndex();
+    }
+    componentWillReceiveProps() {
+        this.setModalIndex();
+    }
+    setModalIndex() {
+        let indexSelected = null;
+        this.props.variants.variants.map((item, index) => {
+            if (item.status !== 'Recommended') {
+                indexSelected = index;
+            }
+        });
+        if (indexSelected !== null) {
+            this.setState({indexSelected, needModal: true})
+        }
+    }
+    renderModal() {
+        if (this.state.needModal) {
+            return (
+                <BookDetailModal 
+                    isVisible={this.state.isModalVisible} 
+                    variant={this.props.variants.variants[this.state.indexSelected]} 
+                    closeModal={() => this.setState({isModalVisible: false})} 
+                    saveChanges={() => this.handleSaveChanges(this.props.variants[this.state.indexSelected].book._id)}
+                />
+            )
+        }
+    }
     renderBooks() {
         let arr = [];
-        this.props.variants.map((variant, index) => {
-            if (variant.status !== 'Recommended') {
-                arr.push(<BookCard book={variant.book} key={variant._id} showModal={() => this.handleShowModal(index)} />)
+        this.props.variants.variants.map((item, index) => {
+            if (item.status !== 'Recommended') {
+                arr.push(<BookCard book={item.book} key={item._id} showModal={() => this.handleShowModal(index)} />);
             }
         })
 

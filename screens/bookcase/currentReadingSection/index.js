@@ -50,7 +50,7 @@ class CurrentReadingSection extends React.Component {
 
     renderBooks () {
         let arr = [];
-        this.props.variants.forEach((item, index) => {
+        this.props.variants.variants.forEach((item, index) => {
             if(item.status === 'Reading') {
                 arr.push(<CurrentReadingCard variant={item} key={index} index={index} removeBook={this.handleBookSelection} changeBookProgress={this.handleChangeBookProgress} />);
             }
@@ -61,7 +61,7 @@ class CurrentReadingSection extends React.Component {
 
     renderModalBooks() {
         let arr = [];
-        this.props.variants.forEach((item, index) => {
+        this.props.variants.variants.forEach((item, index) => {
             if (item.status !== 'Reading') {
                 arr.push(<CurrentReadingModalCard variant={item} key={index} index={index} addBook={this.handleBookSelection}/>)
             }

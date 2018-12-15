@@ -8,7 +8,7 @@ export default newsfeedReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         // get newsfeeds
         case 'GET_NEWSFEEDS_REQUEST':
-            return {...state, loading: true};
+            return {...state, loading: true, error: null};
 
         case 'GET_NEWSFEEDS_SUCCESS':
             return {...state, newsfeeds: action.payload, error: null, loading: false};

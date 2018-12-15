@@ -63,9 +63,6 @@ export default class AvatarDetailModal extends React.Component {
         )
     }
 
-    componentWillReceiveProps(nextProps) {
-    }
-
 }
 
 const styles = StyleSheet.create({

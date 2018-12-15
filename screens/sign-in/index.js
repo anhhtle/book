@@ -55,7 +55,6 @@ class SignInScreen extends React.Component {
                 if (this.props.user.token) {
                     this.props.getCurrentUser(this.props.user.token)
                     .then(() => {
-                        console.log(this.props.user)
                             if (!this.props.user.error) {
                                 this.props.navigation.navigate('Home');
                             }

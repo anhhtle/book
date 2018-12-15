@@ -12,8 +12,9 @@ class RecommendedBookSection extends Component {
     constructor (props) {
         super (props);
         this.state = {
+            needModal: false,
             isModalVisible: false,
-            indexSelected: 0,
+            indexSelected: null,
         }
 
         this.handleShowModal = this.handleShowModal.bind(this);
@@ -36,25 +37,49 @@ class RecommendedBookSection extends Component {
                     </View>
                 </ScrollView>
 
-                <RecommendedBookModal 
-                    isVisible={this.state.isModalVisible} 
-                    variant={this.props.variants[this.state.indexSelected]} 
-                    closeModal={() => this.setState({isModalVisible: false})} 
-                    saveChanges={() => this.handleSaveChanges()}
-                    />
+                {this.renderModal()}
                 
             </View>
         );
     }
-
+    componentDidMount() {
+        this.setModalIndex();
+    }
+    componentWillReceiveProps() {
+        this.setModalIndex();
+    }
+    setModalIndex() {
+        let indexSelected = null;
+        this.props.variants.variants.map((item, index) => {
+            if (item.status === 'Recommended') {
+                indexSelected = index;
+            }
+        });
+        if (indexSelected !== null) {
+            this.setState({indexSelected, needModal: true})
+        }
+    }
     renderBooks() {
         let arr = [];
-        this.props.variants.map((item, index) => {
-            if (item.status === 'Recommended')
-            arr.push(<BookCard book={item.book} key={item._id} showModal={() => this.handleShowModal(index)}/>)
+        this.props.variants.variants.map((item, index) => {
+            if (item.status === 'Recommended') {
+                arr.push(<BookCard book={item.book} key={item._id} showModal={() => this.handleShowModal(index)}/>)
+            }
         })
 
         return arr;
+    }
+    renderModal() {
+        if (this.state.needModal) {
+            return (
+                <RecommendedBookModal 
+                    isVisible={this.state.isModalVisible} 
+                    variant={this.props.variants.variants[this.state.indexSelected]} 
+                    closeModal={() => this.setState({isModalVisible: false})} 
+                    saveChanges={() => this.handleSaveChanges()}
+                />
+            )
+        }
     }
     handleShowModal(index) {
         this.setState({

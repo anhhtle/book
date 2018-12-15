@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 // redux
 import { connect } from 'react-redux';
@@ -24,8 +24,15 @@ class NotificationsScreen extends React.Component {
     }
 
     renderNotificationCards() {
+        // if no notification
+        if (this.props.notifications.notifications.length === 0) {
+            return (
+                <Text style={{marginTop: 20, textAlign: 'center'}}>No notification at this time</Text>
+            )
+        }
+
         let arr = [];
-        this.props.notifications.map((notification, index) => {
+        this.props.notifications.notifications.map((notification, index) => {
             if(notification.type === 'Recommendation') {
                 arr.push(<RecommendationCard key={index} friend={notification.friend} book={notification.book} date={notification.date} navigation={this.props.navigation}/>)
             } else if (notification.type === 'Avatar') {
