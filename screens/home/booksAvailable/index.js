@@ -92,7 +92,6 @@ class BooksAvailableSection extends Component {
                 },
             ]
         )
-        
     }
     requestInitiate(id) {
         this.props.createBookRequest(this.props.user.token, {variant_id: id})

@@ -57,6 +57,8 @@ class RecommendedBookSection extends Component {
         });
         if (indexSelected !== null) {
             this.setState({indexSelected, needModal: true})
+        } else {
+            this.setState({needModal: false})
         }
     }
     renderBooks() {

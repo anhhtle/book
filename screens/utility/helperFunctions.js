@@ -57,7 +57,7 @@ export function renderUserRatingStars(ratingNum) {
     let halfStar = Math.round(ratingNum % fullStar);
     let emptyStar = 5 - fullStar - halfStar;
 
-    if (ratingNum === 0 ) {
+    if (ratingNum === 0 || ratingNum === null) {
         emptyStar = 5;
     }
 

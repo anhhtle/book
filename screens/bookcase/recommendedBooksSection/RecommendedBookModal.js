@@ -1,5 +1,5 @@
 import React from 'React';
-import { ScrollView, View, Image, Text, TouchableOpacity, Dimensions, Platform, StyleSheet } from 'react-native';
+import { ScrollView, View, Image, Text, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
 import Modal from "react-native-modal";
 
 import { renderRatingStars } from 'book/screens/utility/helperFunctions';
@@ -8,6 +8,7 @@ export default class RecommendedBookModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            variant: this.props.variant
         }
 
     }
@@ -76,6 +77,7 @@ export default class RecommendedBookModal extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        this.setState({variant: nextProps.variant})
     }
 
     renderImage() {

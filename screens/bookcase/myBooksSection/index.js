@@ -3,6 +3,8 @@ import { ScrollView, Text, View, TouchableOpacity, StyleSheet } from 'react-nati
 
 // redux
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getVariants, updateVariant, deleteVariant } from 'book/redux/actions/variant';
 
 // component
 import BookCard from 'book/screens/utility/BookCard';
@@ -19,6 +21,7 @@ class MyBooksSection extends Component {
 
         this.handleShowModal = this.handleShowModal.bind(this);
         this.handleSaveChanges = this.handleSaveChanges.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     render() {
@@ -58,6 +61,8 @@ class MyBooksSection extends Component {
         });
         if (indexSelected !== null) {
             this.setState({indexSelected, needModal: true})
+        } else {
+            this.setState({needModal: false})
         }
     }
     renderModal() {
@@ -67,7 +72,8 @@ class MyBooksSection extends Component {
                     isVisible={this.state.isModalVisible} 
                     variant={this.props.variants.variants[this.state.indexSelected]} 
                     closeModal={() => this.setState({isModalVisible: false})} 
-                    saveChanges={() => this.handleSaveChanges(this.props.variants[this.state.indexSelected].book._id)}
+                    saveChanges={this.handleSaveChanges}
+                    delete={this.handleDelete}
                 />
             )
         }
@@ -88,8 +94,21 @@ class MyBooksSection extends Component {
             indexSelected: index
         });
     }
-    handleSaveChanges(bookId) {
-        this.setState({requestBookId: bookId, isModalVisible: false});
+    handleSaveChanges(saveObj) {
+        this.props.updateVariant(this.props.user.token, saveObj)
+            .then(() => {
+                this.props.getVariants(this.props.user.token);
+            });
+            
+        this.setState({isModalVisible: false});
+    }
+    handleDelete(id) {
+        this.setState({isModalVisible: false});
+        this.props.deleteVariant(this.props.user.token, id)
+            .then(() => {
+                this.props.getVariants(this.props.user.token);
+            });
+            
     }
 }
 
@@ -123,8 +142,14 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { variants } = state
-    return { variants }
-};
-  
-export default connect(mapStateToProps)(MyBooksSection);
+    const { user, variants } = state;
+    return { user, variants }
+}
+
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        getVariants, updateVariant, deleteVariant
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyBooksSection)

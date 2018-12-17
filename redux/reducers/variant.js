@@ -60,28 +60,29 @@ export default variantReducer = (state = INITIAL_STATE, action) => {
 
         case 'GET_VARIANTS_SUCCESS':
             return {...state, variants: action.payload, error: null, loading: false};
-
-
-
             
-        case 'CHANGE_VARIANT_STATUS':
-            // clone
-            const newState = state.slice();
+        // update variant
+        case 'UPDATE_VARIANT_REQUEST':
+            return {...state, loading: true, error: null};
+        
+        case 'UPDATE_VARIANT_SUCCESS':
+            if (action.payload.error) {
+                return {...state, error: action.payload.error, loading: false};
+            } 
 
-            // update clone
-            newState[action.payload.index].status = action.payload.status;
+            return {...state, error: null, loading: false};
+            
+        // delete variant
+        case 'DELETE_VARIANT_REQUEST':
+            return {...state, loading: true, error: null};
+        
+        case 'DELETE_VARIANT_SUCCESS':
+            if (action.payload.error) {
+                return {...state, error: action.payload.error, loading: false};
+            } 
 
-            return newState
-
-        case 'CHANGE_VARIANT_PROGRESS':
-            // clone
-            const newState2 = state.slice();
-
-            // update clone
-            newState2[action.payload.index].progress = action.payload.progress;
-
-            return newState2
-
+            return {...state, error: null, loading: false};
+            
         // error
         case 'VARIANTS_ERROR':
             return {...state, error: action.payload, loading: false};

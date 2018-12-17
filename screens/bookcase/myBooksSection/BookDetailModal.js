@@ -1,5 +1,5 @@
 import React from 'React';
-import { ScrollView, View, Image, Text, TouchableOpacity, Dimensions, Platform, StyleSheet } from 'react-native';
+import { ScrollView, View, Alert, Image, Text, TouchableOpacity, Dimensions, Platform, StyleSheet } from 'react-native';
 import Modal from "react-native-modal";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -11,16 +11,29 @@ export default class BookDetailModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            variant: this.props.variant,
             userRatingModalVisible: false,
-            userRating: 0,
-
             bookConditionDropdown: ['New', 'Like new', 'Fair', 'Used'],
             bookStatusDropdown: ['Read', 'Reading', 'Not started' ,'Watch list'],
             bookProgressDropdown: ['0%','10%','20%','30%','40%','50%','60%','70%','80%','90%','100%'],
             bookAvailableForShareDropdown: ['Yes', 'No'],
+            
+            // save changes
+            user_rating: this.props.variant.user_rating,
+            book_condition: this.props.variant.book_condition,
+            status: this.props.variant.status,
+            progress: this.props.variant.progress,
+            available_for_share: this.props.variant.available_for_share
         }
 
         this.handleChangeUserRating = this.handleChangeUserRating.bind(this);
+        this.handleChangeStatus = this.handleChangeStatus.bind(this);
+        this.handleChangeProgress = this.handleChangeProgress.bind(this);
+        this.handleChangeShare = this.handleChangeShare.bind(this);
+
+        this.handleReset = this.handleReset.bind(this);
+        this.handleSave = this.handleSave.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     render () {
@@ -51,7 +64,7 @@ export default class BookDetailModal extends React.Component {
                                 <View style={{flexDirection: 'row'}}>
                                     <Text style={{marginRight: 10}}>My rating:</Text>
                                     <TouchableOpacity style={{flexDirection: 'row'}} onPress={() => this.setState({userRatingModalVisible: true})} >
-                                        { renderUserRatingStars(props.variant.user_rating) }
+                                        { renderUserRatingStars(this.state.variant.user_rating) }
                                     </TouchableOpacity>
 
                                     <Modal isVisible={this.state.userRatingModalVisible} onBackdropPress={() => this.setState({userRatingModalVisible: false})} style={styles.modalOverlay}>
@@ -108,38 +121,43 @@ export default class BookDetailModal extends React.Component {
                                 <Text style={styles.dropdownLabel}>Book condition:</Text>
                                 <ModalDropdown 
                                     options={this.state.bookConditionDropdown}
-                                    defaultValue={props.variant.book_condition}
+                                    defaultValue={this.state.variant.book_condition}
                                     animated={false}
                                     style={{backgroundColor: '#4885ed', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 5}}
                                     textStyle={{color: '#fff', fontSize: 14}}
                                     dropdownStyle={styles.dropdownStyle}
                                     dropdownTextStyle={styles.dropdownTextStyle}
+                                    onSelect={(index, value) => this.setState({book_condition: value})}
                                 />
                             </View>
                             {/* book status */}
                             <View style={styles.statusGroup}>
                                 <Text style={styles.dropdownLabel}>Book status:</Text>
-                                <ModalDropdown 
+                                <ModalDropdown
+                                    ref={'statusDropdown'}
                                     options={this.state.bookStatusDropdown}
-                                    defaultValue={props.variant.status}
+                                    defaultValue={this.state.status}
                                     animated={false}
                                     style={{backgroundColor: '#4885ed', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 5}}
                                     textStyle={{color: '#fff', fontSize: 14}}
                                     dropdownStyle={styles.dropdownStyle}
                                     dropdownTextStyle={styles.dropdownTextStyle}
+                                    onSelect={(index, value) => this.handleChangeStatus(value)}
                                 />
                             </View>
                             {/* book progress */}
                             <View style={styles.statusGroup}>
                                 <Text style={styles.dropdownLabel}>Book progress:</Text>
                                 <ModalDropdown 
+                                    ref={'progressDropdown'}
                                     options={this.state.bookProgressDropdown}
-                                    defaultValue={props.variant.progress  + '%'}
+                                    defaultValue={this.state.variant.progress  + '%'}
                                     animated={false}
                                     style={{backgroundColor: '#4885ed', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 5}}
                                     textStyle={{color: '#fff', fontSize: 14}}
                                     dropdownStyle={styles.dropdownStyle}
                                     dropdownTextStyle={styles.dropdownTextStyle}
+                                    onSelect={(index, value) => this.handleChangeProgress(value)}
                                 />
                             </View>
                             {/* sharing? */}
@@ -147,12 +165,13 @@ export default class BookDetailModal extends React.Component {
                                 <Text style={styles.dropdownLabel}>Share with community?</Text>
                                 <ModalDropdown 
                                     options={this.state.bookAvailableForShareDropdown}
-                                    defaultValue={props.available_for_share ? 'Yes' : 'No'}
+                                    defaultValue={this.state.available_for_share ? 'Yes' : 'No'}
                                     animated={false}
                                     style={{backgroundColor: '#4885ed', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 5}}
                                     textStyle={{color: '#fff', fontSize: 14}}
                                     dropdownStyle={styles.dropdownStyle}
                                     dropdownTextStyle={styles.dropdownTextStyle}
+                                    onSelect={(index, value) => this.handleChangeShare(value)}
                                 />
                             </View>
 
@@ -161,13 +180,13 @@ export default class BookDetailModal extends React.Component {
 
                         {/* action buttons */}
                         <View style={styles.buttonsContainer}>
-                            <TouchableOpacity style={styles.deleteButton} onPress={props.closeModal}>
+                            <TouchableOpacity style={styles.deleteButton} onPress={this.handleDelete}>
                                 <Text style={{color: '#8c1515'}}>DELETE</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.cancleButton} onPress={props.closeModal}>
                                 <Text style={{color: '#fff'}}>CANCLE</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.saveButton} onPress={props.saveChanges}>
+                            <TouchableOpacity style={styles.saveButton} onPress={this.handleSave}>
                                 <Text style={{color: '#000'}}>SAVE</Text>
                             </TouchableOpacity>
                         </View>
@@ -181,7 +200,14 @@ export default class BookDetailModal extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({userRating: nextProps.variant.user_rating});
+        this.setState({
+            variant: nextProps.variant,
+            user_rating: this.props.variant.user_rating,
+            book_condition: this.props.variant.book_condition,
+            status: this.props.variant.status,
+            progress: this.props.variant.progress,
+            available_for_share: this.props.variant.available_for_share
+        });
     }
 
     renderImage() {
@@ -192,9 +218,96 @@ export default class BookDetailModal extends React.Component {
         return <Image source={{ uri: 'https://www.edsportrallysupplies.ie/media/catalog/product/cache/1/image/256x256/9df78eab33525d08d6e5fb8d27136e95/i/m/image-placeholder-alt_2_1.jpg' }} style={styles.bookImage} />
     }
     handleChangeUserRating(rating) {
-        this.setState({userRating: rating, userRatingModalVisible: false})
+        let newStateVariant = Object.assign({}, this.state.variant);
+        newStateVariant.user_rating = rating;
+        this.setState({variant: newStateVariant, user_rating: rating, userRatingModalVisible: false})
     }
+    handleChangeStatus(status) {
+        let newProgress = this.state.variant.progress;
+        if (status === 'Read') {
+            newProgress = 100;
+        } else if (status === 'Not started' || status === 'Watch list') {
+            newProgress = 0;
+        }
 
+        let progressArr = [0,10,20,30,40,50,60,70,80,90,100];
+
+        this.setState({status, progress: newProgress});
+        this.refs.progressDropdown.select(progressArr.indexOf(newProgress));
+    }
+    handleChangeProgress(progress) {
+        let newStatus = this.state.variant.status;
+        if (progress === '100%') {
+            newStatus = 'Read';
+        } else if (progress === '0%') {
+            newStatus = 'Not started';
+        } 
+        else {
+            if (newStatus !== 'Reading') {
+                newStatus = 'Reading';
+            }
+        }
+
+        let statusIndex = 0;
+        this.state.bookStatusDropdown.map((status, index) => {
+            if (newStatus === status) {
+                statusIndex = index;
+            }
+        });
+
+        let newProgress;
+        let progressArr = [0,10,20,30,40,50,60,70,80,90,100];
+        progressArr.map((p) => {
+            if (progress === p + '%') {
+                newProgress = p;
+            }
+        })
+
+        this.setState({status: newStatus, progress: newProgress});
+        this.refs.statusDropdown.select(statusIndex);   
+    }
+    handleChangeShare(share) {
+        let newShare = true;
+        if (share === 'No') {
+            newShare = false;
+        }
+        let newStateVariant = Object.assign({}, this.state.variant);
+        newStateVariant.available_for_share = newShare;
+        this.setState({variant: newStateVariant, available_for_share: newShare});
+    }
+    handleReset() {
+        
+    }
+    handleSave() {
+        const saveObj = {
+            variant_id: this.props.variant._id,
+            update: {
+                user_rating: this.state.user_rating,
+                book_condition: this.state.book_condition,
+                status: this.state.status,
+                progress: this.state.progress,
+                available_for_share: this.state.available_for_share
+            }
+        }
+        this.props.saveChanges(saveObj);
+    }
+    handleDelete() {
+        Alert.alert(
+            'Delete confirmation',
+            'Are you sure?',
+            [
+                {
+                    text: 'Yes',
+                    onPress: () => {
+                        this.props.delete(this.props.variant._id);
+                    }
+                },
+                {   
+                    text: 'Cancel', 
+                },
+            ]
+        )
+    }
 }
 
 const styles = StyleSheet.create({
