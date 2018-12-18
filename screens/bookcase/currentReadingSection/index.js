@@ -6,7 +6,7 @@ import Modal from "react-native-modal";
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { changeVariantStatus, changeVariantProgress } from 'book/redux/actions/user';
+import { getVariants, updateVariant } from 'book/redux/actions/variant';
 
 import CurrentReadingCard from './CurrentReadingCard';
 import CurrentReadingModalCard from './CurrentReadingModalCard'
@@ -19,6 +19,7 @@ class CurrentReadingSection extends React.Component {
         }
 
         this.handleBookSelection = this.handleBookSelection.bind(this);
+        this.handleRemoveBook = this.handleRemoveBook.bind(this);
         this.handleChangeBookProgress = this.handleChangeBookProgress.bind(this);
     }
 
@@ -52,18 +53,17 @@ class CurrentReadingSection extends React.Component {
         let arr = [];
         this.props.variants.variants.forEach((item, index) => {
             if(item.status === 'Reading') {
-                arr.push(<CurrentReadingCard variant={item} key={index} index={index} removeBook={this.handleBookSelection} changeBookProgress={this.handleChangeBookProgress} />);
+                arr.push(<CurrentReadingCard variant={item} key={index} index={index} removeBook={this.handleRemoveBook} changeBookProgress={this.handleChangeBookProgress} />);
             }
         });
 
         return arr;
     }
-
     renderModalBooks() {
         let arr = [];
-        this.props.variants.variants.forEach((item, index) => {
-            if (item.status !== 'Reading') {
-                arr.push(<CurrentReadingModalCard variant={item} key={index} index={index} addBook={this.handleBookSelection}/>)
+        this.props.variants.variants.forEach(item => {
+            if (item.status !== 'Reading' && item.status !== 'Recommended' && item.status !== 'Watch list') {
+                arr.push(<CurrentReadingModalCard variant={item} key={item._id} addBook={this.handleBookSelection}/>)
             }
         });
 
@@ -73,13 +73,54 @@ class CurrentReadingSection extends React.Component {
 
         return arr;
     }
+    handleBookSelection (id) {
+        const updateObj = {
+            variant_id: id,
+            update: {
+                status: 'Reading',
+            }
+        }
 
-    handleBookSelection (index, status) {
-        this.props.changeVariantStatus(index, status);
+        this.props.updateVariant(this.props.user.token, updateObj)
+            .then(() => {
+                this.props.getVariants(this.props.user.token);
+                this.setState({isModalVisible: false});
+            });
+    }
+    handleRemoveBook (id) {
+        const updateObj = {
+            variant_id: id,
+            update: {
+                status: 'Not started',
+                progress: 0
+            }
+        }
+
+        this.props.updateVariant(this.props.user.token, updateObj)
+            .then(() => {
+                this.props.getVariants(this.props.user.token);
+                this.setState({isModalVisible: false});
+            });
     }
 
-    handleChangeBookProgress (index, newProgress) {
-        this.props.changeVariantProgress(index, newProgress);
+    handleChangeBookProgress (id, newProgress) {
+        let status = 'Reading';
+        if (newProgress === 100) {
+            status = 'Read';
+        }
+
+        const updateObj = {
+            variant_id: id,
+            update: {
+                progress: newProgress,
+                status
+            }
+        }
+
+        this.props.updateVariant(this.props.user.token, updateObj)
+            .then(() => {
+                this.props.getVariants(this.props.user.token);
+            });
     }
 }
 
@@ -124,14 +165,13 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { variants } = state
-    return { variants }
+    const { user, variants } = state
+    return { user, variants }
 };
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        changeVariantStatus,
-        changeVariantProgress
+        getVariants, updateVariant
     }, dispatch)
 );
   

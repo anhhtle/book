@@ -1,5 +1,5 @@
 import React from 'React';
-import { ScrollView, View, Image, Text, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
+import { ScrollView, View, Image, Text, TouchableOpacity, Dimensions, Alert, StyleSheet } from 'react-native';
 import Modal from "react-native-modal";
 
 import { renderRatingStars } from 'book/screens/utility/helperFunctions';
@@ -8,9 +8,9 @@ export default class RecommendedBookModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            variant: this.props.variant
         }
 
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     render () {
@@ -23,18 +23,18 @@ export default class RecommendedBookModal extends React.Component {
                     <ScrollView>
 
                         <View style={{backgroundColor: '#8c1515', padding: 8, marginBottom: 10}}>
-                            <Text style={styles.title}>{props.variant.book.title}</Text>
+                            <Text style={styles.title}>{props.variant ? props.variant.book.title: ''}</Text>
                         </View>
 
                         {/* header */}
                         <View style={styles.header}>
                             { this.renderImage() }
                             <View style={styles.headerDetail}>
-                                <Text style={styles.author}>{props.variant.book.authors ? props.variant.book.authors[0] : ''}</Text>
+                                <Text style={styles.author}>{props.variant ? props.variant.book.authors[0] : ''}</Text>
 
                                 {/* ratings */}
                                 <View style={{flexDirection: 'row'}}>
-                                    { renderRatingStars(props.variant.book.ratings) }
+                                    { this.renderRating() }
                                 </View>
                                 
                             </View>
@@ -43,16 +43,16 @@ export default class RecommendedBookModal extends React.Component {
 
                         {/* book description */}
                         <View style={styles.descriptionContainer}>
-                            <Text>{props.variant.book.description}</Text>
+                            <Text>{props.variant ? props.variant.book.description: ''}</Text>
                         </View>
                         {/* end book description */}
 
                         {/* friend that recommended the book */}
                         <Text style={{color: '#8c1515', marginBottom: 10}}>RECOMMENDED BY</Text>
                         <View style={styles.friendContainer}>
-                            <Image source={{uri: props.variant.friend.avatar ? props.variant.friend.avatar.image : ''}} style={styles.profileImage}/>
+                            <Image source={{uri: props.variant ? props.variant.friend.avatar.image : 'https://www.edsportrallysupplies.ie/media/catalog/product/cache/1/image/256x256/9df78eab33525d08d6e5fb8d27136e95/i/m/image-placeholder-alt_2_1.jpg'}} style={styles.profileImage}/>
                             <View>
-                                <Text>{props.variant.friend.first_name} {props.variant.friend.last_name}</Text>
+                                <Text>{props.variant ? props.variant.friend.first_name : ''} {props.variant? props.variant.friend.last_name: ''}</Text>
                                 <Text>{this.renderAlias()}{this.renderJob()}</Text>
                             </View>
                         </View>
@@ -60,7 +60,7 @@ export default class RecommendedBookModal extends React.Component {
 
                         {/* action buttons */}
                         <View style={styles.buttonsContainer}>
-                            <TouchableOpacity style={styles.deleteButton} onPress={props.closeModal}>
+                            <TouchableOpacity style={styles.deleteButton} onPress={this.handleDelete}>
                                 <Text style={{color: '#8c1515'}}>DELETE</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.addButton} onPress={props.saveChanges}>
@@ -77,28 +77,60 @@ export default class RecommendedBookModal extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({variant: nextProps.variant})
     }
 
     renderImage() {
-        if (this.props.variant.book.image) {
-            return <Image source={{ uri: this.props.variant.book.image }} style={styles.bookImage} />
+        if (this.props.variant) {
+            if (this.props.variant.book.image) {
+                return <Image source={{ uri: this.props.variant.book.image }} style={styles.bookImage} />
+            }
         }
 
         // placeholder image if book don't have one
         return <Image source={{ uri: 'https://www.edsportrallysupplies.ie/media/catalog/product/cache/1/image/256x256/9df78eab33525d08d6e5fb8d27136e95/i/m/image-placeholder-alt_2_1.jpg' }} style={styles.bookImage} />
     }
+    renderRating() {
+        if (this.props.variant) {
+            if (this.props.variant.book.ratings) {
+                return renderRatingStars(this.props.variant.book.ratings);
+            }
+        }
+        return renderRatingStars(0)
+    }
     renderAlias() {
-        if (this.props.variant.friend.alias) {
-            return (<Text style={{color: '#8c1515', fontWeight: 'bold'}}>{this.props.variant.friend.alias}</Text>)
+        if (this.props.variant) {
+            if (this.props.variant.friend.alias) {
+                return (<Text style={{color: '#8c1515', fontWeight: 'bold'}}>{this.props.variant.friend.alias}</Text>)
+            }
         }
     }
     renderJob() {
-        if (this.props.variant.friend.alias && this.props.variant.friend.job) {
-            return ', ' + this.props.variant.friend.job
-        } else if (this.props.variant.friend.job) {
-            return this.props.variant.friend.job;
+        if (this.props.variant) {
+            if (this.props.variant.friend.alias && this.props.variant.friend.job) {
+                return ', ' + this.props.variant.friend.job
+            } else if (this.props.variant.friend.job) {
+                return this.props.variant.friend.job;
+            }
         }
+    }
+    handleDelete() {
+        Alert.alert(
+            'Delete confirmation',
+            'Are you sure?',
+            [
+                {
+                    text: 'Yes',
+                    onPress: () => {
+                        if (this.props.variant) {
+                            this.props.delete(this.props.variant._id);
+                        }
+                    }
+                },
+                {   
+                    text: 'Cancel', 
+                },
+            ]
+        )
     }
 }
 

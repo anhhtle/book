@@ -46,25 +46,26 @@ export default class BookDetailModal extends React.Component {
                     <ScrollView>
 
                         <View style={{backgroundColor: '#8c1515', padding: 8, marginBottom: 10}}>
-                            <Text style={styles.title}>{props.variant.book.title}</Text>
+                            <Text style={styles.title}>{props.variant ? props.variant.book.title: ''}</Text>
                         </View>
 
                         {/* header */}
                         <View style={styles.header}>
                             { this.renderImage() }
                             <View style={styles.headerDetail}>
-                                <Text style={styles.author}>{props.variant.book.authors ? props.variant.book.authors[0] : ''}</Text>
+                                <Text style={styles.author}>{props.variant ? props.variant.book.authors[0] : ''}</Text>
 
                                 {/* ratings */}
                                 <View style={{flexDirection: 'row'}}>
-                                    { renderRatingStars(props.variant.book.ratings) }
+                                    <Text style={{marginRight: 10}}>Average ratings:</Text>
+                                    {this.renderRating()}
                                 </View>
                                 
                                 {/* user ratings */}
                                 <View style={{flexDirection: 'row'}}>
                                     <Text style={{marginRight: 10}}>My rating:</Text>
                                     <TouchableOpacity style={{flexDirection: 'row'}} onPress={() => this.setState({userRatingModalVisible: true})} >
-                                        { renderUserRatingStars(this.state.variant.user_rating) }
+                                        { props.variant ? renderUserRatingStars(this.state.variant.user_rating) : renderUserRatingStars(0) }
                                     </TouchableOpacity>
 
                                     <Modal isVisible={this.state.userRatingModalVisible} onBackdropPress={() => this.setState({userRatingModalVisible: false})} style={styles.modalOverlay}>
@@ -110,7 +111,7 @@ export default class BookDetailModal extends React.Component {
 
                         {/* book description */}
                         <View style={styles.descriptionContainer}>
-                            <Text>{props.variant.book.description}</Text>
+                            <Text>{props.variant ? props.variant.book.description : ''}</Text>
                         </View>
                         {/* end book description */}
 
@@ -121,7 +122,7 @@ export default class BookDetailModal extends React.Component {
                                 <Text style={styles.dropdownLabel}>Book condition:</Text>
                                 <ModalDropdown 
                                     options={this.state.bookConditionDropdown}
-                                    defaultValue={this.state.variant.book_condition}
+                                    defaultValue={props.variant ? this.state.variant.book_condition : ''}
                                     animated={false}
                                     style={{backgroundColor: '#4885ed', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 5}}
                                     textStyle={{color: '#fff', fontSize: 14}}
@@ -136,7 +137,7 @@ export default class BookDetailModal extends React.Component {
                                 <ModalDropdown
                                     ref={'statusDropdown'}
                                     options={this.state.bookStatusDropdown}
-                                    defaultValue={this.state.status}
+                                    defaultValue={props.variant ? this.state.status : ''}
                                     animated={false}
                                     style={{backgroundColor: '#4885ed', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 5}}
                                     textStyle={{color: '#fff', fontSize: 14}}
@@ -151,7 +152,7 @@ export default class BookDetailModal extends React.Component {
                                 <ModalDropdown 
                                     ref={'progressDropdown'}
                                     options={this.state.bookProgressDropdown}
-                                    defaultValue={this.state.variant.progress  + '%'}
+                                    defaultValue={props.variant ? this.state.variant.progress  + '%' : ''}
                                     animated={false}
                                     style={{backgroundColor: '#4885ed', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 5}}
                                     textStyle={{color: '#fff', fontSize: 14}}
@@ -165,7 +166,7 @@ export default class BookDetailModal extends React.Component {
                                 <Text style={styles.dropdownLabel}>Share with community?</Text>
                                 <ModalDropdown 
                                     options={this.state.bookAvailableForShareDropdown}
-                                    defaultValue={this.state.available_for_share ? 'Yes' : 'No'}
+                                    defaultValue={props.variant ? this.state.available_for_share ? 'Yes' : 'No' : ''}
                                     animated={false}
                                     style={{backgroundColor: '#4885ed', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 5}}
                                     textStyle={{color: '#fff', fontSize: 14}}
@@ -200,22 +201,42 @@ export default class BookDetailModal extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        let user_rating = 0;
+        let book_condition = status = progress = available_for_share = '';
+        if (nextProps.variant) {
+            user_rating = nextProps.variant.user_rating;
+            book_condition = nextProps.variant.book_condition;
+            status = nextProps.variant.status;
+            progress = nextProps.variant.progress;
+            available_for_share = nextProps.variant.available_for_share;
+        }
+
         this.setState({
             variant: nextProps.variant,
-            user_rating: this.props.variant.user_rating,
-            book_condition: this.props.variant.book_condition,
-            status: this.props.variant.status,
-            progress: this.props.variant.progress,
-            available_for_share: this.props.variant.available_for_share
+            user_rating,
+            book_condition,
+            status,
+            progress,
+            available_for_share
         });
     }
 
     renderImage() {
-        if (this.props.variant.book.image) {
-            return <Image source={{ uri: this.props.variant.book.image }} style={styles.bookImage} />
+        if (this.props.variant) {
+            if (this.props.variant.book.image) {
+                return <Image source={{ uri: this.props.variant.book.image }} style={styles.bookImage} />
+            }
         }
 
         return <Image source={{ uri: 'https://www.edsportrallysupplies.ie/media/catalog/product/cache/1/image/256x256/9df78eab33525d08d6e5fb8d27136e95/i/m/image-placeholder-alt_2_1.jpg' }} style={styles.bookImage} />
+    }
+    renderRating() {
+        if (this.props.variant) {
+            if (this.props.variant.book.ratings) {
+                return renderRatingStars(this.props.variant.book.ratings);
+            }
+        }
+        return renderRatingStars(0)
     }
     handleChangeUserRating(rating) {
         let newStateVariant = Object.assign({}, this.state.variant);
@@ -299,7 +320,9 @@ export default class BookDetailModal extends React.Component {
                 {
                     text: 'Yes',
                     onPress: () => {
-                        this.props.delete(this.props.variant._id);
+                        if (this.props.variant) {
+                            this.props.delete(this.props.variant._id);
+                        }
                     }
                 },
                 {   

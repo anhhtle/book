@@ -3,6 +3,8 @@ import { ScrollView, Text, View, TouchableOpacity, StyleSheet } from 'react-nati
 
 // redux
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getVariants, updateVariant, deleteVariant } from 'book/redux/actions/variant';
 
 // component
 import RecommendedBookModal from './RecommendedBookModal';
@@ -18,6 +20,7 @@ class RecommendedBookSection extends Component {
         }
 
         this.handleShowModal = this.handleShowModal.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     render() {
@@ -79,8 +82,11 @@ class RecommendedBookSection extends Component {
                     variant={this.props.variants.variants[this.state.indexSelected]} 
                     closeModal={() => this.setState({isModalVisible: false})} 
                     saveChanges={() => this.handleSaveChanges()}
+                    delete={this.handleDelete}
                 />
             )
+        } else {
+            return null;
         }
     }
     handleShowModal(index) {
@@ -91,6 +97,14 @@ class RecommendedBookSection extends Component {
     }
     handleSaveChanges() {
         this.setState({isModalVisible: false});
+    }
+    handleDelete(id) {
+        this.props.deleteVariant(this.props.user.token, id)
+        .then(() => {
+                this.setState({isModalVisible: false});
+                this.props.getVariants(this.props.user.token);
+            });
+            
     }
 }
 
@@ -124,8 +138,14 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { variants } = state
-    return { variants }
+    const { user, variants } = state
+    return { user, variants }
 };
+
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        getVariants, updateVariant, deleteVariant
+    }, dispatch)
+);
   
-export default connect(mapStateToProps)(RecommendedBookSection);
+export default connect(mapStateToProps, mapDispatchToProps)(RecommendedBookSection);
