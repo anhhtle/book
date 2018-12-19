@@ -7,12 +7,10 @@ export default class BookCard extends React.Component {
         super(props);
         this.state = {
             variant: this.props.variant,
-            switchValue: true 
         };
     }
 
     render () {
-
         return (
             <TouchableOpacity style={styles.container} onPress={this.props.showModal}>
                 { this.renderImage() }
@@ -70,7 +68,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     title: {
-        marginBottom: 5
+        marginBottom: 5,
+        color: '#8c1515',
+        fontWeight: 'bold'
     },
     author: {
         marginBottom: 5,

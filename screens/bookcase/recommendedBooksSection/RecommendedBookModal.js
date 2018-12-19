@@ -10,6 +10,7 @@ export default class RecommendedBookModal extends React.Component {
         this.state = {
         }
 
+        this.handleSave = this.handleSave.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
     }
 
@@ -63,7 +64,7 @@ export default class RecommendedBookModal extends React.Component {
                             <TouchableOpacity style={styles.deleteButton} onPress={this.handleDelete}>
                                 <Text style={{color: '#8c1515'}}>DELETE</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.addButton} onPress={props.saveChanges}>
+                            <TouchableOpacity style={styles.addButton} onPress={this.handleSave}>
                                 <Text style={{color: '#000'}}>ADD TO BOOKCASE</Text>
                             </TouchableOpacity>
                         </View>
@@ -75,10 +76,6 @@ export default class RecommendedBookModal extends React.Component {
             </Modal>
         )
     }
-
-    componentWillReceiveProps(nextProps) {
-    }
-
     renderImage() {
         if (this.props.variant) {
             if (this.props.variant.book.image) {
@@ -112,6 +109,15 @@ export default class RecommendedBookModal extends React.Component {
                 return this.props.variant.friend.job;
             }
         }
+    }
+    handleSave() {
+        const saveObj = {
+            variant_id: this.props.variant._id,
+            update: {
+                status: 'Not started'
+            }
+        }
+        this.props.saveChanges(saveObj);
     }
     handleDelete() {
         Alert.alert(

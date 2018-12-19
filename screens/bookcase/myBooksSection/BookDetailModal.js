@@ -65,7 +65,7 @@ export default class BookDetailModal extends React.Component {
                                 <View style={{flexDirection: 'row'}}>
                                     <Text style={{marginRight: 10}}>My rating:</Text>
                                     <TouchableOpacity style={{flexDirection: 'row'}} onPress={() => this.setState({userRatingModalVisible: true})} >
-                                        { props.variant ? renderUserRatingStars(this.state.variant.user_rating) : renderUserRatingStars(0) }
+                                        { this.renderUserRating() }
                                     </TouchableOpacity>
 
                                     <Modal isVisible={this.state.userRatingModalVisible} onBackdropPress={() => this.setState({userRatingModalVisible: false})} style={styles.modalOverlay}>
@@ -237,6 +237,12 @@ export default class BookDetailModal extends React.Component {
             }
         }
         return renderRatingStars(0)
+    }
+    renderUserRating() {
+        if (this.props.variant) {
+            return renderUserRatingStars(this.state.variant.user_rating)
+        }
+        return renderUserRatingStars(0)
     }
     handleChangeUserRating(rating) {
         let newStateVariant = Object.assign({}, this.state.variant);

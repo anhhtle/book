@@ -20,6 +20,7 @@ class RecommendedBookSection extends Component {
         }
 
         this.handleShowModal = this.handleShowModal.bind(this);
+        this.handleSaveChanges = this.handleSaveChanges.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
     }
 
@@ -81,7 +82,7 @@ class RecommendedBookSection extends Component {
                     isVisible={this.state.isModalVisible} 
                     variant={this.props.variants.variants[this.state.indexSelected]} 
                     closeModal={() => this.setState({isModalVisible: false})} 
-                    saveChanges={() => this.handleSaveChanges()}
+                    saveChanges={this.handleSaveChanges}
                     delete={this.handleDelete}
                 />
             )
@@ -95,7 +96,12 @@ class RecommendedBookSection extends Component {
             indexSelected: index
         });
     }
-    handleSaveChanges() {
+    handleSaveChanges(saveObj) {
+        this.props.updateVariant(this.props.user.token, saveObj)
+            .then(() => {
+                this.props.getVariants(this.props.user.token);
+            });
+            
         this.setState({isModalVisible: false});
     }
     handleDelete(id) {

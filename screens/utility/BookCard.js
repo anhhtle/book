@@ -13,7 +13,7 @@ export default class bookCard extends Component {
         return (
             <TouchableOpacity style={styles.container} onPress={this.props.showModal}>
                 {this.renderImage()}
-                <Text style={styles.bookTitle} numberOfLines={2}>{book.title}</Text>
+                <Text style={styles.title} numberOfLines={2}>{book.title}</Text>
                 <View style={{flexDirection: 'row'}}>
                     {renderRatingStars(this.props.book.ratings)}
                 </View>
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width / 3.8,
         resizeMode: 'contain',
     },
-    bookTitle: {
-        marginTop: 5
+    title: {
+        marginVertical: 5
     },
 });

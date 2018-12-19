@@ -65,6 +65,16 @@ class MyBooksSection extends Component {
             this.setState({needModal: false})
         }
     }
+    renderBooks() {
+        let arr = [];
+        this.props.variants.variants.map((item, index) => {
+            if (item.status !== 'Recommended') {
+                arr.push(<BookCard book={item.book} key={item._id} showModal={() => this.handleShowModal(index)} />);
+            }
+        });
+
+        return arr;
+    }
     renderModal() {
         if (this.state.needModal) {
             return (
@@ -76,17 +86,9 @@ class MyBooksSection extends Component {
                     delete={this.handleDelete}
                 />
             )
+        } else {
+            return null;
         }
-    }
-    renderBooks() {
-        let arr = [];
-        this.props.variants.variants.map((item, index) => {
-            if (item.status !== 'Recommended') {
-                arr.push(<BookCard book={item.book} key={item._id} showModal={() => this.handleShowModal(index)} />);
-            }
-        })
-
-        return arr;
     }
     handleShowModal(index) {
         this.setState({

@@ -1,7 +1,7 @@
 import React from 'React';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { Switch } from 'react-native-switch';
-import { renderRatingStars } from 'book/screens/utility/helperFunctions';
+import { renderRatingStars, renderUserRatingStars } from 'book/screens/utility/helperFunctions';
 
 export default class BookCard extends React.Component {
     constructor(props) {
@@ -10,10 +10,11 @@ export default class BookCard extends React.Component {
             variant: this.props.variant,
             switchValue: true 
         };
+
+        this.handleSaveChanges = this.handleSaveChanges.bind(this);
     }
 
     render () {
-
         return (
             <TouchableOpacity style={styles.container} onPress={this.props.showModal}>
                 { this.renderImage() }
@@ -24,7 +25,20 @@ export default class BookCard extends React.Component {
 
                     {/* ratings */}
                     <View style={{flexDirection: 'row', marginBottom: 5}}>
-                        { renderRatingStars(this.state.variant.book.ratings) }
+                        <Text>Average ratings: </Text>
+                        { this.renderRating() }
+                    </View>
+
+                    {/* user ratings */}
+                    <View style={{flexDirection: 'row', marginBottom: 5}}>
+                        <Text>My rating: </Text>
+                        { this.renderUserRating() }
+                    </View>
+
+                    {/* status*/}
+                    <View style={{flexDirection: 'row', marginBottom: 5}}>
+                        <Text>Status: </Text>
+                        <Text style={{color: '#8c1515'}}>{this.props.variant.status}</Text>
                     </View>
 
                     {/* share? */}
@@ -32,7 +46,7 @@ export default class BookCard extends React.Component {
                         <Text style={{marginRight: 10}}>Available for community?</Text>
                         <Switch
                             value={this.state.variant.available_for_share}
-                            onValueChange={(val) => console.log(val)}
+                            onValueChange={(val) => this.handleSaveChanges(val)}
                             circleSize={20}
                             barHeight={20}
                             circleBorderWidth={2}
@@ -47,7 +61,9 @@ export default class BookCard extends React.Component {
             </TouchableOpacity>
         )
     }
-
+    componentWillReceiveProps(nextProps) {
+        this.setState({variant: nextProps.variant});
+    }
     renderImage() {
         if (this.state.variant.book.image) {
             return <Image source={{ uri: this.state.variant.book.image }} style={styles.cardImage} />
@@ -55,17 +71,35 @@ export default class BookCard extends React.Component {
 
         return <Image source={{ uri: 'https://www.edsportrallysupplies.ie/media/catalog/product/cache/1/image/256x256/9df78eab33525d08d6e5fb8d27136e95/i/m/image-placeholder-alt_2_1.jpg' }} style={styles.cardImage} />
     }
-
-    componentWillReceiveProps(nextProps) {
-        this.setState({variant: nextProps.variant});
+    renderRating() {
+        if (this.props.variant) {
+            if (this.props.variant.book.ratings) {
+                return renderRatingStars(this.props.variant.book.ratings);
+            }
+        }
+        return renderRatingStars(0)
+    }
+    renderUserRating() {
+        if (this.props.variant) {
+            return renderUserRatingStars(this.state.variant.user_rating)
+        }
+        return renderUserRatingStars(0)
+    }
+    handleSaveChanges(val) {
+        const saveObj = {
+            variant_id: this.props.variant._id,
+            update: {
+                available_for_share: val
+            }
+        }
+        this.props.saveChanges(saveObj);
     }
 
 }
 
 const styles = StyleSheet.create({
     container: {
-        minHeight: 120,
-        maxHeight: 140,
+        height: 180,
         flexDirection: 'row',
         backgroundColor: '#fff',
         padding: 10,
@@ -83,7 +117,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     title: {
-        marginBottom: 5
+        marginBottom: 5,
+        color: '#8c1515',
+        fontWeight: 'bold'
     },
     author: {
         marginBottom: 5,

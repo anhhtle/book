@@ -1,7 +1,10 @@
 import React from 'React';
 import { ScrollView, StyleSheet } from 'react-native';
 
+// redux
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getVariants, updateVariant, deleteVariant } from 'book/redux/actions/variant';
 
 import GoBackHeader from 'book/screens/utility/GoBackHeader';
 import BookCard from './BookCard';
@@ -12,12 +15,14 @@ class RecommendedBooksDetailedScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            needModal: false,
             isModalVisible: false,
-            indexSelected: 0
+            indexSelected: null
         }
 
         this.handleShowModal = this.handleShowModal.bind(this);
         this.handleSaveChanges = this.handleSaveChanges.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     render () {
@@ -27,17 +32,30 @@ class RecommendedBooksDetailedScreen extends React.Component {
 
                 {this.renderBookCards()}
 
-                <RecommendedBookModal 
-                    isVisible={this.state.isModalVisible} 
-                    variant={this.props.variants[this.state.indexSelected]} 
-                    closeModal={() => this.setState({isModalVisible: false})} 
-                    saveChanges={() => this.handleSaveChanges(this.props.variants[this.state.indexSelected].book._id)}
-                    />
+                {this.renderModal()}
 
             </ScrollView>
         )
     }
-
+    componentDidMount() {
+        this.setModalIndex();
+    }
+    componentWillReceiveProps() {
+        this.setModalIndex();
+    }
+    setModalIndex() {
+        let indexSelected = null;
+        this.props.variants.variants.map((item, index) => {
+            if (item.status === 'Recommended') {
+                indexSelected = index;
+            }
+        });
+        if (indexSelected !== null) {
+            this.setState({indexSelected, needModal: true})
+        } else {
+            this.setState({needModal: false})
+        }
+    }
     renderBookCards() {
         let arr = [];
         this.props.variants.variants.forEach((variant, index) => {
@@ -48,11 +66,37 @@ class RecommendedBooksDetailedScreen extends React.Component {
 
         return arr;
     }
+    renderModal() {
+        if (this.state.needModal) {
+            return (
+                <RecommendedBookModal 
+                    isVisible={this.state.isModalVisible} 
+                    variant={this.props.variants.variants[this.state.indexSelected]} 
+                    closeModal={() => this.setState({isModalVisible: false})} 
+                    saveChanges={this.handleSaveChanges}
+                    delete={this.handleDelete}
+                />
+            )
+        } else {
+            return null;
+        }
+    }
     handleShowModal(index) {
-        this.setState({isModalVisible: true, indexSelected: index})
+        this.setState({
+            isModalVisible: true,
+            indexSelected: index
+        });
     }
     handleSaveChanges() {
-        this.setState({isModalVisible: false})
+        this.setState({isModalVisible: false});
+    }
+    handleDelete(id) {
+        this.props.deleteVariant(this.props.user.token, id)
+        .then(() => {
+                this.setState({isModalVisible: false});
+                this.props.getVariants(this.props.user.token);
+            });
+            
     }
 
 }
@@ -64,8 +108,14 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { variants } = state
-    return { variants }
-};
+    const { user, variants } = state;
+    return { user, variants }
+}
+
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        getVariants, updateVariant, deleteVariant
+    }, dispatch)
+);
   
-export default connect(mapStateToProps)(RecommendedBooksDetailedScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(RecommendedBooksDetailedScreen);
