@@ -66,7 +66,7 @@ class NotificationSettingsScreen extends Component {
                     </View>
 
                     {/* email */}
-                    <Text style={styles.header}>Push notifications</Text>
+                    <Text style={styles.header}>E-mail</Text>
 
                     <View style={styles.switchContainer}>
                         <Text style={styles.label}>Book requests</Text>

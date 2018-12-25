@@ -10,17 +10,21 @@ export default class SettingScreen extends Component {
             <View style={styles.container}>
                 <GoBackHeader title={'Settings and Privacy'} navigation={this.props.navigation} style={{ marginBottom: 35 }}/>
 
-                <TouchableOpacity style={styles.optionContainer} onPress={() => this.props.navigation.navigate('EditProfile')}>
+                <TouchableOpacity style={styles.optionContainer} 
+                onPress={() => this.props.navigation.navigate('EditProfile')}
+                >
                     <Ionicons style={styles.icon} color={'#4286f4'} name={Platform.OS === 'ios' ? 'ios-person' : 'md-person'} />
                     <Text style={styles.option}>Profile</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.optionContainer}>
+                <TouchableOpacity style={styles.optionContainer}
+                onPress={() => this.props.navigation.navigate('NotificationSettings')}
+                >
                     <Ionicons style={styles.icon} color={'#ffd472'} name={Platform.OS === 'ios' ? 'ios-notifications' : 'md-notifications'}/>
                     <Text style={styles.option}>Notification Settings</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.optionContainer}>
                     <Ionicons style={styles.icon} color={'#8c1515'} name={Platform.OS === 'ios' ? 'ios-book' : 'md-book'}/>
-                    <Text style={styles.option}>About us</Text>
+                    <Text style={styles.option}>About Us</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.optionContainer}>
                     <Ionicons style={styles.icon} color={'#ffafcf'} name={Platform.OS === 'ios' ? 'ios-heart' : 'md-heart'}/>

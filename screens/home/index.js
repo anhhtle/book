@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 
 // redux
 import { connect } from 'react-redux';
@@ -22,13 +22,15 @@ import NewsfeedSection from './newsfeed/NewsfeedSection';
 class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
+
+        this.load = this.load.bind(this);
     }
 
     render() {
         const props = this.props;
 
         return (
-            <ScrollView style={styles.container}>
+            <ScrollView style={styles.container} screenProps={{count: 1}}>
                 <MainHeader navigation={props.navigation} />
     
                 <BooksAvailableSection navigation={props.navigation}/>
@@ -40,18 +42,22 @@ class HomeScreen extends React.Component {
     }
 
     componentDidMount() {
+        this.load()
+        this.props.navigation.addListener('willFocus', this.load);
+
         if (this.props.appState.env === 'dev') {
             this.props.getCurrentUser(this.props.user.token);
         }
 
         this.props.getAvatars(this.props.user.token);
+        this.props.getVariantsShare(this.props.user.token, {page: 1});
+        this.props.getVariants(this.props.user.token);
+    }
+    load() {
         this.props.getNewsfeeds(this.props.user.token);
         this.props.getFriendRequests(this.props.user.token);
         this.props.getBookRequests(this.props.user.token);
-        this.props.getVariantsShare(this.props.user.token, {page: 1});
         this.props.getNotifications(this.props.user.token);
-        this.props.getVariants(this.props.user.token);
-
     }
 }
 
