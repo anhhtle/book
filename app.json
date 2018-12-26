@@ -3,7 +3,7 @@
   "displayName": "The Book's Journey",
   "expo": {
     "name": "thebooksjourney",
-    "description": "This project is really great.",
+    "description": "In dev",
     "slug": "thebooksjourney",
     "privacy": "public",
     "sdkVersion": "30.0.0",
@@ -24,6 +24,9 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.thebooksjourney"
     }
   }
 }

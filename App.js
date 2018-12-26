@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Plat } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 // redux
