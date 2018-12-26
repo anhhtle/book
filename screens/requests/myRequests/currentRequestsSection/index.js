@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getBookRequests, updateBookRequests } from 'book/redux/actions/request';
+import { getBookRequests, updateBookRequests } from 'thebooksjourney/redux//actions/request';
 
 // components
 import CurrentRequestCard from './CurrentRequestCard';

@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, Image, TouchableOpacity, Platform, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import {renderDate} from 'book/screens/utility/helperFunctions';
+import {renderDate} from 'thebooksjourney/screens/utility/helperFunctions';
 
 
 export default RecommendationCard = (props) => {

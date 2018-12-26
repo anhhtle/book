@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, TextInput, TouchableOpacity, Platform, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import {API_BASE_URL} from 'book/screens/utility/helperFunctions';
+import {API_BASE_URL} from 'thebooksjourney/screens/utility/helperFunctions';
 
 // redux
 import { connect } from 'react-redux';

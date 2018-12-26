@@ -1,4 +1,4 @@
-import {API_BASE_URL} from 'book/screens/utility/helperFunctions';
+import {API_BASE_URL} from 'thebooksjourney/screens/utility/helperFunctions';
 
 export const getNotifications = (token) => dispatch => {
     dispatch(getNotificationsRequest());

@@ -3,7 +3,7 @@ import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-nativ
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getUserToken, getCurrentUser } from 'book/redux/actions/user';
+import { getUserToken, getCurrentUser } from 'thebooksjourney/redux/actions/user';
 
 class SignInScreen extends React.Component {
     constructor(props) {

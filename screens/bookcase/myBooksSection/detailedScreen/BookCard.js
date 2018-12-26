@@ -1,7 +1,7 @@
 import React from 'React';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { Switch } from 'react-native-switch';
-import { renderRatingStars, renderUserRatingStars } from 'book/screens/utility/helperFunctions';
+import { renderRatingStars, renderUserRatingStars } from 'thebooksjourney/screens/utility/helperFunctions';
 
 export default class BookCard extends React.Component {
     constructor(props) {

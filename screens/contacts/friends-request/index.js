@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, Text, View, StyleSheet, } from 'react-native';
 
-import {API_BASE_URL} from 'book/screens/utility/helperFunctions';
+import {API_BASE_URL} from 'thebooksjourney/screens/utility/helperFunctions';
 
 // redux
 import { connect } from 'react-redux';

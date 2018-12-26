@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
-import { renderRatingStars, renderLongDate } from 'book/screens/utility/helperFunctions';
+import { renderRatingStars, renderLongDate } from 'thebooksjourney/screens/utility/helperFunctions';
 
 export default FriendCurrentReadingCard = (props) => {
     return (

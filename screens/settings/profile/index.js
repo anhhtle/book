@@ -4,10 +4,10 @@ import { ScrollView, StyleSheet, Button } from 'react-native';
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { changeUserInfo, changeUserAddress } from 'book/redux/actions/user';
+import { changeUserInfo, changeUserAddress } from 'thebooksjourney/redux//actions/user';
 
 // components
-import GoBackHeader from 'book/screens/utility/GoBackHeader';
+import GoBackHeader from 'thebooksjourney/screens/utility/GoBackHeader';
 import AvatarSection from './AvatarSection';
 import BasicInfoSection from './BasicInfoSection';
 import AddressSection from './AddressSection';

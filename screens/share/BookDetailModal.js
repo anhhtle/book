@@ -3,7 +3,7 @@ import { ScrollView, View, Image, Text, TouchableOpacity, Dimensions, StyleSheet
 import Modal from "react-native-modal";
 
 
-import { renderRatingStars } from 'book/screens/utility/helperFunctions';
+import { renderRatingStars } from 'thebooksjourney/screens/utility/helperFunctions';
 
 export default class BookDetailModal extends React.Component {
     constructor(props) {

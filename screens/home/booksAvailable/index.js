@@ -4,12 +4,12 @@ import { ScrollView, Text, View, Alert, TouchableOpacity, StyleSheet } from 'rea
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getBookRequests, createBookRequest } from 'book/redux/actions/request';
-import { getVariantsShare } from 'book/redux/actions/variantShare';
+import { getBookRequests, createBookRequest } from 'thebooksjourney/redux//actions/request';
+import { getVariantsShare } from 'thebooksjourney/redux//actions/variantShare';
 
 // component
-import BookCard from 'book/screens/utility/BookCard';
-import BookDetailModal from 'book/screens/share/BookDetailModal';
+import BookCard from 'thebooksjourney/screens/utility/BookCard';
+import BookDetailModal from 'thebooksjourney/screens/share/BookDetailModal';
 
 class BooksAvailableSection extends Component {
     constructor(props) {

@@ -4,10 +4,10 @@ import { ScrollView, Text, View, TouchableOpacity, StyleSheet } from 'react-nati
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getVariants, updateVariant, deleteVariant } from 'book/redux/actions/variant';
+import { getVariants, updateVariant, deleteVariant } from 'thebooksjourney/redux//actions/variant';
 
 // component
-import BookCard from 'book/screens/utility/BookCard';
+import BookCard from 'thebooksjourney/screens/utility/BookCard';
 import BookDetailModal from './BookDetailModal';
 
 class MyBooksSection extends Component {

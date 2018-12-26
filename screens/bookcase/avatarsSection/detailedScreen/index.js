@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet } from 'react-native';
 
 import { connect } from 'react-redux';
 
-import GoBackHeader from 'book/screens/utility/GoBackHeader';
+import GoBackHeader from 'thebooksjourney/screens/utility/GoBackHeader';
 import AvatarCard from '../AvatarCard';
 import AvatarLockedCard from './AvatarLockedCard';
 import AvatarDetailModal from '../AvatarDetailModal'; 

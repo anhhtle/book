@@ -4,9 +4,9 @@ import { ScrollView, StyleSheet } from 'react-native';
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getVariants, updateVariant, deleteVariant } from 'book/redux/actions/variant';
+import { getVariants, updateVariant, deleteVariant } from 'thebooksjourney/redux//actions/variant';
 
-import GoBackHeader from 'book/screens/utility/GoBackHeader';
+import GoBackHeader from 'thebooksjourney/screens/utility/GoBackHeader';
 import BookCard from './BookCard';
 import RecommendedBookModal from '../RecommendedBookModal'; 
 

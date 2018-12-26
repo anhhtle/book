@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
-import { renderLongDate } from 'book/screens/utility/helperFunctions';
+import { renderLongDate } from 'thebooksjourney/screens/utility/helperFunctions';
 
 export default FriendNewAvatarCard = (props) => {
     return (

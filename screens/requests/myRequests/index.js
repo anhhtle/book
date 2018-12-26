@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 
 // components
-import GoBackHeader from 'book/screens/utility/GoBackHeader';
+import GoBackHeader from 'thebooksjourney/screens/utility/GoBackHeader';
 import CurrentRequestsSection from './currentRequestsSection';
 import EarlierRequestsSection from './earlierRequestsSection';
 

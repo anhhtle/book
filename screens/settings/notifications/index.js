@@ -4,7 +4,7 @@ import { Switch } from 'react-native-switch';
 
 import { connect } from 'react-redux';
 
-import GoBackHeader from 'book/screens/utility/GoBackHeader';
+import GoBackHeader from 'thebooksjourney/screens/utility/GoBackHeader';
 
 class NotificationSettingsScreen extends Component {
     constructor (props) {

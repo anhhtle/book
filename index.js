@@ -3,4 +3,4 @@ import App from './App';
 
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
 
-AppRegistry.registerComponent('book', () => App);
+AppRegistry.registerComponent('thebooksjourney', () => App);

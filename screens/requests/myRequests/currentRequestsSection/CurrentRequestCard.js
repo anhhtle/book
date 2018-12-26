@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, Dimensions, TouchableOpacity, Platform, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import {renderDate} from 'book/screens/utility/helperFunctions';
+import {renderDate} from 'thebooksjourney/screens/utility/helperFunctions';
 
 export default class CurrentRequestCard extends React.Component {
     constructor (props) {

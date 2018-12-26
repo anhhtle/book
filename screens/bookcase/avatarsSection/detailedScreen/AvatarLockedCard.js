@@ -6,7 +6,7 @@ export default AvatarLockedCard = (props) => {
         <View style={styles.container} >
             <View style={styles.cardContent}>
                 <View style={styles.imageContainer}>
-                    <Image source={require('book/assets/book.jpg')} style={styles.image}/>
+                    <Image source={require('thebooksjourney/assets/book.jpg')} style={styles.image}/>
                 </View>
                 <View style={styles.avatarTextContainer}>
                     <Text style={styles.avatarName}>???</Text>

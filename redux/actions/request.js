@@ -1,4 +1,4 @@
-import {API_BASE_URL} from 'book/screens/utility/helperFunctions';
+import {API_BASE_URL} from 'thebooksjourney/screens/utility/helperFunctions';
 
 // get book requests
 export const getBookRequests = (token) => dispatch => {

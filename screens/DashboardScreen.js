@@ -4,7 +4,7 @@ import { createBottomTabNavigator, createStackNavigator } from 'react-navigation
 
 // import IconBadge from 'react-native-icon-badge';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import IconBadgeContacts from 'book/screens/utility/IconBadgeContacts';
+import IconBadgeContacts from 'thebooksjourney/screens/utility/IconBadgeContacts';
 
 import HomeScreen from './home/index';
 

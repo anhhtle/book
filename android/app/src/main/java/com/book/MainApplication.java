@@ -1,4 +1,4 @@
-package com.book;
+package com.thebooksjourney;
 
 import android.app.Application;
 

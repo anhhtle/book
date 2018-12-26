@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { createFriendRequest } from 'book/redux/actions/friend';
+import { createFriendRequest } from 'thebooksjourney/redux//actions/friend';
 
 class ResultCard extends React.Component {
     constructor(props) {

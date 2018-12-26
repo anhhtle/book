@@ -2,7 +2,7 @@ import React from 'React';
 import { View, Text, Image, Platform, TouchableOpacity, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { renderRatingStars } from 'book/screens/utility/helperFunctions';
+import { renderRatingStars } from 'thebooksjourney/screens/utility/helperFunctions';
 
 export default class ResultCard extends React.Component {
     constructor(props) {

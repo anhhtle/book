@@ -1,10 +1,10 @@
 {
-  "name": "book",
-  "displayName": "book",
+  "name": "thebooksjourney",
+  "displayName": "The Book's Journey",
   "expo": {
-    "name": "book",
+    "name": "thebooksjourney",
     "description": "This project is really great.",
-    "slug": "book",
+    "slug": "thebooksjourney",
     "privacy": "public",
     "sdkVersion": "30.0.0",
     "platforms": ["ios", "android"],

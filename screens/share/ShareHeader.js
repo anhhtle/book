@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getVariantsShare, searchVariantsShare } from 'book/redux/actions/variantShare';
+import { getVariantsShare, searchVariantsShare } from 'thebooksjourney/redux//actions/variantShare';
 
 class ShareHeader extends Component {
     constructor(props) {

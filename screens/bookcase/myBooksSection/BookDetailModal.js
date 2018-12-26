@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import ModalDropdown from 'react-native-modal-dropdown';
 
-import { renderRatingStars, renderUserRatingStars } from 'book/screens/utility/helperFunctions';
+import { renderRatingStars, renderUserRatingStars } from 'thebooksjourney/screens/utility/helperFunctions';
 
 export default class BookDetailModal extends React.Component {
     constructor(props) {

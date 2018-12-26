@@ -4,14 +4,14 @@ import { ScrollView, StyleSheet } from 'react-native';
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getCurrentUser } from 'book/redux/actions/user';
-import { getAvatars } from 'book/redux/actions/avatar';
-import { getNewsfeeds } from 'book/redux/actions/newsfeed';
-import { getBookRequests } from 'book/redux/actions/request';
-import { getFriendRequests } from 'book/redux/actions/friend';
-import { getVariantsShare } from 'book/redux/actions/variantShare';
-import { getNotifications } from 'book/redux/actions/notification';
-import { getVariants } from 'book/redux/actions/variant';
+import { getCurrentUser } from 'thebooksjourney/redux//actions/user';
+import { getAvatars } from 'thebooksjourney/redux//actions/avatar';
+import { getNewsfeeds } from 'thebooksjourney/redux//actions/newsfeed';
+import { getBookRequests } from 'thebooksjourney/redux//actions/request';
+import { getFriendRequests } from 'thebooksjourney/redux//actions/friend';
+import { getVariantsShare } from 'thebooksjourney/redux//actions/variantShare';
+import { getNotifications } from 'thebooksjourney/redux//actions/notification';
+import { getVariants } from 'thebooksjourney/redux//actions/variant';
 
 // component
 import MainHeader from '../MainHeader';
