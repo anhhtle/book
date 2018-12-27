@@ -16,7 +16,7 @@ export default class CurrentRequestCard extends React.Component {
 
         return (
             <View style={styles.container}>
-                <Image source={{ uri: props.request.variant.book.image }} style={styles.bookImage} />
+                <Image source={{ uri: this.props.request.variant.book.image }} style={styles.bookImage} />
 
                 <View style={{flex: 1}}>
                     {this.renderCardBody()}
@@ -34,7 +34,6 @@ export default class CurrentRequestCard extends React.Component {
             </View>
         )
     }
-
     renderCardBody () {
         if (this.props.request.status === 'Requesting') {
             return this.renderRequesting();

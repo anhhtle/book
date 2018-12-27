@@ -1,10 +1,14 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, Platform, StyleSheet } from 'react-native';
+import Modal from "react-native-modal";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default class FriendCard extends React.Component {
     constructor(props){
         super(props)
+        this.state = {
+            isModalVisible: false
+        }
     }
 
     render() {
@@ -20,9 +24,17 @@ export default class FriendCard extends React.Component {
                         <Text style={styles.contactAliasContainer}>{this.renderAlias()}{this.renderJob()}</Text>
                     </View>
     
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.setState({isModalVisible: !this.state.isModalVisible})}>
                         <Ionicons name={Platform.OS === 'ios' ? 'ios-more' : 'md-more'} style={styles.moreIcon} />
                     </TouchableOpacity>
+
+                    <Modal isVisible={this.state.isModalVisible} onBackdropPress={() => this.setState({ isModalVisible: false })} style={styles.modalOverlay}>
+                        <View style={styles.modal}>
+                            <TouchableOpacity style={{padding: 5}}>
+                                <Text>Remove contact</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </Modal>
                 </View>
     
             </View>
@@ -73,5 +85,15 @@ const styles = StyleSheet.create({
     moreIcon: {
         fontSize: 18,
         marginRight: 10
+    },
+    modalOverlay: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    modal: {
+        backgroundColor: '#fff',
+        padding: 10,
+        width: 200
     }
 });

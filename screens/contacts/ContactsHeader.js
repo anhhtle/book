@@ -19,7 +19,7 @@ class ContactsHeader extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.searchContainer}>
-                    <TouchableOpacity style={styles.searchIconContainer} onPress={this.onSearchSubmit}>>
+                    <TouchableOpacity style={styles.searchIconContainer} onPress={this.onSearchSubmit}>
                         <Ionicons style={styles.searchIcon} name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'} color="#000"/>
                     </TouchableOpacity>
                     <TextInput 

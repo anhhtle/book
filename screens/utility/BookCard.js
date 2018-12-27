@@ -33,7 +33,7 @@ export default class bookCard extends Component {
 const styles = StyleSheet.create({
     container: {
         width: Dimensions.get('window').width / 3.8,
-        height: 185,
+        height: 195,
         alignItems: 'center',
         margin: 5
     },
