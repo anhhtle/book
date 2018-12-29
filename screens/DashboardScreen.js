@@ -1,10 +1,10 @@
 import React from 'react';
-import { Platform, Text } from 'react-native';
+import { Platform } from 'react-native';
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 
-// import IconBadge from 'react-native-icon-badge';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import IconBadgeContacts from 'thebooksjourney/screens/utility/IconBadgeContacts';
+import IconBadgeNotifications from 'thebooksjourney/screens/utility/IconBadgeNotifications';
 
 import HomeScreen from './home/index';
 
@@ -119,7 +119,7 @@ export default createBottomTabNavigator (
                     }
                     iconName += 'notifications';
 
-                    return <IconBadgeContacts
+                    return <IconBadgeNotifications
                         name={iconName}
                         color={tintColor}
                     />

@@ -24,13 +24,13 @@ export default class FriendCard extends React.Component {
                         <Text style={styles.contactAliasContainer}>{this.renderAlias()}{this.renderJob()}</Text>
                     </View>
     
-                    <TouchableOpacity onPress={() => this.setState({isModalVisible: !this.state.isModalVisible})}>
+                    <TouchableOpacity style={styles.actionBtnContainer} onPress={() => this.setState({isModalVisible: !this.state.isModalVisible})}>
                         <Ionicons name={Platform.OS === 'ios' ? 'ios-more' : 'md-more'} style={styles.moreIcon} />
                     </TouchableOpacity>
 
                     <Modal isVisible={this.state.isModalVisible} onBackdropPress={() => this.setState({ isModalVisible: false })} style={styles.modalOverlay}>
                         <View style={styles.modal}>
-                            <TouchableOpacity style={{padding: 5}}>
+                            <TouchableOpacity style={{padding: 5}} onPress={props.delete}>
                                 <Text>Remove contact</Text>
                             </TouchableOpacity>
                         </View>
@@ -82,9 +82,15 @@ const styles = StyleSheet.create({
     contactAlias: {
         color: '#8c1515'
     },
+    actionBtnContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 40,
+        height: 40,
+    },
     moreIcon: {
-        fontSize: 18,
-        marginRight: 10
+        fontSize: 18
     },
     modalOverlay: {
         flex: 1,

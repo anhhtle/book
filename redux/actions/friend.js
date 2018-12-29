@@ -2,7 +2,7 @@ import {API_BASE_URL} from 'thebooksjourney/screens/utility/helperFunctions';
 
 
 // get friend requests
-export const getFriendRequests = (token, friend_id) => dispatch => {
+export const getFriendRequests = (token) => dispatch => {
     dispatch(getFriendRequestsRequest());
 
     return fetch(`${API_BASE_URL}/friend-requests`, 
@@ -70,6 +70,7 @@ export const createFriendRequestSuccess = (friend_request) => (
     }
 );
 
+// error
 export const friendRequestsError = (error) => (
     {
         type: 'FRIEND_REQUESTS_ERROR',

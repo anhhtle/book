@@ -3,12 +3,19 @@ import { ScrollView, Text, StyleSheet } from 'react-native';
 
 // redux
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getCurrentUser, deleteFriend } from 'thebooksjourney/redux//actions/user';
 
 import ContactsHeader from '../ContactsHeader';
 import ContactsSubheader from '../ContactsSubheader';
 import FriendCard from './FriendCard';
 
 class FriendsListScreen extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.handleDelete = this.handleDelete.bind(this);
+    }
 
     render () {
         return (
@@ -23,9 +30,13 @@ class FriendsListScreen extends React.Component {
     renderFriendCards() {
         let arr = []
         this.props.user.friends.map(friend => {
-            arr.push(<FriendCard friend={friend} key={friend._id}/>)
+            arr.push(<FriendCard friend={friend} key={friend._id} delete={() => this.handleDelete(friend._id)}/>)
         });
         return arr;
+    }
+    handleDelete(friend_id) {
+        this.props.deleteFriend(this.props.user.token, {friend_id})
+            .then(() => this.props.getCurrentUser(this.props.user.token));
     }
 }
 
@@ -40,4 +51,11 @@ const mapStateToProps = (state) => {
     return { user }
 }
 
-export default connect(mapStateToProps)(FriendsListScreen)
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        getCurrentUser, deleteFriend
+    }, dispatch)
+);
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(FriendsListScreen)

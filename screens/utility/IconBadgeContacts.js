@@ -31,7 +31,7 @@ class IconBadgeContacts extends Component {
         if (count > 0) {
             return (
                 <View style={styles.countContainer}>
-                    <Text style={{color: '#fff'}}>{count}</Text>
+                    {/* <Text style={{color: '#fff'}}>{count}</Text> */}
                 </View>
             )
         }
@@ -39,15 +39,13 @@ class IconBadgeContacts extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-    },
     countContainer: {
         position:'absolute',
-        top: -10,
-        right: -15,
-        width: 20,
-        height: 20,
-        borderRadius: 10,
+        top: -1,
+        right: -6,
+        width: 10,
+        height: 10,
+        borderRadius: 5,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#FF0000',

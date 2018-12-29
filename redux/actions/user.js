@@ -71,6 +71,44 @@ export const getCurrentUserSuccess = (user, token) => (
     }
 );
 
+// delete a friend
+export const deleteFriend = (token, updateObj) => dispatch => {
+    dispatch(deleteFriendRequest());
+
+    return fetch(`${API_BASE_URL}/user/friend/delete`, 
+    {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Token ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updateObj)
+    }
+    ).then(res => {
+        return res.json();
+    }).then(resJson => {
+        dispatch(deleteFriendSuccess(resJson));
+    }).catch(err => {
+        console.log(err);
+        dispatch(userError(error));
+    });
+}
+
+export const deleteFriendRequest= () => (
+    {
+        type: 'DELETE_FRIEND_REQUEST'
+    }
+);
+
+export const deleteFriendSuccess = (user) => (
+    {
+        type: 'DELETE_FRIEND_SUCCESS',
+        payload: user
+    }
+);
+
+
+// error
 export const userError = (error) => (
     {
         type: 'USER_ERROR',
@@ -81,12 +119,7 @@ export const userError = (error) => (
 
 
 
-
-
-
-
-
-
+// not implemented yet
 
 export const changeUserInfo = (field, value) => (
     {
