@@ -107,6 +107,43 @@ export const deleteFriendSuccess = (user) => (
     }
 );
 
+// UPDATE setting
+export const updateSetting = (token, updateObj) => dispatch => {
+    dispatch(updateSettingRequest());
+
+    return fetch(`${API_BASE_URL}/user/setting`, 
+    {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Token ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updateObj)
+    }
+    ).then(res => {
+        return res.json();
+    }).then(resJson => {
+        dispatch(updateSettingSuccess(resJson));
+    }).catch(err => {
+        console.log(err);
+        dispatch(userError(error));
+    });
+}
+
+export const updateSettingRequest= () => (
+    {
+        type: 'UPDATE_SETTING_REQUEST'
+    }
+);
+
+
+export const updateSettingSuccess = (setting) => (
+    {
+        type: 'UPDATE_SETTING_SUCCESS',
+        payload: setting
+    }
+);
+
 
 // error
 export const userError = (error) => (
