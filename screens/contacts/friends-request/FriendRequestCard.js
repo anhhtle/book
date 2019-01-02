@@ -16,13 +16,13 @@ export default class FriendRequestCard extends React.Component {
             <View style={styles.container}>
                 
                 {/* more option */}
-                <TouchableOpacity style={{alignSelf: 'flex-end'}} onPress={() => this.setState({isModalVisible: !this.state.isModalVisible})}>
+                <TouchableOpacity style={styles.moreIconContainer} onPress={() => this.setState({isModalVisible: !this.state.isModalVisible})}>
                     <Ionicons name={Platform.OS === 'ios' ? 'ios-more' : 'md-more'} style={styles.moreIcon} />
                 </TouchableOpacity>
 
                 <Modal isVisible={this.state.isModalVisible} onBackdropPress={() => this.setState({ isModalVisible: false })} style={styles.modalOverlay}>
                     <View style={styles.modal}>
-                        <TouchableOpacity style={{padding: 5}}>
+                        <TouchableOpacity style={{padding: 5}} onPress={this.props.delete}>
                             <Text>Delete</Text>
                         </TouchableOpacity>
                     </View>
@@ -95,6 +95,13 @@ const styles = StyleSheet.create({
         paddingVertical: 4,
         paddingHorizontal: 10,
         borderRadius: 5
+    },
+    moreIconContainer: {
+        alignSelf: 'flex-end',
+        alignItems: 'center',
+        width: 40,
+        height: 30,
+        padding: 5
     },
     moreIcon: {
         fontSize: 18,

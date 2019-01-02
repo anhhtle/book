@@ -3,13 +3,18 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 // redux
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { seenFriendRequests } from 'thebooksjourney/redux/actions/friend';
 
 class ContactsSubheader extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeTab: this.props.navigation.state.routeName
+            activeTab: this.props.navigation.state.routeName,
+            count: 0
         }
+
+        this.handleFriendRequestClick = this.handleFriendRequestClick.bind(this);
     }
     
     render() {
@@ -18,7 +23,7 @@ class ContactsSubheader extends Component {
                 <TouchableOpacity style={styles.subheaderLink} onPress={() => this.props.navigation.navigate('FriendsList')}>
                     <Text style={this.state.activeTab === 'FriendsList' ? styles.subheaderLinkActive : styles.subheaderLinkText}>FRIENDS</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.subheaderLink} onPress={() => this.props.navigation.navigate('FriendsRequest')}>
+                <TouchableOpacity style={styles.subheaderLink} onPress={() => this.handleFriendRequestClick()}>
                     <Text style={this.state.activeTab === 'FriendsRequest' ? styles.subheaderLinkActive : styles.subheaderLinkText}>REQUESTS</Text>
 
                     {this.renderCount()}
@@ -26,8 +31,7 @@ class ContactsSubheader extends Component {
             </View>
         )
     }
-
-    renderCount() {
+    componentDidMount() {
         let count = 0;
 
         this.props.friendRequests.friend_requests.map(request => {
@@ -36,13 +40,34 @@ class ContactsSubheader extends Component {
             }
         })
 
-        if (count > 0) {
+        this.setState({count})
+    }
+    componentWillReceiveProps(nextProps) {
+        let count = 0;
+
+        nextProps.friendRequests.friend_requests.map(request => {
+            if(request.requestee._id === this.props.user._id && request.new) {
+                count++;
+            }
+        })
+
+        this.setState({count})
+    }
+
+    renderCount() {
+        if (this.state.count > 0) {
             return (
                 <View style={styles.countContainer}>
-                    <Text style={{color: '#fff'}}>{count}</Text>
+                    <Text style={{color: '#fff'}}>{this.state.count}</Text>
                 </View>
             )
         }
+    }
+    handleFriendRequestClick() {
+        if (this.state.count > 0) {
+            this.props.seenFriendRequests(this.props.user.token);
+        }
+        this.props.navigation.navigate('FriendsRequest')
     }
 };
 
@@ -90,4 +115,10 @@ const mapStateToProps = (state) => {
     return { user, friendRequests }
 }
 
-export default connect(mapStateToProps)(ContactsSubheader);
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        seenFriendRequests
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactsSubheader);

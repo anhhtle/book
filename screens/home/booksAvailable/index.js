@@ -4,8 +4,8 @@ import { ScrollView, Text, View, Alert, TouchableOpacity, StyleSheet } from 'rea
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getBookRequests, createBookRequest } from 'thebooksjourney/redux//actions/request';
-import { getVariantsShare } from 'thebooksjourney/redux//actions/variantShare';
+import { getBookRequests, createBookRequest } from 'thebooksjourney/redux/actions/request';
+import { getVariantsShare } from 'thebooksjourney/redux/actions/variantShare';
 
 // component
 import BookCard from 'thebooksjourney/screens/utility/BookCard';

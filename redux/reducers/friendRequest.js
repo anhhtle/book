@@ -41,6 +41,39 @@ export default friendRequestsReducer = (state = INITIAL_STATE, action) => {
                 }
             }
 
+        // delete friend request
+        case 'DELETE_FRIEND_REQUEST_REQUEST':
+            return {...state, loading: true};
+
+        case 'DELETE_FRIEND_REQUEST_SUCCESS':
+            if (action.payload.error) {
+                return {...state, error: action.payload.error, loading: false };
+            } else {
+                return {...state, error: false, loading: false };
+            }
+
+        // seen friend request
+        case 'SEEN_FRIEND_REQUESTS_REQUEST':
+            return {...state, loading: true};
+
+        case 'SEEN_FRIEND_REQUESTS_SUCCESS':
+            if (action.payload.error) {
+                return {...state, error: action.payload.error, loading: false };
+            } else {
+                const seen_friend_requests = [];
+                state.friend_requests.map(req => {
+                    let seen_req = Object.assign({}, req);
+                    seen_req.new = false;
+                    seen_friend_requests.push(seen_req);
+                })
+
+                return {friend_requests: seen_friend_requests, error: false, loading: false };
+            }
+
+
+
+
+        // error
         case 'FRIEND_REQUESTS_ERROR':
             return {...state, error: action.payload.error , loading: false};
 

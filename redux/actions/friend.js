@@ -70,6 +70,74 @@ export const createFriendRequestSuccess = (friend_request) => (
     }
 );
 
+// delete friend request
+export const deleteFriendRequest = (token, id) => dispatch => {
+    dispatch(deleteFriendRequestRequest());
+
+    return fetch(`${API_BASE_URL}/friend-requests/${id}`, 
+    {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Token ${token}`,
+        }
+    }
+    ).then(res => {
+        return res.json();
+    }).then(resJson => {
+        dispatch(deleteFriendRequestSuccess(resJson));
+    }).catch(err => {
+        console.log(err);
+        dispatch(friendRequestError(error));
+    });
+}
+
+export const deleteFriendRequestRequest= () => (
+    {
+        type: 'DELETE_FRIEND_REQUEST_REQUEST'
+    }
+);
+
+export const deleteFriendRequestSuccess = (friend_request) => (
+    {
+        type: 'DELETE_FRIEND_REQUEST_SUCCESS',
+        payload: friend_request
+    }
+);
+
+// seen friend request
+export const seenFriendRequests = (token) => dispatch => {
+    dispatch(seenFriendRequestsRequest());
+
+    return fetch(`${API_BASE_URL}/friend-requests/seen`, 
+    {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Token ${token}`,
+        }
+    }
+    ).then(res => {
+        return res.json();
+    }).then(resJson => {
+        dispatch(seenFriendRequestsSuccess(resJson));
+    }).catch(err => {
+        console.log(err);
+        dispatch(friendRequestError(error));
+    });
+}
+
+export const seenFriendRequestsRequest= () => (
+    {
+        type: 'SEEN_FRIEND_REQUEST_REQUESTS'
+    }
+);
+
+export const seenFriendRequestsSuccess = (friend_request) => (
+    {
+        type: 'SEEN_FRIEND_REQUESTS_SUCCESS',
+        payload: friend_request
+    }
+);
+
 // error
 export const friendRequestsError = (error) => (
     {

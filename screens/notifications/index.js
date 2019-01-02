@@ -3,6 +3,8 @@ import { View, Text, StyleSheet } from 'react-native';
 
 // redux
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { seenNotifications } from 'thebooksjourney/redux/actions/notification';
 
 // components
 import MainHeader from '../MainHeader';
@@ -22,7 +24,14 @@ class NotificationsScreen extends React.Component {
             </View>
         );
     }
-
+    componentDidMount() {
+        for (let notification of this.props.notifications.notifications) {            
+            if (notification.new) {
+                this.props.seenNotifications(this.props.user.token);
+                break;
+            }
+        }
+    }
     renderNotificationCards() {
         // if no notification
         if (this.props.notifications.notifications.length === 0) {
@@ -55,8 +64,14 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { notifications } = state
-    return { notifications }
+    const { user, notifications } = state
+    return { user, notifications }
 };
 
-export default connect(mapStateToProps)(NotificationsScreen);
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        seenNotifications
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(NotificationsScreen);
