@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, Button } from 'react-native';
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { changeUserInfo, changeUserAddress } from 'thebooksjourney/redux//actions/user';
+import { updateProfile, getCurrentUser } from 'thebooksjourney/redux/actions/user';
 
 // components
 import GoBackHeader from 'thebooksjourney/screens/utility/GoBackHeader';
@@ -100,9 +100,13 @@ class EditProfileScreen extends Component {
         this.setState({ isInfoModalVisible: false });
     }
     handleUpdateInfoModal(items) {
+        let updateObj = {};
         items.forEach(item => {
-            this.props.changeUserInfo(item.key, item.value);
+            updateObj[item.key] = item.value;
         });
+
+        this.props.updateProfile(this.props.user.token, updateObj)
+            .then(() => this.props.getCurrentUser(this.props.user.token))
     }
 
     // address
@@ -113,7 +117,11 @@ class EditProfileScreen extends Component {
         this.setState({ isAddressModalVisible: false });
     }
     handleUpdateAddressModal(key, value) {
-        this.props.changeUserAddress(key, value);
+        let updateObj = {address: Object.assign({}, this.props.user.address)};
+        updateObj.address[key] = value;
+
+        this.props.updateProfile(this.props.user.token, updateObj)
+            .then(() => this.props.getCurrentUser(this.props.user.token))
     }
 }
 
@@ -130,8 +138,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        changeUserInfo,
-        changeUserAddress
+        updateProfile, getCurrentUser
     }, dispatch)
 );
 

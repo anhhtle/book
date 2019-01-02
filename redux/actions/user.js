@@ -107,6 +107,59 @@ export const deleteFriendSuccess = (user) => (
     }
 );
 
+// UPDATE user profile
+export const updateProfile = (token, updateObj) => dispatch => {
+    dispatch(updateProfileRequest());
+
+    return fetch(`${API_BASE_URL}/user/profile`, 
+    {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Token ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({updateObj})
+    }
+    ).then(res => {
+        return res.json();
+    }).then(resJson => {
+        dispatch(updateProfileSuccess(resJson));
+    }).catch(err => {
+        console.log(err);
+        dispatch(userError(error));
+    });
+}
+
+export const updateProfileRequest= () => (
+    {
+        type: 'UPDATE_PROFILE_REQUEST'
+    }
+);
+
+
+export const updateProfileSuccess = (setting) => (
+    {
+        type: 'UPDATE_PROFILE_SUCCESS',
+        payload: setting
+    }
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // UPDATE setting
 export const updateSetting = (token, updateObj) => dispatch => {
     dispatch(updateSettingRequest());

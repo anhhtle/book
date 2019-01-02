@@ -35,10 +35,10 @@ export default class EditAddressModal extends Component {
                     
                         <View style={styles.buttonsContainer}>
                             <TouchableOpacity style={styles.cancelButton} onPress={this.handleCancel}>
-                                <Text style={styles.buttonText}>Cancel</Text>
+                                <Text style={styles.cancelText}>Cancel</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.saveButton} onPress={this.handleSave}>
-                                <Text style={styles.buttonText}>Save</Text>
+                                <Text style={styles.saveText}>Save</Text>
                             </TouchableOpacity >
                         </View>
                     </View>
@@ -114,8 +114,12 @@ const styles = StyleSheet.create({
         paddingVertical: 7,
         width: 70,
     },
-    buttonText: {
+    cancelText: {
         color: '#fff',
+        textAlign: 'center'
+    },
+    saveText: {
+        color: '#000',
         textAlign: 'center'
     }
 });

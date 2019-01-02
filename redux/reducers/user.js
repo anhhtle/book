@@ -82,6 +82,25 @@ export default userReducer = (state = INITIAL_STATE, action) => {
                 return {...state, error: false, loading: false};
             }
 
+        // update profile
+        case 'UPDATE_PROFILE_REQUEST':
+            return {...state, loading: true};
+
+        case 'UPDATE_PROFILE_SUCCESS':
+            if (action.payload.error) {
+                return {...state, error: action.payload.error, loading: false};
+            } else {
+                return {...state, error: false, loading: false};
+            }
+
+
+
+
+
+
+
+
+
         // update setting
         case 'UPDATE_SETTING_REQUEST':
             return {...state, loading: true};
@@ -92,11 +111,6 @@ export default userReducer = (state = INITIAL_STATE, action) => {
             } else {
                 return {...state, setting: action.payload, error: false, loading: false};
             }
-
-
-
-
-
 
 
         // change user info... not implemented in API yet
