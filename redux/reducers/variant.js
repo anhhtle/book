@@ -61,6 +61,19 @@ export default variantReducer = (state = INITIAL_STATE, action) => {
         case 'GET_VARIANTS_SUCCESS':
             return {...state, variants: action.payload, error: null, loading: false};
             
+        // add variants
+        case 'ADD_VARIANT_REQUEST':
+            return {...state, loading: true, error: null};
+
+        case 'ADD_VARIANT_SUCCESS':
+            if (action.payload.error) {
+                return {...state, error: action.payload.error, loading: false};
+            } 
+
+            return {...state, error: null, loading: false};
+            
+
+
         // update variant
         case 'UPDATE_VARIANT_REQUEST':
             return {...state, loading: true, error: null};

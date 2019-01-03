@@ -33,6 +33,51 @@ export const getVariantsSuccess = (variants) => (
     }
 );
 
+// add a book
+export const addVariant = (token, book) => dispatch => {
+    dispatch(addVariantRequest());
+
+    return fetch(`${API_BASE_URL}/books/`, 
+        {
+            method: 'PUT',
+            headers: {
+                "Authorization": `Token ${token}`,
+                "Content-type": 'application/json'
+            },
+            body: JSON.stringify(book)
+        }
+    ).then(res => {
+        return res.json();
+    }).then(resJson => {
+        console.log(resJson);
+        dispatch(addVariantSuccess(resJson));
+    }).catch(err => {
+        console.error(err);
+        dispatch(variantsError(error));
+    });
+};
+
+export const addVariantRequest = () => (
+    {
+        type: 'ADD_VARIANT_REQUEST'
+    }
+);
+
+export const addVariantSuccess = (variant) => (
+    {
+        type: 'ADD_VARIANT_SUCCESS',
+        payload: variant
+    }
+);
+
+
+
+
+
+
+
+
+
 
 // update a variant
 export const updateVariant = (token, updateObj) => dispatch => {
