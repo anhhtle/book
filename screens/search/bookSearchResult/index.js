@@ -23,6 +23,7 @@ class BookSearchResultScreen extends React.Component {
         this.updateState = this.updateState.bind(this);
         this.handleShowModal = this.handleShowModal.bind(this);
         this.handleAddBook = this.handleAddBook.bind(this);
+        this.handleAddWatchlistBook = this.handleAddWatchlistBook.bind(this);
     }
 
     render () {
@@ -64,6 +65,7 @@ class BookSearchResultScreen extends React.Component {
                     item={this.state.data.items[this.state.indexSelected]} 
                     closeModal={() => this.setState({isModalVisible: false})} 
                     addBook={() => this.handleAddBook(this.state.data.items[this.state.indexSelected])}
+                    addWatchlistBook={() => this.handleAddWatchlistBook(this.state.data.items[this.state.indexSelected])}
                 />
             )
         }
@@ -91,13 +93,43 @@ class BookSearchResultScreen extends React.Component {
             industryIdentifiers: item.volumeInfo.industryIdentifiers
         }
 
-        console.log(book);
+        let addObj = {book, status: 'Not read'};
 
-        // this.props.addVariant(this.props.user.token, book);
-            
+        this.props.addVariant(this.props.user.token, addObj)
+            .then(() => {
+                this.setState({isModalVisible: false});
+                this.props.getVariants(this.props.user.token);
+                this.props.navigation.navigate('MyBooks');
+            });
 
     }
+    handleAddWatchlistBook(item) {
+        let image = null;
+        if (item.volumeInfo.imageLinks) {
+            image = item.volumeInfo.imageLinks.smallThumbnail
+        }
 
+        let book = {
+            google_id: item.id,
+            title: item.volumeInfo.title,
+            authors: item.volumeInfo.authors,
+            categories: item.volumeInfo.categories,
+            description: item.volumeInfo.description,
+            image,
+            ratings: item.volumeInfo.averageRating,
+            industryIdentifiers: item.volumeInfo.industryIdentifiers
+        }
+
+        let addObj = {book, status: 'Watchlist'};
+
+        this.props.addVariant(this.props.user.token, addObj)
+            .then(() => {
+                this.setState({isModalVisible: false});
+                this.props.getVariants(this.props.user.token);
+                this.props.navigation.navigate('Bookcase');
+            });
+
+    }
 }
 
 const styles = StyleSheet.create({

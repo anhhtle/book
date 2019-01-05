@@ -91,7 +91,7 @@ class CurrentReadingSection extends React.Component {
         const updateObj = {
             variant_id: id,
             update: {
-                status: 'Not started',
+                status: 'Not read',
                 progress: 0
             }
         }

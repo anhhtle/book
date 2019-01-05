@@ -34,22 +34,21 @@ export const getVariantsSuccess = (variants) => (
 );
 
 // add a book
-export const addVariant = (token, book) => dispatch => {
+export const addVariant = (token, addObj) => dispatch => {
     dispatch(addVariantRequest());
 
     return fetch(`${API_BASE_URL}/books/`, 
         {
-            method: 'PUT',
+            method: 'POST',
             headers: {
                 "Authorization": `Token ${token}`,
                 "Content-type": 'application/json'
             },
-            body: JSON.stringify(book)
+            body: JSON.stringify(addObj)
         }
     ).then(res => {
         return res.json();
     }).then(resJson => {
-        console.log(resJson);
         dispatch(addVariantSuccess(resJson));
     }).catch(err => {
         console.error(err);

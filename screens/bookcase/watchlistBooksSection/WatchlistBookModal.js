@@ -1,15 +1,17 @@
 import React from 'React';
-import { ScrollView, View, Image, Text, WebView, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
+import { ScrollView, View, Image, Text, TouchableOpacity, Dimensions, Alert, StyleSheet } from 'react-native';
 import Modal from "react-native-modal";
-
 
 import { renderRatingStars } from 'thebooksjourney/screens/utility/helperFunctions';
 
-export default class BookDetailModal extends React.Component {
+export default class WatchlistBookModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
         }
+
+        this.handleSave = this.handleSave.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     render () {
@@ -22,49 +24,41 @@ export default class BookDetailModal extends React.Component {
                     <ScrollView>
 
                         <View style={{backgroundColor: '#8c1515', padding: 8, marginBottom: 10}}>
-                            <Text style={styles.title}>{props.item.book.title}</Text>
+                            <Text style={styles.title}>{props.variant ? props.variant.book.title: ''}</Text>
                         </View>
 
                         {/* header */}
                         <View style={styles.header}>
                             { this.renderImage() }
                             <View style={styles.headerDetail}>
-                                <Text style={styles.author}>{props.item.book.authors ? props.item.book.authors[0] : ''}</Text>
+                                <Text style={styles.author}>{props.variant ? props.variant.book.authors[0] : ''}</Text>
                                 { this.renderCategories() }
 
                                 {/* ratings */}
                                 <View style={{flexDirection: 'row'}}>
-                                    { renderRatingStars(props.item.book.ratings) }
+                                    { this.renderRating() }
                                 </View>
-
-                                <Text>Book condition: <Text style={styles.bookCondition}>{this.renderBookCondition()}</Text></Text>
+                                
                             </View>
                         </View>
                         {/* end header */}
 
+                        {/* book description */}
                         <View style={styles.descriptionContainer}>
-                            <Text>{props.item.book.description}</Text>
+                            <Text>{props.variant ? props.variant.book.description: ''}</Text>
                         </View>
+                        {/* end book description */}
 
-                        {/* owner section */}
-                        <Text style={{color: '#8c1515', marginBottom: 10}}>OWNER</Text>
-                        <View style={styles.ownerContainer}>
-                            <Image source={{uri: props.item.user.avatar.image}} style={styles.profileImage}/>
-                            <View>
-                                <Text>{props.item.user.first_name} {props.item.user.last_name}</Text>
-                                <Text>{this.renderAlias()}{this.renderJob()}</Text>
-                            </View>
-                        </View>
-                        {/* end owner section */}
-
+                        {/* action buttons */}
                         <View style={styles.buttonsContainer}>
-                            <TouchableOpacity style={styles.cancleButton} onPress={props.closeModal}>
-                                <Text style={{color: '#fff'}}>CANCLE</Text>
+                            <TouchableOpacity style={styles.deleteButton} onPress={this.handleDelete}>
+                                <Text style={{color: '#8c1515'}}>DELETE</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.requestButton} onPress={() => props.requestBook(props.item._id)}>
-                                <Text style={{color: '#000'}}>REQUEST BOOK</Text>
+                            <TouchableOpacity style={styles.addButton} onPress={this.handleSave}>
+                                <Text style={{color: '#000'}}>ADD TO BOOKCASE</Text>
                             </TouchableOpacity>
                         </View>
+                        {/* end action buttons */}
 
                     </ScrollView>
                 </View>
@@ -72,18 +66,20 @@ export default class BookDetailModal extends React.Component {
             </Modal>
         )
     }
-
     renderImage() {
-        if (this.props.item.book.image) {
-            return <Image source={{ uri: this.props.item.book.image }} style={styles.bookImage} />
+        if (this.props.variant) {
+            if (this.props.variant.book.image) {
+                return <Image source={{ uri: this.props.variant.book.image }} style={styles.bookImage} />
+            }
         }
 
+        // placeholder image if book don't have one
         return <Image source={{ uri: 'https://www.edsportrallysupplies.ie/media/catalog/product/cache/1/image/256x256/9df78eab33525d08d6e5fb8d27136e95/i/m/image-placeholder-alt_2_1.jpg' }} style={styles.bookImage} />
     }
     renderCategories() {
-        if (this.props.item.book.categories) {
+        if (this.props.variant.book.categories) {
             let str = '';
-            this.props.item.book.categories.map((cat, index) => {
+            this.props.variant.book.categories.map((cat, index) => {
                 if (index < 2) {
                     if (index > 0) {
                         str += ', '
@@ -95,26 +91,42 @@ export default class BookDetailModal extends React.Component {
             return (<Text style={styles.categories}>{str}</Text>);
         }
     }
-    renderBookCondition() {
-        if (this.props.item.book_condition) {
-            return this.props.item.book_condition.toUpperCase();
-        } else {
-            return 'N/A';
+    renderRating() {
+        if (this.props.variant) {
+            if (this.props.variant.book.ratings) {
+                return renderRatingStars(this.props.variant.book.ratings);
+            }
         }
+        return renderRatingStars(0)
     }
-    renderAlias() {
-        if (this.props.item.user.alias) {
-            return (<Text style={{color: '#8c1515', fontWeight: 'bold'}}>{this.props.item.user.alias}</Text>)
+    handleSave() {
+        const saveObj = {
+            variant_id: this.props.variant._id,
+            update: {
+                status: 'Not started'
+            }
         }
+        this.props.saveChanges(saveObj);
     }
-    renderJob() {
-        if (this.props.item.user.alias && this.props.item.user.job) {
-            return ', ' + this.props.item.user.job
-        } else if (this.props.item.user.job) {
-            return this.props.item.user.job;
-        }
+    handleDelete() {
+        Alert.alert(
+            'Delete confirmation',
+            'Are you sure?',
+            [
+                {
+                    text: 'Yes',
+                    onPress: () => {
+                        if (this.props.variant) {
+                            this.props.delete(this.props.variant._id);
+                        }
+                    }
+                },
+                {   
+                    text: 'Cancel', 
+                },
+            ]
+        )
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -129,6 +141,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         padding: 10,
         width: Dimensions.get('window').width * 0.9
+    },
+    userRatingModal: {
+        backgroundColor: '#fff'
+    },
+    userRatingStarsContainer: {
+        flexDirection: 'row',
+        marginBottom: 5
     },
 
     // body
@@ -150,7 +169,6 @@ const styles = StyleSheet.create({
     headerDetail: {
         flex: 4,
         paddingVertical: 7,
-        justifyContent: 'space-between',
     },
     title: {
         color: '#fff',
@@ -172,7 +190,9 @@ const styles = StyleSheet.create({
         borderBottomColor: 'lightgrey',
         borderBottomWidth: StyleSheet.hairlineWidth
     },
-    ownerContainer: {
+
+    // friend
+    friendContainer: {
         flexDirection: 'row',
         marginBottom: 10,
         paddingBottom: 10,
@@ -185,18 +205,19 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginRight: 15,
     },
+
+
+    //  action buttons section
     buttonsContainer: {
         flexDirection: 'row',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end',
+        alignItems: 'center'
     },
-    cancleButton: {
-        backgroundColor: '#8c1515',
-        paddingVertical: 5,
-        paddingHorizontal: 10,
-        marginRight: 20,
-        borderRadius: 5,
+    deleteButton: {
+        position: 'absolute',
+        left: 0
     },
-    requestButton: {
+    addButton: {
         backgroundColor: 'gold',
         paddingVertical: 5,
         paddingHorizontal: 10,

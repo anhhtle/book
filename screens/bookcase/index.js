@@ -6,6 +6,7 @@ import MainHeader from '../MainHeader';
 import CurrentReadingSection from './currentReadingSection';
 import MyBooksSection from './myBooksSection';
 import RecommendedBookSection from './recommendedBooksSection';
+import WatchlistBooksSection from './watchlistBooksSection';
 import AvatarsSection from './avatarsSection';
 
 export default class BookcaseScreen extends React.Component {
@@ -19,6 +20,7 @@ export default class BookcaseScreen extends React.Component {
                 <CurrentReadingSection />
                 <MyBooksSection navigation={this.props.navigation} />
                 <RecommendedBookSection navigation={this.props.navigation} />
+                <WatchlistBooksSection navigation={this.props.navigation} />
                 <AvatarsSection navigation={this.props.navigation} />
             </ScrollView>
         )

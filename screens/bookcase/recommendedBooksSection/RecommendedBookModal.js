@@ -32,6 +32,7 @@ export default class RecommendedBookModal extends React.Component {
                             { this.renderImage() }
                             <View style={styles.headerDetail}>
                                 <Text style={styles.author}>{props.variant ? props.variant.book.authors[0] : ''}</Text>
+                                { this.renderCategories() }
 
                                 {/* ratings */}
                                 <View style={{flexDirection: 'row'}}>
@@ -93,6 +94,21 @@ export default class RecommendedBookModal extends React.Component {
             }
         }
         return renderRatingStars(0)
+    }
+    renderCategories() {
+        if (this.props.variant.book.categories) {
+            let str = '';
+            this.props.variant.book.categories.map((cat, index) => {
+                if (index < 2) {
+                    if (index > 0) {
+                        str += ', '
+                    } 
+                    str += cat;
+                }
+            });
+
+            return (<Text style={styles.categories}>{str}</Text>);
+        }
     }
     renderAlias() {
         if (this.props.variant) {
@@ -187,6 +203,10 @@ const styles = StyleSheet.create({
     author: {
         marginBottom: 5,
         fontWeight: 'bold'
+    },
+    categories: {
+        marginBottom: 5,
+        color: 'blue'
     },
     bookCondition: {
         fontWeight: 'bold',

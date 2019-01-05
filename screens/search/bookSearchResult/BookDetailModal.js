@@ -49,6 +49,9 @@ export default class BookDetailModal extends React.Component {
                             <TouchableOpacity style={styles.cancleButton} onPress={props.closeModal}>
                                 <Text style={{color: '#fff'}}>CANCLE</Text>
                             </TouchableOpacity>
+                            <TouchableOpacity style={styles.requestButton} onPress={props.addWatchlistBook}>
+                                <Text style={{color: '#000'}}>WATCHLIST</Text>
+                            </TouchableOpacity>
                             <TouchableOpacity style={styles.requestButton} onPress={props.addBook}>
                                 <Text style={{color: '#000'}}>ADD BOOK</Text>
                             </TouchableOpacity>

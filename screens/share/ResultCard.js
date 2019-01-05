@@ -18,15 +18,16 @@ export default class ResultCard extends React.Component {
                 { this.renderImage() }
 
                 <View style={styles.cardDetail}>
-                    <Text style={styles.title}>{this.props.item.book.title}</Text>
-                    <Text style={styles.author}>{this.props.item.book.authors ? this.props.item.book.authors[0] : ''}</Text>
+                    <Text style={styles.title}>{this.props.variant.book.title}</Text>
+                    <Text style={styles.author}>{this.props.variant.book.authors ? this.props.variant.book.authors[0] : ''}</Text>
+                    { this.renderCategories() }
 
                     {/* ratings */}
                     <View style={{flexDirection: 'row', marginBottom: 5}}>
-                        { renderRatingStars(this.props.item.book.ratings) }
+                        { renderRatingStars(this.props.variant.book.ratings) }
                     </View>
 
-                    <Text style={{fontWeight: 'bold'}}>{this.props.item.book_condition.toUpperCase()}</Text>
+                    <Text style={{fontWeight: 'bold'}}>{this.props.variant.book_condition.toUpperCase()}</Text>
 
                     {/* action button */}
                     <TouchableOpacity style={styles.actionIconContainer} onPress={this.props.showModal}>
@@ -38,11 +39,26 @@ export default class ResultCard extends React.Component {
     }
 
     renderImage() {
-        if (this.props.item.book.image) {
-            return <Image source={{ uri: this.props.item.book.image }} style={styles.cardImage} />
+        if (this.props.variant.book.image) {
+            return <Image source={{ uri: this.props.variant.book.image }} style={styles.cardImage} />
         }
 
         return <Image source={{ uri: 'https://www.edsportrallysupplies.ie/media/catalog/product/cache/1/image/256x256/9df78eab33525d08d6e5fb8d27136e95/i/m/image-placeholder-alt_2_1.jpg' }} style={styles.cardImage} />
+    }
+    renderCategories() {
+        if (this.props.variant.book.categories) {
+            let str = '';
+            this.props.variant.book.categories.map((cat, index) => {
+                if (index < 2) {
+                    if (index > 0) {
+                        str += ', '
+                    } 
+                    str += cat;
+                }
+            });
+
+            return (<Text style={styles.categories}>{str}</Text>);
+        }
     }
 }
 
@@ -72,6 +88,10 @@ const styles = StyleSheet.create({
     author: {
         marginBottom: 5,
         fontWeight: 'bold'
+    },
+    categories: {
+        marginBottom: 5,
+        color: 'blue'
     },
     actionIconContainer: {
         width: 35,

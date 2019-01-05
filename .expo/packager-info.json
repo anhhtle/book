@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 14905,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
   "expoServerNgrokUrl": "https://7m-9kf.ahtle.thebooksjourney.exp.direct",
   "packagerNgrokUrl": "https://packager.7m-9kf.ahtle.thebooksjourney.exp.direct",
-  "ngrokPid": 14920
+  "ngrokPid": 3377
 }

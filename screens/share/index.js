@@ -60,7 +60,7 @@ class ShareBooksScreen extends React.Component {
 
         let arr = [];
         this.props.variantsShare.variants_share.forEach((item, index) => {
-            arr.push(<ResultCard item={item} key={index} showModal={() => this.handleShowModal(index)} />)
+            arr.push(<ResultCard variant={item} key={index} showModal={() => this.handleShowModal(index)} />)
         });
 
         return arr;

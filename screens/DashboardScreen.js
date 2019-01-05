@@ -17,6 +17,7 @@ import FriendsSearchResultScreen from './contacts/friend-search';
 import BookcaseScreen from './bookcase';
 import MyBooksDetailedScreen from './bookcase/myBooksSection/detailedScreen';
 import RecommendedBooksDetailedScreen from './bookcase/recommendedBooksSection/detailedScreen';
+import WatchlistBooksDetailedScreen from './bookcase/watchlistBooksSection/detailedScreen';
 import AvatarDetailedScreen from './bookcase/avatarsSection/detailedScreen';
 import NotificationsScreen from './notifications';
 
@@ -38,6 +39,7 @@ const BookcaseStack = createStackNavigator(
         Bookcase: {screen: BookcaseScreen},
         MyBooks: {screen: MyBooksDetailedScreen},
         RecommendedBooks: {screen: RecommendedBooksDetailedScreen},
+        Watchlist: {screen: WatchlistBooksDetailedScreen},
         Avatars: {screen: AvatarDetailedScreen}
     },
     {

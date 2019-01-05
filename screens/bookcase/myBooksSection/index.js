@@ -68,7 +68,7 @@ class MyBooksSection extends Component {
     renderBooks() {
         let arr = [];
         this.props.variants.variants.map((item, index) => {
-            if (item.status !== 'Recommended') {
+            if (item.status !== 'Recommended' && item.status !== 'Watchlist') {
                 arr.push(<BookCard book={item.book} key={item._id} showModal={() => this.handleShowModal(index)} />);
             }
         });

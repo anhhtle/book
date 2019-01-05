@@ -7,10 +7,10 @@ import { bindActionCreators } from 'redux';
 import { getVariants, updateVariant, deleteVariant } from 'thebooksjourney/redux//actions/variant';
 
 // component
-import RecommendedBookModal from './RecommendedBookModal';
+import WatchlistBookModal from './WatchlistBookModal';
 import BookCard from 'thebooksjourney/screens/utility/BookCard';
 
-class RecommendedBookSection extends Component {
+class WatchlistBooksSection extends Component {
     constructor (props) {
         super (props);
         this.state = {
@@ -43,9 +43,9 @@ class RecommendedBookSection extends Component {
             return (
                 <View style={styles.container}>
                     <View style={styles.header}>
-                        <Text style={styles.headerTitle}>Recommended to you</Text>
+                        <Text style={styles.headerTitle}>Watchlist</Text>
                         
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('RecommendedBooks')}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Watchlist')}>
                             <Text style={styles.browseLink}>Browse all...</Text>
                         </TouchableOpacity>
                     </View>
@@ -66,7 +66,7 @@ class RecommendedBookSection extends Component {
         let indexSelected = null;
         let count = 0;
         this.props.variants.variants.map((item, index) => {
-            if (item.status === 'Recommended') {
+            if (item.status === 'Watchlist') {
                 indexSelected = index;
                 count++;
             }
@@ -83,7 +83,7 @@ class RecommendedBookSection extends Component {
     renderBooks() {
         let arr = [];
         this.props.variants.variants.map((item, index) => {
-            if (item.status === 'Recommended') {
+            if (item.status === 'Watchlist') {
                 arr.push(<BookCard book={item.book} key={item._id} showModal={() => this.handleShowModal(index)}/>)
             }
         })
@@ -93,7 +93,7 @@ class RecommendedBookSection extends Component {
     renderModal() {
         if (this.state.needModal) {
             return (
-                <RecommendedBookModal 
+                <WatchlistBookModal 
                     isVisible={this.state.isModalVisible} 
                     variant={this.props.variants.variants[this.state.indexSelected]} 
                     closeModal={() => this.setState({isModalVisible: false})} 
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     },
     header: {
         padding: 10,
-        backgroundColor: '#026C7C',
+        backgroundColor: '#0B4F6C',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center'
@@ -169,4 +169,4 @@ const mapDispatchToProps = dispatch => (
     }, dispatch)
 );
   
-export default connect(mapStateToProps, mapDispatchToProps)(RecommendedBookSection);
+export default connect(mapStateToProps, mapDispatchToProps)(WatchlistBooksSection);
