@@ -29,7 +29,7 @@ class EarlierRequestsSection extends React.Component {
     renderRequests() {
         let arr = [];
         this.props.requests.requests.map((request) => {
-            if (request.original_owner._id === this.props.user._id && (request.status === 'Sent' ||request.status === 'Recieved' || request.status === 'Cancelled')) {
+            if (request.original_owner._id === this.props.user._id && (request.status === 'Sent' ||request.status === 'Received' || request.status === 'Cancelled')) {
                 arr.push(<EarlierRequestCard key={request._id} request={request} />);
             }
         })

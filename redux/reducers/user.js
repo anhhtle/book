@@ -29,6 +29,10 @@ const INITIAL_STATE = {
     first_name: "Anh",
     last_name: "Le",
     email: "anh.ht.le@gmail.com",
+    bookmarks: {
+        silver: 2,
+        gold: 0
+    },
     setting: {
         push_notifications: {
             "book_requests": true,

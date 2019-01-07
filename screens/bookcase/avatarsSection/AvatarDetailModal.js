@@ -1,5 +1,5 @@
 import React from 'React';
-import { ScrollView, View, Image, Text, TouchableOpacity, Dimensions, Platform, StyleSheet } from 'react-native';
+import { ScrollView, View, Image, Text, Dimensions, StyleSheet } from 'react-native';
 import Modal from "react-native-modal";
 
 // import ModalDropdown from 'react-native-modal-dropdown';
@@ -40,21 +40,7 @@ export default class AvatarDetailModal extends React.Component {
                             <Text>{props.avatar.unlocked}</Text>
                         </View>
 
-                        {/* share? */}
-                        <View style={styles.switchContainer}>
-                            <Text style={{marginRight: 10}}>Set as profile image?</Text>
-                            <Switch
-                                value={props.profileAvatar}
-                                onValueChange={(val) => console.log(val)}
-                                circleSize={20}
-                                barHeight={20}
-                                circleBorderWidth={2}
-                                activeText={'On'}
-                                inActiveText={'Off'}
-                                backgroundActive={'gold'}
-                                backgroundInactive={'gray'}
-                                />
-                        </View>
+                        { this.renderProfileImageSetter() }
 
                     </ScrollView>
                 </View>
@@ -62,7 +48,30 @@ export default class AvatarDetailModal extends React.Component {
             </Modal>
         )
     }
-
+    renderProfileImageSetter() {
+        if (!this.props.profileAvatar) {
+            return (
+                <View style={styles.switchContainer}>
+                    <Text style={{marginRight: 10}}>Set as profile image?</Text>
+                    <Switch
+                        value={this.props.profileAvatar}
+                        onValueChange={() => this.props.saveChanges(this.props.avatar._id)}
+                        circleSize={20}
+                        barHeight={20}
+                        circleBorderWidth={2}
+                        activeText={'On'}
+                        inActiveText={'Off'}
+                        backgroundActive={'gold'}
+                        backgroundInactive={'gray'}
+                        />
+                </View>
+            );
+        } else {
+            return (
+                <Text>Current profile image</Text>
+            );
+        }
+    }
 }
 
 const styles = StyleSheet.create({

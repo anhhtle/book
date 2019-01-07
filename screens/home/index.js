@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 
 // redux
 import { connect } from 'react-redux';
@@ -18,6 +18,7 @@ import MainHeader from '../MainHeader';
 import BooksAvailableSection from './booksAvailable';
 import NotificationsSection from './notifications';
 import NewsfeedSection from './newsfeed/NewsfeedSection';
+import BookmarksTracker from 'thebooksjourney/screens/utility/BookmarksTracker';
 
 class HomeScreen extends React.Component {
     constructor(props) {
@@ -30,14 +31,17 @@ class HomeScreen extends React.Component {
         const props = this.props;
 
         return (
-            <ScrollView style={styles.container} screenProps={{count: 1}}>
-                <MainHeader navigation={props.navigation} />
-    
-                <BooksAvailableSection navigation={props.navigation}/>
-                <NotificationsSection navigation={props.navigation} requests={this.props.requests} user_id={this.props.user._id} />
-                <NewsfeedSection />
-    
-            </ScrollView>
+            <View style={styles.container}>
+                <ScrollView style={styles.container} >
+                    <MainHeader navigation={props.navigation} />
+        
+                    <BooksAvailableSection navigation={props.navigation}/>
+                    <NotificationsSection navigation={props.navigation} requests={this.props.requests} user_id={this.props.user._id} />
+                    <NewsfeedSection />
+                </ScrollView>
+
+                <BookmarksTracker navigation={props.navigation} silver={props.user.bookmarks.silver} gold={props.user.bookmarks.gold}/>
+            </View>
         );
     }
 

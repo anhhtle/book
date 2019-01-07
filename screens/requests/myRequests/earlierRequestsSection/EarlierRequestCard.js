@@ -43,12 +43,12 @@ export default class EarlierRequestCard extends React.Component {
     }
     renderCancelled () {
         return (
-            <Text style={styles.cardText}>Your request for <Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text> from <Text style={{fontWeight: 'bold'}}>{this.props.request.original_owner.first_name + ' ' + this.props.request.original_owner.last_name}</Text> was cancelled. You were refunded 1 book token.</Text>
+            <Text style={styles.cardText}>Your request for <Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text> from <Text style={{fontWeight: 'bold'}}>{this.props.request.original_owner.first_name + ' ' + this.props.request.original_owner.last_name}</Text> was cancelled. You were refunded 1 bookmark token.</Text>
         )
     }
     renderNotReceived () {
         return (
-            <Text style={styles.cardText}>You indicated that your request for <Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text> from <Text style={{fontWeight: 'bold'}}>{this.props.request.original_owner.first_name + ' ' + this.props.request.original_owner.last_name}</Text> never arrived. You were refunded 1 book token.</Text>
+            <Text style={styles.cardText}>You indicated that your request for <Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text> from <Text style={{fontWeight: 'bold'}}>{this.props.request.original_owner.first_name + ' ' + this.props.request.original_owner.last_name}</Text> never arrived. You were refunded 1 bookmark token.</Text>
         )
     }
     renderReceived () {

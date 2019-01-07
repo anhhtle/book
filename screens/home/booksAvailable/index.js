@@ -29,7 +29,7 @@ class BooksAvailableSection extends Component {
                 <View style={styles.header}>
                     <Text style={styles.headerText}>Available books</Text>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('ShareBooksScreen')} >
-                        <Text style={styles.headerText}>Browse all...</Text>
+                        <Text style={styles.headerLink}>Browse all...</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     header: {
-        backgroundColor: '#8c1515',
+        backgroundColor: '#f7ee71',
         padding: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -142,7 +142,11 @@ const styles = StyleSheet.create({
     },
     headerText: {
         fontWeight: 'bold',
-        color: '#fff'
+        color: '#000'
+    },
+    headerLink: {
+        fontWeight: 'bold',
+        color: 'blue'
     },
     horizontalBooksContainer: {
         flexDirection: 'row',

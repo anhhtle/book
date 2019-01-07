@@ -1,7 +1,10 @@
 import React from 'React';
 import { ScrollView, StyleSheet } from 'react-native';
 
+// redux
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getCurrentUser, updateProfile } from 'thebooksjourney/redux/actions/user';
 
 import GoBackHeader from 'thebooksjourney/screens/utility/GoBackHeader';
 import AvatarCard from '../AvatarCard';
@@ -36,6 +39,7 @@ class AvatarDetailedScreen extends React.Component {
                     closeModal={this.handleCloseModal} 
                     saveChanges={this.handleSaveChanges}
                     profileAvatar={this.state.profileAvatar}
+                    setProfileAvatar={this.handleSetProfileAvatar}
                     />
 
             </ScrollView>
@@ -45,18 +49,24 @@ class AvatarDetailedScreen extends React.Component {
     renderAvatars() {
         let arr = [];
         this.props.avatars.avatars.map((avatar, index) => {
-            let match = false;
-            this.props.user.avatars_unlocked.map((avatarUnlocked) => {
-                if (avatar._id === avatarUnlocked) {
-                    match = true;
+            if (index > 0) { // don't show admin card
+                let profileAvatar = false;
+                if (avatar._id === this.props.user.avatar._id) {
+                    profileAvatar = true;
                 }
-            })
-            if (match) {
-                arr.push(<AvatarCard key={avatar._id} avatar={avatar} showModal={() => this.handleShowModal(index, avatar._id)} /> )
-            } else {
-                arr.push(<AvatarLockedCard key={avatar._id} avatar={avatar}/> )
+                let match = false;
+                this.props.user.avatars_unlocked.map((avatarUnlocked) => {
+                    if (avatar._id === avatarUnlocked) {
+                        match = true;
+                    }
+                })
+                if (match) {
+                    arr.push(<AvatarCard key={avatar._id} avatar={avatar} showModal={() => this.handleShowModal(index, avatar._id)} profileAvatar={profileAvatar}/> )
+                } else {
+                    arr.push(<AvatarLockedCard key={avatar._id} avatar={avatar}/> )
+                }
             }
-        })
+        });
 
         return arr;
     }
@@ -70,8 +80,11 @@ class AvatarDetailedScreen extends React.Component {
     handleCloseModal() {
         this.setState({isModalVisible: false})
     }
-    handleSaveChanges() {
-        this.setState({isModalVisible: false})
+    handleSaveChanges(id) {
+        this.props.updateProfile(this.props.user.token, {avatar: id})
+            .then(this.props.getCurrentUser(this.props.user.token));
+    
+        this.setState({isModalVisible: false});
     }
 
 }
@@ -86,5 +99,11 @@ const mapStateToProps = (state) => {
     const { avatars, user } = state
     return { avatars, user }
 };
+
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        getCurrentUser, updateProfile
+    }, dispatch)
+);
   
-export default connect(mapStateToProps)(AvatarDetailedScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(AvatarDetailedScreen);

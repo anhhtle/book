@@ -37,7 +37,7 @@ export default class EarlierRequestCard extends React.Component {
             return this.renderSent();
         } else if (this.props.request.status === 'Cancelled') {
             return this.renderCancelled();
-        } else if (this.props.request.status === 'Recieved') {
+        } else if (this.props.request.status === 'Received') {
             return this.renderRecieved();
         }
     }
@@ -57,10 +57,17 @@ export default class EarlierRequestCard extends React.Component {
         )
     }
     renderHelperText () {
-        if (this.props.request.status === 'Sent' || this.props.request.thanked_owner) {
+        if (this.props.request.thanked_owner) {
             return (
                 <View style={styles.helperTextContainer}>
-                    <Text style={{textAlign: 'center'}}>You recieved 1 book token!</Text>
+                    <Text style={{textAlign: 'center'}}>You recieved 2 gold bookmark!</Text>
+                </View>
+            )
+        }
+        if (this.props.request.status === 'Received') {
+            return (
+                <View style={styles.helperTextContainer}>
+                    <Text style={{textAlign: 'center'}}>You recieved 1 gold bookmark!</Text>
                 </View>
             )
         }
