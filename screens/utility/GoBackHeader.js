@@ -10,7 +10,7 @@ export default goBackHeader = (props) => {
                 <Text style={styles.headerTitle}>{props.title}</Text>
             </View>
 
-            <TouchableOpacity style={styles.backIconContainer} onPress={() => props.navigation.goBack() }>
+            <TouchableOpacity style={styles.backIconContainer} onPress={() => props.destination ? props.navigation.navigate(props.destination) : props.navigation.goBack() }>
                 <Ionicons style={styles.backIcon} name={Platform.OS === 'ios' ? 'ios-arrow-round-back' : 'md-arrow-round-back'}/>
             </TouchableOpacity>
         </View>

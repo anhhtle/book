@@ -4,12 +4,14 @@ import { View, Text, ScrollView, TouchableOpacity, Dimensions, Alert, StyleSheet
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { getCurrentUser } from 'thebooksjourney/redux/actions/user';
 import { getVariantsShare, searchVariantsShare } from 'thebooksjourney/redux//actions/variantShare';
 import { getBookRequests, createBookRequest } from 'thebooksjourney/redux//actions/request';
 
 import ShareHeader from './ShareHeader';
 import ResultCard from './ResultCard';
 import BookDetailModal from './BookDetailModal';
+import BookmarksTracker from 'thebooksjourney/screens/utility/BookmarksTracker';
 
 
 class ShareBooksScreen extends React.Component {
@@ -32,23 +34,26 @@ class ShareBooksScreen extends React.Component {
 
     render () {
         return (
-            <ScrollView style={styles.container}>
-                <ShareHeader navigation={this.props.navigation} searched={this.state.searched} setSearchTerm={(term) => this.setState({search_term: term})} />
+            <View style={styles.container}>
+                <ScrollView style={styles.container}>
+                    <ShareHeader navigation={this.props.navigation} searched={this.state.searched} setSearchTerm={(term) => this.setState({search_term: term})} />
 
-                <View style={styles.body}>
-                    <View style={styles.cardsContainer}>
-                        { this.renderResultCards() }
+                    <View style={styles.body}>
+                        <View style={styles.cardsContainer}>
+                            { this.renderResultCards() }
+                        </View>
+
+                        <View style={styles.paginationContainer}>
+                            { this.renderPreviousPagination() }
+                            { this.renderNextPagination() }
+                        </View>
                     </View>
 
-                    <View style={styles.paginationContainer}>
-                        { this.renderPreviousPagination() }
-                        { this.renderNextPagination() }
-                    </View>
-                </View>
+                    { this.renderBookDetailModal() }
 
-                { this.renderBookDetailModal() }
-
-            </ScrollView>
+                </ScrollView>
+                <BookmarksTracker navigation={this.props.navigation} silver={this.props.user.bookmarks.silver} gold={this.props.user.bookmarks.gold}/>
+            </View>
         )
     }
     renderResultCards() {
@@ -102,27 +107,54 @@ class ShareBooksScreen extends React.Component {
         });
     }
     handleRequestBook(id) {
-        Alert.alert(
-            'Request confirmation',
-            'Are you sure?',
-            [
-                {
-                    text: 'Yes',
-                    onPress: () => {
-                        this.requestInitiate(id)
+        if (this.props.user.bookmarks.silver === 0 && this.props.user.bookmarks.gold === 0) {
+            Alert.alert(
+                'No bookmark available',
+                'You need one bookmark to make a request. Your silver bookmarks will refresh every week.',
+                [
+                    {   
+                        text: 'Ok', 
+                        onPress: () => {
+                            this.setState({
+                                isModalVisible: false,
+                                indexSelected: 0
+                            })
+                        }
                     }
-                },
-                {   
-                    text: 'Cancel', 
-                    onPress: () => {
-                        this.setState({
-                            isModalVisible: false,
-                            indexSelected: 0
-                        })
+                ]
+            )
+        }
+        else {
+            let alertText;
+            if (this.props.user.bookmarks.silver > 0) {
+                alertText = 'This will initiate the user to mail you his/her book, and use 1 of your silver bookmark. Are you sure?'
+            } else {
+                alertText = 'This will initiate the user to mail you his/her book, and use 1 of your gold bookmark. Are you sure?'
+            }
+
+            Alert.alert(
+                'Request confirmation',
+                alertText,
+                [
+                    {   
+                        text: 'Cancel', 
+                        onPress: () => {
+                            this.setState({
+                                isModalVisible: false,
+                                indexSelected: 0
+                            })
+                        }
+                    },
+                    {
+                        text: 'Yes',
+                        onPress: () => {
+                            this.requestInitiate(id)
+                        }
                     }
-                },
-            ]
-        )
+                ]
+            )
+        }
+
     }
     requestInitiate(id) {
         this.props.createBookRequest(this.props.user.token, {variant_id: id})
@@ -131,6 +163,7 @@ class ShareBooksScreen extends React.Component {
                     .then(() => {
                         if(!this.props.variantsShare.error) {
                             this.props.getVariantsShare(this.props.user.token, {page: 1});
+                            this.props.getCurrentUser(this.props.user.token);
                             this.setState({
                                 isModalVisible: false,
                                 indexSelected: 0
@@ -231,6 +264,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
+        getCurrentUser,
         searchVariantsShare, getVariantsShare, 
         getBookRequests, createBookRequest
     }, dispatch)

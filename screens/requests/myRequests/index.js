@@ -17,7 +17,7 @@ export default class MyRequestsScreen extends React.Component {
     render () {
         return (
             <ScrollView style={styles.container}>
-                <GoBackHeader title={"Your Requests"} navigation={this.props.navigation} />
+                <GoBackHeader title={"Your Requests"} navigation={this.props.navigation} destination={'Home'} />
 
                 <CurrentRequestsSection />
                 <EarlierRequestsSection />

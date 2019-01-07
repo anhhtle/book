@@ -14,7 +14,7 @@ export default class ResultCard extends React.Component {
     render () {
 
         return (
-            <View style={styles.container}>
+            <TouchableOpacity style={styles.container} onPress={this.props.showModal}>
                 { this.renderImage() }
 
                 <View style={styles.cardDetail}>
@@ -28,13 +28,8 @@ export default class ResultCard extends React.Component {
                     </View>
 
                     <Text style={{fontWeight: 'bold'}}>{this.props.variant.book_condition.toUpperCase()}</Text>
-
-                    {/* action button */}
-                    <TouchableOpacity style={styles.actionIconContainer} onPress={this.props.showModal}>
-                        <Ionicons name={Platform.OS === 'ios' ? 'ios-add-circle' : 'md-add-circle'} style={styles.actionIcon}/>
-                    </TouchableOpacity>
                 </View>
-            </View>
+            </TouchableOpacity>
         )
     }
 

@@ -17,7 +17,7 @@ export default class CommunityRequestsScreen extends React.Component {
     render () {
         return (
             <ScrollView style={styles.container}>
-                <GoBackHeader title={"Community's Requests"} navigation={this.props.navigation} />
+                <GoBackHeader title={"Community's Requests"} navigation={this.props.navigation} destination={'Home'}/>
 
                 <CurrentRequestsSection />
                 <EarlierRequestsSection />

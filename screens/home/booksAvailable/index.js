@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getBookRequests, createBookRequest } from 'thebooksjourney/redux/actions/request';
 import { getVariantsShare } from 'thebooksjourney/redux/actions/variantShare';
+import { getCurrentUser } from 'thebooksjourney/redux/actions/user';
 
 // component
 import BookCard from 'thebooksjourney/screens/utility/BookCard';
@@ -71,27 +72,54 @@ class BooksAvailableSection extends Component {
         });
     }
     handleRequestBook(id) {
-        Alert.alert(
-            'Request confirmation',
-            'Are you sure?',
-            [
-                {
-                    text: 'Yes',
-                    onPress: () => {
-                        this.requestInitiate(id)
+        if (this.props.user.bookmarks.silver === 0 && this.props.user.bookmarks.gold === 0) {
+            Alert.alert(
+                'No bookmark available',
+                'You need one bookmark to make a request. Your silver bookmarks will refresh every week.',
+                [
+                    {   
+                        text: 'Ok', 
+                        onPress: () => {
+                            this.setState({
+                                isModalVisible: false,
+                                indexSelected: 0
+                            })
+                        }
                     }
-                },
-                {   
-                    text: 'Cancel', 
-                    onPress: () => {
-                        this.setState({
-                            isModalVisible: false,
-                            indexSelected: 0
-                        })
+                ]
+            )
+        }
+        else {
+            let alertText;
+            if (this.props.user.bookmarks.silver > 0) {
+                alertText = 'This will initiate the user to mail you his/her book, and use 1 of your silver bookmark. Are you sure?'
+            } else {
+                alertText = 'This will initiate the user to mail you his/her book, and use 1 of your gold bookmark. Are you sure?'
+            }
+
+            Alert.alert(
+                'Request confirmation',
+                alertText,
+                [
+                    {   
+                        text: 'Cancel', 
+                        onPress: () => {
+                            this.setState({
+                                isModalVisible: false,
+                                indexSelected: 0
+                            })
+                        }
+                    },
+                    {
+                        text: 'Yes',
+                        onPress: () => {
+                            this.requestInitiate(id)
+                        }
                     }
-                },
-            ]
-        )
+                ]
+            )
+        }
+
     }
     requestInitiate(id) {
         this.props.createBookRequest(this.props.user.token, {variant_id: id})
@@ -100,6 +128,7 @@ class BooksAvailableSection extends Component {
                     .then(() => {
                         if(!this.props.variantsShare.error) {
                             this.props.getVariantsShare(this.props.user.token, {page: 1});
+                            this.props.getCurrentUser(this.props.user.token);
                             this.setState({
                                 isModalVisible: false,
                                 indexSelected: 0
@@ -165,6 +194,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
+        getCurrentUser,
         getBookRequests, createBookRequest, getVariantsShare
     }, dispatch)
 );
