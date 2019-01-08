@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Plat } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 // redux
@@ -25,7 +25,8 @@ import MyRequestsScreen from './screens/requests/myRequests'
 
 import SettingScreen from './screens/settings';
 import EditProfileScreen from './screens/settings/profile';
-import NotificationSettingsScreen from './screens/settings/notifications'
+import NotificationSettingsScreen from './screens/settings/notifications';
+import UserGuideScreen from './screens/settings/userGuide';
 
 const RootStack = createStackNavigator(
   {
@@ -41,6 +42,7 @@ const RootStack = createStackNavigator(
     Setting: { screen: SettingScreen },
     EditProfile: { screen: EditProfileScreen },
     NotificationSettings: { screen: NotificationSettingsScreen },
+    UserGuide: { screen: UserGuideScreen },
 
     // manage requests
     CommunityRequests: { screen: CommunityRequestsScreen },
