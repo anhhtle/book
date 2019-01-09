@@ -41,6 +41,7 @@ class BooksAvailableSection extends Component {
                 </ScrollView>
                 
                 {this.renderModal()}
+
             </View>
         );
     }
@@ -72,19 +73,38 @@ class BooksAvailableSection extends Component {
         });
     }
     handleRequestBook(id) {
+        // check address
+        if (!this.props.user.address.street ||
+            !this.props.user.address.city ||
+            !this.props.user.address.state) {
+            return Alert.alert(
+                'Missing address',
+                'Please fill out your mailing address.',
+                [
+                    {   
+                        text: 'Cancel'
+                    },
+                    {
+                        text: 'Update address',
+                        onPress: () => {
+                            this.setState({
+                                isModalVisible: false
+                            });
+                            this.props.navigation.navigate('EditProfile');
+                        }
+                    }
+                ]
+            )
+        }
+
+        // check bookmarks
         if (this.props.user.bookmarks.silver === 0 && this.props.user.bookmarks.gold === 0) {
             Alert.alert(
                 'No bookmark available',
                 'You need one bookmark to make a request. Your silver bookmarks will refresh every week.',
                 [
                     {   
-                        text: 'Ok', 
-                        onPress: () => {
-                            this.setState({
-                                isModalVisible: false,
-                                indexSelected: 0
-                            })
-                        }
+                        text: 'Ok'
                     }
                 ]
             )
@@ -97,18 +117,18 @@ class BooksAvailableSection extends Component {
                 alertText = 'This will initiate the user to mail you his/her book, and use 1 of your gold bookmark. Are you sure?'
             }
 
+            alertText += `\n\nYour mailing address:\n\n${this.props.user.address.street}\n${this.props.user.address.city}, ${this.props.user.address.state} ${this.props.user.address.zipcode}\n${this.props.user.address.country}`
+
+            if (this.props.user.address.additional_info) {
+                alertText += `\n\n${this.props.user.address.additional_info}`;
+            }
+
             Alert.alert(
                 'Request confirmation',
                 alertText,
                 [
                     {   
                         text: 'Cancel', 
-                        onPress: () => {
-                            this.setState({
-                                isModalVisible: false,
-                                indexSelected: 0
-                            })
-                        }
                     },
                     {
                         text: 'Yes',
