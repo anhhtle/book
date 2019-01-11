@@ -19,7 +19,6 @@ export const getUserToken = (loginObj) => dispatch => {
     }).then(token => {
         dispatch(getUserTokenSuccess(token));
     }).catch(err => {
-        console.log(err);
         dispatch(userError(error));
     });
 };
