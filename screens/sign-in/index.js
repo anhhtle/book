@@ -1,41 +1,77 @@
 import React from 'React';
-import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getUserToken, getCurrentUser } from 'thebooksjourney/redux/actions/user';
+import { createNewUser, getUserToken, getCurrentUser, updateProfile } from 'thebooksjourney/redux/actions/user';
 
 import LoginSection from './LoginSection';
+import CreateSection from './CreateSection';
+import UserAddressSection from './UserAddressSection';
+import UserAliasSection from './UserAliasSection';
 
 class SignInScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             login_error: null,
-            loginScreen: true
+            loginSection: true,
+            createSection: false,
+            userAddressSection: false,
+            userAliasSection: false,
         }
 
         this.handleLogin = this.handleLogin.bind(this);
+        this.handleCreate = this.handleCreate.bind(this);
+        this.handleUpdate = this.handleUpdate.bind(this);
+        this.handleSkip = this.handleSkip.bind(this);
     }
 
     render () {
         return (
             <View style={styles.container}>
 
-                <LoginSection login={this.handleLogin} error={this.state.login_error} />
+                {this.renderBody()}
 
-                <TouchableOpacity style={styles.button} onPress={() => this.setState({loginScreen: !this.state.loginScreen})}>
-                    <Text style={{color: '#fff'}}>{this.state.loginScreen ? 'SIGN UP' : 'LOGIN'}</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.link} >
-                    <Text style={styles.linkText}>FORGOT PASSWORD</Text>
-                </TouchableOpacity>
+                {this.renderButtons()}
             </View>
         )
     }
+    renderBody() {
+        if (this.state.loginSection) {
+            return (
+                <LoginSection login={this.handleLogin} error={this.state.login_error} />
+            )
+        } else if (this.state.createSection) {
+            return (
+                <CreateSection create={this.handleCreate} />
+            )
+        } else if (this.state.userAddressScreen) {
+            return (
+                <UserAddressSection update={this.handleUpdate} skip={() => this.handleSkip(1)} />
+            )
+        } else if (this.state.userAliasSection) {
+            return (
+                <UserAliasSection update={this.handleUpdate} skip={() => this.handleSkip(2)} />
+            )
+        }
+    }
+    renderButtons() {
+        if (!this.state.userAddressScreen && !this.state.userAliasSection) {
+            return (
+                <View>
+                    <TouchableOpacity style={styles.button} onPress={() => this.setState({loginScreen: !this.state.loginScreen, createScreen: !this.state.createScreen})}>
+                        <Text style={styles.linkText}>{this.state.loginSection ? 'SIGN UP' : 'LOGIN'}</Text>
+                    </TouchableOpacity>
 
+                    <TouchableOpacity style={styles.link} >
+                        <Text style={styles.linkText}>FORGOT PASSWORD</Text>
+                    </TouchableOpacity>
+                </View>
+            )
+        }
+    }
     handleLogin(loginObj) {
 
         // this.props.getCurrentUser('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaC5odC5sZUBnbWFpbC5jb20iLCJpZCI6IjZiOWIxNTIyMTFkY2IzMDY3NTY1OWUwNSIsImV4cCI6MTU0ODk2NDk4NCwiaWF0IjoxNTQzNzgwOTg0fQ.24IYvapi5PVBpNPOuzjn9EZPb5bLn1AOM_u3i4Wo5lI');
@@ -56,6 +92,28 @@ class SignInScreen extends React.Component {
             .catch(err => {console.log(err)});
 
     }
+    handleCreate(createObj) {
+        console.log(createObj);
+        this.setState({
+            loginScreen: false,
+            createScreen: false,
+            userAddressScreen: true
+        });
+    }
+    handleUpdate(updateObj, skipNum) {
+        console.log(updateObj);
+        this.handleSkip(skipNum);
+    }
+    handleSkip(num) {
+        if (num === 1) {
+            this.setState({
+                userAddressSection: false,
+                userAliasSection: true
+            })
+        } else {
+            this.props.navigation.navigate('UserGuide', {destination: 'Dashboard'});
+        }
+    }
 }
 
 const styles = StyleSheet.create({
@@ -66,12 +124,14 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     button: {
-        marginVertical: 10,
+        marginTop: 30,
+        marginBottom: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#009FB7',
-        height: 35,
-        width: 250
+    },
+    buttonText: {
+        color: '#009FB7',
+        fontWeight: 'bold',
     },
     link: {
         marginVertical: 10,
@@ -80,6 +140,7 @@ const styles = StyleSheet.create({
     },
     linkText: {
         color: '#FED766',
+        fontWeight: 'bold',
     }
     
 });
@@ -91,8 +152,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        getUserToken,
-        getCurrentUser,
+        createNewUser, getUserToken, getCurrentUser, updateProfile
     }, dispatch)
 );
 

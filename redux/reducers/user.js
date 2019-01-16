@@ -53,6 +53,17 @@ const INITIAL_STATE = {
 
 export default userReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
+        // create new user
+        case 'CREATE_NEW_USER_REQUEST':
+            return {...state, loading: true};
+
+        case 'CREATE_NEW_USER_SUCCESS':
+            if (action.payload.error) {
+                return {...state, error: action.payload.error, token: null, loading: false};
+            } else {
+                return {...state, error: null, token: action.payload.token, loading: false};
+            }
+
         // get login token
         case 'GET_USER_TOKEN_REQUEST':
             return {...state, loading: true};

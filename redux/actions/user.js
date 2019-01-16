@@ -1,6 +1,41 @@
 import {API_BASE_URL} from 'thebooksjourney/screens/utility/helperFunctions';
 
 // *********************** user ****************************
+// create new user
+export const createNewUser = (createObj) => dispatch => {
+    dispatch(createNewUserRequest());
+
+    return fetch(`${API_BASE_URL}/user/`, 
+        {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(createObj)
+        }
+    ).then(res => {
+        return res.json();
+    }).then(token => {
+        dispatch(createNewUserSuccess(token));
+    }).catch(err => {
+        dispatch(userError(error));
+    });
+};
+
+export const createNewUserRequest = () => (
+    {
+        type: 'CREATE_NEW_USER_REQUEST'
+    }
+);
+
+export const createNewUserSuccess = (token) => (
+    {
+        type: 'CREATE_NEW_USER_SUCCESS',
+        payload: token
+    }
+);
+
+
 // sign in and get token
 export const getUserToken = (loginObj) => dispatch => {
     dispatch(getUserTokenRequest());
@@ -143,22 +178,6 @@ export const updateProfileSuccess = (setting) => (
     }
 );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // UPDATE setting
 export const updateSetting = (token, updateObj) => dispatch => {
     dispatch(updateSettingRequest());
@@ -188,14 +207,12 @@ export const updateSettingRequest= () => (
     }
 );
 
-
 export const updateSettingSuccess = (setting) => (
     {
         type: 'UPDATE_SETTING_SUCCESS',
         payload: setting
     }
 );
-
 
 // error
 export const userError = (error) => (
@@ -205,21 +222,3 @@ export const userError = (error) => (
     }
 );
 
-
-
-
-// not implemented yet
-
-export const changeUserInfo = (field, value) => (
-    {
-        type: 'CHANGE_USER_INFO',
-        payload: {field, value}
-    }
-);
-
-export const changeUserAddress= (field, value) => (
-    {
-        type: 'CHANGE_USER_ADDRESS',
-        payload: {field, value}
-    }
-);

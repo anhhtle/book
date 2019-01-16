@@ -7,7 +7,7 @@ import GoBackHeader from 'thebooksjourney/screens/utility/GoBackHeader';
 export default UserGuideScreen = (props) => {
     return (
         <View style={styles.container}>
-            <GoBackHeader navigation={props.navigation} title={'User Guide'} />
+            <GoBackHeader navigation={props.navigation} title={'User Guide'} destination={props.navigation.state.params.destination} />
 
             <View style={styles.body}>
                 <Text style={styles.h1}>Take a book, give a book</Text>

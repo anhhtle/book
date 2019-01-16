@@ -21,17 +21,19 @@ export default class LoginSection extends React.Component {
                 <TextInput style={styles.textInput} 
                     value={this.state.email}
                     onChangeText={(email) => this.setState({email})} 
-                    placeholder='Email ' keyboardType='default' 
+                    placeholder='Email ' keyboardType='email-address' 
+                    textContentType='emailAddress' // iOS 11+ only
                     underlineColorAndroid='rgba(0,0,0,0)' />
 
                 <TextInput style={styles.textInput} 
                     value={this.state.password}
                     onChangeText={(password) => this.setState({password})} 
                     placeholder='Password ' keyboardType='default' 
+                    textContentType='password' // iOS 11+ only
                     underlineColorAndroid='rgba(0,0,0,0)' />
 
                 <TouchableOpacity style={styles.loginButton} onPress={() => this.handleLogin()}>
-                    <Text style={{color: '#000'}}>LOGIN</Text>
+                    <Text style={{color: '#fff', fontWeight: 'bold'}}>LOGIN</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -73,7 +75,7 @@ const styles = StyleSheet.create({
     loginButton: {
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#FED766',
+        backgroundColor: '#009FB7',
         height: 35,
         width: 250
     },
