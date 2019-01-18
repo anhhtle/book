@@ -9,6 +9,7 @@ import { createNewUser, getUserToken, getCurrentUser, updateProfile } from 'theb
 import LoginSection from './LoginSection';
 import CreateSection from './CreateSection';
 import UserAddressSection from './UserAddressSection';
+import UserAvatarSection from './userAvatarSection/';
 import UserAliasSection from './UserAliasSection';
 
 class SignInScreen extends React.Component {
@@ -16,9 +17,10 @@ class SignInScreen extends React.Component {
         super(props);
         this.state = {
             login_error: null,
-            loginSection: true,
+            loginSection: false,
             createSection: false,
             userAddressSection: false,
+            userAvatarSection: true,
             userAliasSection: false,
         }
 
@@ -47,21 +49,25 @@ class SignInScreen extends React.Component {
             return (
                 <CreateSection create={this.handleCreate} />
             )
-        } else if (this.state.userAddressScreen) {
+        } else if (this.state.userAddressSection) {
             return (
                 <UserAddressSection update={this.handleUpdate} skip={() => this.handleSkip(1)} />
             )
+        } else if (this.state.userAvatarSection) {
+            return (
+                <UserAvatarSection update={this.handleUpdate} skip={() => this.handleSkip(2)} />
+            )
         } else if (this.state.userAliasSection) {
             return (
-                <UserAliasSection update={this.handleUpdate} skip={() => this.handleSkip(2)} />
+                <UserAliasSection update={this.handleUpdate} skip={() => this.handleSkip(3)} />
             )
         }
     }
     renderButtons() {
-        if (!this.state.userAddressScreen && !this.state.userAliasSection) {
+        if (this.state.loginSection || this.state.createSection) {
             return (
                 <View>
-                    <TouchableOpacity style={styles.button} onPress={() => this.setState({loginScreen: !this.state.loginScreen, createScreen: !this.state.createScreen})}>
+                    <TouchableOpacity style={styles.button} onPress={() => this.setState({loginSection: !this.state.loginSection, createSection: !this.state.createSection})}>
                         <Text style={styles.linkText}>{this.state.loginSection ? 'SIGN UP' : 'LOGIN'}</Text>
                     </TouchableOpacity>
 
@@ -95,9 +101,9 @@ class SignInScreen extends React.Component {
     handleCreate(createObj) {
         console.log(createObj);
         this.setState({
-            loginScreen: false,
-            createScreen: false,
-            userAddressScreen: true
+            loginSection: false,
+            createSection: false,
+            userAddressSection: true
         });
     }
     handleUpdate(updateObj, skipNum) {
@@ -108,8 +114,13 @@ class SignInScreen extends React.Component {
         if (num === 1) {
             this.setState({
                 userAddressSection: false,
+                userAvatarSection: true
+            });
+        } else if (num === 2) {
+            this.setState({
+                userAvatarSection: false,
                 userAliasSection: true
-            })
+            });
         } else {
             this.props.navigation.navigate('UserGuide', {destination: 'Dashboard'});
         }

@@ -67,17 +67,25 @@ export default class CreateSection extends React.Component {
     }
     validate() {
         let validate = false;
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+
         if (!this.state.first_name || !this.state.last_name || !this.state.email || !this.state.password) {
             this.setState({
                 error: true,
                 error_text: 'Please fill out all fields'
-            })
+            });
         } else if(this.state.password !== this.state.password_confirm) {
             this.setState({
                 error: true,
                 error_text: 'Password does not match'
-            })
-        } else {
+            });
+        } else if (reg.test(this.state.email) === false) {
+            this.setState({
+                error: true,
+                error_text: 'Please enter a valid email'
+            });
+        }
+        else {
             this.setState({
                 error: false,
                 error_text: ''

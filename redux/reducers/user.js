@@ -9,7 +9,7 @@ const INITIAL_STATE = {
     alias: "Jamie Lannister",
     job: "King's Guard",
     avatar: {
-        _id: "86660871101f2c0e771df8f8",
+        _id: "b3abab6f8eadd78c210394ef",
         name: "The King",
         image: "https://i.pinimg.com/originals/9a/d7/95/9ad79563b7fc172d847a0ddfbd9b2fcc.jpg",
         quote: "The bravest people are the ones who don’t mind looking like cowards.",
@@ -18,7 +18,7 @@ const INITIAL_STATE = {
         unlocked: "For being brave"
     },
     avatars_unlocked: [
-        "86660871101f2c0e771df8f8",
+        "b3abab6f8eadd78c210394ef",
         "c367851d914237495b576e01",
         "f26923e2fa2a74a4ff8a6063"
     ],

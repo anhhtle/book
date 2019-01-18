@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#fcfbcc',
         padding: 10,
     },
-
     cardContent: {
         flexDirection: 'row'
     },
