@@ -54,21 +54,16 @@ class UserAvatarSection extends React.Component {
         return arr;
     }
     componentDidMount() {
-        this.props.getAvatars(this.props.user.token)
-            .then(() => {
-                // console.log(this.props.avatars);
-            });
+        this.props.getAvatars(this.props.user.token);
 
         this.setState({avatar: this.props.user.avatar._id});
     }
     handleUpdate() {
-        const obj = {
-            updateObj: {
-                avatar: this.state.avatar,
-            }
+        const updateObj = {
+            avatar: this.state.avatar,
         }
 
-        this.props.update(obj, 2);
+        this.props.update(updateObj, 2);
     }
 }
 

@@ -43,14 +43,12 @@ export default class UserAliasSection extends React.Component {
     }
 
     handleUpdate() {
-        const obj = {
-            updateObj: {
-                alias: this.state.alias,
-                job: this.state.job
-            }
+        const updateObj = {
+            alias: this.state.alias,
+            job: this.state.job
         }
 
-        this.props.update(obj, 2);
+        this.props.update(updateObj, 3);
     }
 }
 

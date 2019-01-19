@@ -17,10 +17,10 @@ class SignInScreen extends React.Component {
         super(props);
         this.state = {
             login_error: null,
-            loginSection: false,
+            loginSection: true,
             createSection: false,
             userAddressSection: false,
-            userAvatarSection: true,
+            userAvatarSection: false,
             userAliasSection: false,
         }
 
@@ -99,16 +99,24 @@ class SignInScreen extends React.Component {
 
     }
     handleCreate(createObj) {
-        console.log(createObj);
-        this.setState({
-            loginSection: false,
-            createSection: false,
-            userAddressSection: true
-        });
+        this.props.createNewUser(createObj)
+            .then(() => {
+                this.props.getCurrentUser(this.props.user.token);
+                
+                this.setState({
+                    loginSection: false,
+                    createSection: false,
+                    userAddressSection: true
+                });
+            });
+
     }
     handleUpdate(updateObj, skipNum) {
-        console.log(updateObj);
-        this.handleSkip(skipNum);
+        this.props.updateProfile(this.props.user.token, updateObj)
+            .then(() => {
+                this.props.getCurrentUser(this.props.user.token);
+                this.handleSkip(skipNum);
+            });
     }
     handleSkip(num) {
         if (num === 1) {
