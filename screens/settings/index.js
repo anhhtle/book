@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Platform, StyleSheet, } from 'react-native';
+import { View, Text, TouchableOpacity, Platform, StyleSheet, AsyncStorage } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import GoBackHeader from '../utility/GoBackHeader';
@@ -29,12 +29,16 @@ export default class SettingScreen extends Component {
 
                 <View style={styles.divider} />
 
-                <TouchableOpacity style={styles.optionContainer}>
+                <TouchableOpacity style={styles.optionContainer} onPress={() => this.handleLogout()}>
                     <Ionicons style={styles.icon} color={'grey'} name={Platform.OS === 'ios' ? 'ios-exit' : 'md-exit'}/>
                     <Text style={styles.option}>Logout</Text>
                 </TouchableOpacity>
             </View>
         );
+    }
+    handleLogout() {
+        AsyncStorage.removeItem('TheBooksJourneyUserToken');
+        this.props.navigation.navigate('SignIn');
     }
 }
 

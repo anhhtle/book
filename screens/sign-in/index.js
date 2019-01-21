@@ -1,5 +1,5 @@
 import React from 'React';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, AsyncStorage } from 'react-native';
 
 // redux
 import { connect } from 'react-redux';
@@ -22,6 +22,8 @@ class SignInScreen extends React.Component {
             userAddressSection: false,
             userAvatarSection: false,
             userAliasSection: false,
+
+            asyncToken: null,
         }
 
         this.handleLogin = this.handleLogin.bind(this);
@@ -29,7 +31,9 @@ class SignInScreen extends React.Component {
         this.handleUpdate = this.handleUpdate.bind(this);
         this.handleSkip = this.handleSkip.bind(this);
     }
-
+    componentWillMount () {
+        this.getAsyncStorage();
+    }
     render () {
         return (
             <View style={styles.container}>
@@ -37,6 +41,7 @@ class SignInScreen extends React.Component {
                 {this.renderBody()}
 
                 {this.renderButtons()}
+
             </View>
         )
     }
@@ -89,10 +94,11 @@ class SignInScreen extends React.Component {
                 } else {
                     this.props.getCurrentUser(this.props.user.token)
                         .then(() => {
-                                if (!this.props.user.error) {
-                                    this.props.navigation.navigate('Home');
-                                }
-                            })
+                            if (!this.props.user.error) {
+                                this.setAsyncStorage(this.props.user.token);
+                                this.props.navigation.navigate('Home');
+                            }
+                        })
                 }
             })
             .catch(err => {console.log(err)});
@@ -101,7 +107,10 @@ class SignInScreen extends React.Component {
     handleCreate(createObj) {
         this.props.createNewUser(createObj)
             .then(() => {
-                this.props.getCurrentUser(this.props.user.token);
+                this.props.getCurrentUser(this.props.user.token)
+                    .then(() => {
+                        this.setAsyncStorage(this.props.user.token);
+                    });
                 
                 this.setState({
                     loginSection: false,
@@ -132,6 +141,24 @@ class SignInScreen extends React.Component {
         } else {
             this.props.navigation.navigate('UserGuide', {destination: 'Dashboard'});
         }
+    }
+    async setAsyncStorage (token) {
+        try {
+            await AsyncStorage.setItem('TheBooksJourneyToken', JSON.stringify(token));
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    async getAsyncStorage () {
+        try {
+            const token =  await AsyncStorage.getItem('TheBooksJourneyToken');
+            if (token) {
+                this.props.navigation.navigate('Dashboard');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        return;
     }
 }
 
