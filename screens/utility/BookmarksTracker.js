@@ -14,7 +14,7 @@ export default BookmarksTracker = (props) => {
                 <Text style={{marginRight: 3}}>{props.gold}</Text>
                 <Ionicons name={Platform.OS === 'ios' ? 'ios-bookmark' : 'md-bookmark'} color={'gold'} size={24}/>
             </View>
-            <TouchableOpacity onPress={() => props.navigation.navigate('UserGuide')}>
+            <TouchableOpacity onPress={() => props.navigation.navigate('UserGuide', {destination: props.destination})}>
                 <Ionicons name={Platform.OS === 'ios' ? 'ios-information-circle-outline' : 'md-information-circle-outline'} color={'#8c1515'} size={24}/>
             </TouchableOpacity>
 

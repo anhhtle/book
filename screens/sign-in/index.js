@@ -8,6 +8,7 @@ import { createNewUser, getUserToken, getCurrentUser, updateProfile } from 'theb
 
 import LoginSection from './LoginSection';
 import CreateSection from './CreateSection';
+import ForgotPasswordSection from './ForgotPasswordSection';
 import UserAddressSection from './UserAddressSection';
 import UserAvatarSection from './userAvatarSection/';
 import UserAliasSection from './UserAliasSection';
@@ -17,8 +18,9 @@ class SignInScreen extends React.Component {
         super(props);
         this.state = {
             login_error: null,
-            loginSection: true,
+            loginSection: false,
             createSection: false,
+            forgotPasswordSection: true,
             userAddressSection: false,
             userAvatarSection: false,
             userAliasSection: false,
@@ -58,6 +60,10 @@ class SignInScreen extends React.Component {
             return (
                 <UserAddressSection update={this.handleUpdate} skip={() => this.handleSkip(1)} />
             )
+        } else if (this.state.forgotPasswordSection) {
+            return (
+                <ForgotPasswordSection update={this.handleForgotPassword} goBack={() => this.setState({loginSection: true, forgotPasswordSection: false})}/>
+            )
         } else if (this.state.userAvatarSection) {
             return (
                 <UserAvatarSection update={this.handleUpdate} skip={() => this.handleSkip(2)} />
@@ -76,7 +82,9 @@ class SignInScreen extends React.Component {
                         <Text style={styles.linkText}>{this.state.loginSection ? 'SIGN UP' : 'LOGIN'}</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.link} >
+                    <TouchableOpacity style={styles.link} onPress={() => this.setState({
+                        loginSection: false, createSection: false, forgotPasswordSection: true
+                    })}>
                         <Text style={styles.linkText}>FORGOT PASSWORD</Text>
                     </TouchableOpacity>
                 </View>
@@ -126,6 +134,9 @@ class SignInScreen extends React.Component {
                 this.props.getCurrentUser(this.props.user.token);
                 this.handleSkip(skipNum);
             });
+    }
+    handleForgotPassword(updateObj) {
+        console.log(updateObj);
     }
     handleSkip(num) {
         if (num === 1) {

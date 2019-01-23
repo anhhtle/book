@@ -40,7 +40,7 @@ class HomeScreen extends React.Component {
                     <NewsfeedSection />
                 </ScrollView>
 
-                <BookmarksTracker navigation={props.navigation} silver={props.user.bookmarks.silver} gold={props.user.bookmarks.gold}/>
+                <BookmarksTracker navigation={props.navigation} silver={props.user.bookmarks.silver} gold={props.user.bookmarks.gold} destination={'Dashboard'}/>
             </View>
         );
     }
