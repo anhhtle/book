@@ -22,7 +22,7 @@ export default class SettingScreen extends Component {
                     <Ionicons style={styles.icon} color={'#ffd472'} name={Platform.OS === 'ios' ? 'ios-notifications' : 'md-notifications'}/>
                     <Text style={styles.option}>Notification Settings</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.optionContainer} onPress={() => this.props.navigation.navigate('UserGuide')}>
+                <TouchableOpacity style={styles.optionContainer} onPress={() => this.props.navigation.navigate('UserGuide', {destination: 'Setting'} )}>
                     <Ionicons style={styles.icon} color={'#8c1515'} name={Platform.OS === 'ios' ? 'ios-book' : 'md-book'}/>
                     <Text style={styles.option}>User Guide</Text>
                 </TouchableOpacity>

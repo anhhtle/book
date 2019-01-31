@@ -26,8 +26,8 @@ const INITIAL_STATE = {
     ],
     deleted: false,
     _id: "6b9b152211dcb30675659e05",
-    first_name: "Anh",
-    last_name: "Le",
+    first_name: "TestAnh",
+    last_name: "TestLe",
     email: "anh.ht.le@gmail.com",
     bookmarks: {
         silver: 2,
@@ -81,9 +81,9 @@ export default userReducer = (state = INITIAL_STATE, action) => {
 
         case 'GET_CURRENT_USER_SUCCESS':
             if (action.payload.error) {
-                return {...state, error: action.payload.error, loading: false};
+                return {...state, error: true, loading: false};
             } else {
-                return {...action.payload.user, token: action.payload.token, error: null, loading: false};
+                return {...action.payload.user, token: action.payload.token, error: false, loading: false};
             }
 
         // delete a friend

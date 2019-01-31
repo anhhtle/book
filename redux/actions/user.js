@@ -35,7 +35,6 @@ export const createNewUserSuccess = (token) => (
     }
 );
 
-
 // sign in and get token
 export const getUserToken = (loginObj) => dispatch => {
     dispatch(getUserTokenRequest());
@@ -80,6 +79,7 @@ export const getCurrentUser = (token) => dispatch => {
         method: 'GET',
         headers: {
             'Authorization': `Token ${token}`,
+            "Accept": "application/json"
         }
     }
     ).then(res => {
@@ -87,8 +87,7 @@ export const getCurrentUser = (token) => dispatch => {
     }).then(user => {
         dispatch(getCurrentUserSuccess(user, token));
     }).catch(err => {
-        console.log(err);
-        dispatch(userError(error));
+        dispatch(userError(err));
     });
 }
 
@@ -169,7 +168,6 @@ export const updateProfileRequest= () => (
         type: 'UPDATE_PROFILE_REQUEST'
     }
 );
-
 
 export const updateProfileSuccess = (setting) => (
     {

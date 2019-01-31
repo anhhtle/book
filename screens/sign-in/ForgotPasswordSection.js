@@ -65,13 +65,7 @@ export default class ForgotPasswordSection extends React.Component {
     }
     handleUpdate() {
         if (this.validate()) {
-            let forgot_password_key = Math.random().toString(36).substr(2, 7);
-    
-            const updateObj = {
-                email: this.state.email,
-                forgot_password_key
-            }
-            this.props.update(updateObj);
+            this.props.update(this.state.email.toLowerCase());
     
             this.setState({
                 submitted: true

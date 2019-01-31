@@ -1,6 +1,8 @@
 import React from 'React';
 import { View, TouchableOpacity, Text, StyleSheet, AsyncStorage } from 'react-native';
 
+import {API_BASE_URL} from 'thebooksjourney/screens/utility/helperFunctions';
+
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -18,9 +20,9 @@ class SignInScreen extends React.Component {
         super(props);
         this.state = {
             login_error: null,
-            loginSection: false,
+            loginSection: true,
             createSection: false,
-            forgotPasswordSection: true,
+            forgotPasswordSection: false,
             userAddressSection: false,
             userAvatarSection: false,
             userAliasSection: false,
@@ -32,6 +34,7 @@ class SignInScreen extends React.Component {
         this.handleCreate = this.handleCreate.bind(this);
         this.handleUpdate = this.handleUpdate.bind(this);
         this.handleSkip = this.handleSkip.bind(this);
+        this.getAsyncStorage = this.getAsyncStorage.bind(this);
     }
     componentWillMount () {
         this.getAsyncStorage();
@@ -97,6 +100,7 @@ class SignInScreen extends React.Component {
 
         this.props.getUserToken(loginObj)
             .then(() => {
+                console.log(this.props.user);
                 if (this.props.user.error) {
                     this.setState({login_error: this.props.user.error});
                 } else {
@@ -135,8 +139,19 @@ class SignInScreen extends React.Component {
                 this.handleSkip(skipNum);
             });
     }
-    handleForgotPassword(updateObj) {
-        console.log(updateObj);
+    handleForgotPassword(email) {
+        fetch(`${API_BASE_URL}/user/password-reset-key/`, 
+        {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({email})
+        }
+        ).then(res => res.json())
+        .catch(err => {
+            console.log(err);
+        });
     }
     handleSkip(num) {
         if (num === 1) {
@@ -155,7 +170,7 @@ class SignInScreen extends React.Component {
     }
     async setAsyncStorage (token) {
         try {
-            await AsyncStorage.setItem('TheBooksJourneyToken', JSON.stringify(token));
+            await AsyncStorage.setItem('TheBooksJourneyToken', token);
         } catch (error) {
             console.log(error);
         }
@@ -164,12 +179,13 @@ class SignInScreen extends React.Component {
         try {
             const token =  await AsyncStorage.getItem('TheBooksJourneyToken');
             if (token) {
-                this.props.navigation.navigate('Dashboard');
+                this.props.getCurrentUser(token)
+                    .then(() => this.props.navigation.navigate('Home'))
+                    .catch(err => console.error(err));
             }
         } catch (error) {
             console.log(error);
         }
-        return;
     }
 }
 
