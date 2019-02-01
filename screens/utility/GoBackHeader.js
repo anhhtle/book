@@ -19,15 +19,14 @@ export default goBackHeader = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        paddingTop: 20,
+        paddingVertical: 10,
         paddingHorizontal: 20,
-        paddingBottom: 10,
-        height: 65,
+        height: 55,
         backgroundColor: '#B1040E',
     },
     backIconContainer: {
         position: 'absolute',
-        top: 20,
+        top: 10,
         left: 5,
         width: 50,
         justifyContent: 'center'

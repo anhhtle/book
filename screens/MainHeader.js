@@ -45,10 +45,9 @@ export default class MainHeader extends Component {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        paddingTop: 20,
+        paddingVertical: 10,
         paddingHorizontal: 20,
-        paddingBottom: 10,
-        height: 65,
+        height: 60,
         backgroundColor: '#B1040E',
     },
 

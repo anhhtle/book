@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Platform, StyleSheet, AsyncStorage } from 'react-native';
+import { View, Text, TouchableOpacity, Platform, StyleSheet, AsyncStorage, Linking, Button } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import GoBackHeader from '../utility/GoBackHeader';
@@ -33,12 +33,26 @@ export default class SettingScreen extends Component {
                     <Ionicons style={styles.icon} color={'grey'} name={Platform.OS === 'ios' ? 'ios-exit' : 'md-exit'}/>
                     <Text style={styles.option}>Logout</Text>
                 </TouchableOpacity>
+
+                <View style={{marginTop: 80, alignItems: 'center'}}>
+                    <Text style={styles.contactUs}>Contact us</Text>
+                    <TouchableOpacity onPress={this.handleOpenEmail}>
+                        <Text style={{fontSize: 16, color: '#4286f4'}}>thebooksjourney@gmail.com</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     }
     handleLogout() {
         AsyncStorage.removeItem('TheBooksJourneyUserToken');
         this.props.navigation.navigate('SignIn');
+    }
+    handleOpenEmail = async () => {
+        try {
+            await Linking.openURL('mailto:thebooksjourney@gmail.com');
+        } catch (e) {
+            console.log({e});
+        }
     }
 }
 
@@ -64,5 +78,9 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         borderBottomColor: 'lightgrey',
         borderBottomWidth: StyleSheet.hairlineWidth,
-    }
+    },
+    contactUs: {
+        fontSize: 16,
+        marginBottom: 10
+    },
 });

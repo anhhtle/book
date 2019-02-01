@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, SafeAreaView } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 // redux
@@ -79,9 +79,9 @@ export default class App extends React.Component {
 
     return (
       <Provider store={ store } >
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
           <RootStack />
-        </View>
+        </SafeAreaView>
       </Provider>
     );
   }
