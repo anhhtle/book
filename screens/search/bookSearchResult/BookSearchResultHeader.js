@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, TextInput, TouchableOpacity, Platform, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import {API_BASE_URL} from 'thebooksjourney/screens/utility/helperFunctions';
+
 export default class BookSearchResultHeader extends Component {
     constructor(props) {
         super(props);
@@ -33,8 +35,15 @@ export default class BookSearchResultHeader extends Component {
     }
 
     onSearchSubmit = () => {
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=${this.state.search_term}`)
-            .then(res => res.json())
+        fetch(`${API_BASE_URL}/books/search`, 
+            {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({query: this.state.search_term})
+            }
+            ).then(res => res.json())
             .then(resJson => {
                 this.props.updateState(resJson);
             }).catch(err => {
@@ -46,9 +55,8 @@ export default class BookSearchResultHeader extends Component {
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        paddingTop: 20,
+        paddingVertical: 10,
         paddingHorizontal: 20,
-        paddingBottom: 10,
         height: 60,
         backgroundColor: '#B1040E',
     },

@@ -46,7 +46,7 @@ const INITIAL_STATE = {
         deleted: false,
         _id: "5bfd02d79892d111045c2ebd"
     },
-    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaC5odC5sZUBnbWFpbC5jb20iLCJpZCI6IjZiOWIxNTIyMTFkY2IzMDY3NTY1OWUwNSIsImV4cCI6MTU0ODk2NDk4NCwiaWF0IjoxNTQzNzgwOTg0fQ.24IYvapi5PVBpNPOuzjn9EZPb5bLn1AOM_u3i4Wo5lI',
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaC5odC5sZUBnbWFpbC5jb20iLCJpZCI6IjZiOWIxNTIyMTFkY2IzMDY3NTY1OWUwNSIsImV4cCI6MTU1NDE1NTU4OSwiaWF0IjoxNTQ4OTcxNTg5fQ.81jPt85RjTtJuXlgEFuf7ftT5hnuxwb0sBBt74NBupQ',
     error: false,
     loading: false
 }

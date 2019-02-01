@@ -3,6 +3,8 @@ import { View, StyleSheet } from 'react-native';
 
 // redux
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getVariantsFriend } from 'thebooksjourney/redux/actions/variantFriend';
 
 // components
 import FriendNewBookCard from './FriendNewBookCard';
@@ -19,6 +21,8 @@ class NewsfeedSection extends Component {
         this.state = {
             isModalVisible: false,
         }
+
+        this.handleFriendProfile = this.handleFriendProfile.bind(this);
     }
 
     render() {
@@ -28,24 +32,29 @@ class NewsfeedSection extends Component {
             </View>
         );
     }
-
     renderNewsfeeds() {
         let arr = [];
         this.props.newsfeeds.newsfeeds.map((newsfeed, index) => {
             if (newsfeed.type === 'Friend: new book') {
-                arr.push(<FriendNewBookCard key={index} friend={newsfeed.friend} book={newsfeed.book} date={newsfeed.date} />)
+                arr.push(<FriendNewBookCard key={index} friend={newsfeed.friend} book={newsfeed.book} date={newsfeed.date} friend_profile={() => this.handleFriendProfile(newsfeed.friend._id, newsfeed.friend)} />)
             } else if (newsfeed.type === 'Friend: reading') {
-                arr.push(<FriendCurrentReadingCard key={index} friend={newsfeed.friend} book={newsfeed.book} date={newsfeed.date} />)
+                arr.push(<FriendCurrentReadingCard key={index} friend={newsfeed.friend} book={newsfeed.book} date={newsfeed.date} friend_profile={() => this.handleFriendProfile(newsfeed.friend._id, newsfeed.friend)}/>)
             } else if (newsfeed.type === 'Friend: sharing book') {
-                arr.push(<FriendSharingBookCard key={index} friend={newsfeed.friend} book={newsfeed.book} date={newsfeed.date} />)
+                arr.push(<FriendSharingBookCard key={index} friend={newsfeed.friend} book={newsfeed.book} date={newsfeed.date} friend_profile={() => this.handleFriendProfile(newsfeed.friend._id, newsfeed.friend)}/>)
             } else if (newsfeed.type === 'Friend: received book') {
-                arr.push(<FriendRecievedBookCard key={index} friend={newsfeed.friend} community_member={newsfeed.community_member} book={newsfeed.book} date={newsfeed.date} />)
+                arr.push(<FriendRecievedBookCard key={index} friend={newsfeed.friend} community_member={newsfeed.community_member} book={newsfeed.book} date={newsfeed.date} friend_profile={() => this.handleFriendProfile(newsfeed.friend._id, newsfeed.friend)}/>)
             } else if (newsfeed.type === 'Friend: avatar') {
-                arr.push(<FriendNewAvatarCard key={index} friend={newsfeed.friend} avatar={newsfeed.avatar} date={newsfeed.date} />)
+                arr.push(<FriendNewAvatarCard key={index} friend={newsfeed.friend} avatar={newsfeed.avatar} date={newsfeed.date} friend_profile={() => this.handleFriendProfile(newsfeed.friend._id, newsfeed.friend)}/>)
             }
         });
-
         return arr;
+    }
+    handleFriendProfile(id, friend) {
+        this.props.getVariantsFriend(this.props.user.token, id)
+            .then(() => {
+                this.props.navigation.navigate('FriendProfile', {destination: 'Home', friend});
+            })
+            .catch(err => console.error(err));
     }
 }
 
@@ -108,8 +117,14 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { newsfeeds } = state;
-    return { newsfeeds };
+    const { newsfeeds, user, variantsFriend } = state;
+    return { newsfeeds, user, variantsFriend };
 }
 
-export default connect(mapStateToProps)(NewsfeedSection);
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        getVariantsFriend
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewsfeedSection);

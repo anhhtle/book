@@ -9,6 +9,7 @@ import settingssReducer from './settings';
 import userReducer from './user';
 import variantReducer from './variant';
 import variantShareReducer from './variantShare';
+import variantFriendReducer from './variantFriend';
 
 export default combineReducers({
     appState: appStaterReducer,
@@ -21,4 +22,5 @@ export default combineReducers({
     user: userReducer,
     variants: variantReducer,
     variantsShare: variantShareReducer,
+    variantsFriend: variantFriendReducer,
 });

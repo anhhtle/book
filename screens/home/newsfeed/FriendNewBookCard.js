@@ -1,12 +1,14 @@
 import React from 'react';
-import { Text, View, Image, StyleSheet } from 'react-native';
+import { Text, View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { renderRatingStars, renderLongDate } from 'thebooksjourney/screens/utility/helperFunctions';
 
 export default FriendNewBookCard = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.cardHeading}>
-                <Image source={{uri: props.friend.avatar.image}} style={styles.profileImage}/>
+                <TouchableOpacity onPress={props.friend_profile}>
+                    <Image source={{uri: props.friend.avatar.image}} style={styles.profileImage}/>
+                </TouchableOpacity>
                 <View style={styles.nameDateContainer}>
                     <Text><Text style={styles.profileName}>{props.friend.first_name + ' ' + props.friend.last_name}</Text> have a <Text style={{fontWeight: 'bold'}}>new book</Text>!</Text>
                     <Text style={styles.date}>{renderLongDate(props.date)}</Text>

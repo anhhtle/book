@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, AsyncStorage } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 
 // redux
 import { connect } from 'react-redux';
@@ -17,7 +17,7 @@ import { getVariants } from 'thebooksjourney/redux/actions/variant';
 import MainHeader from '../MainHeader';
 import BooksAvailableSection from './booksAvailable';
 import NotificationsSection from './notifications';
-import NewsfeedSection from './newsfeed/NewsfeedSection';
+import NewsfeedSection from './newsfeed';
 import BookmarksTracker from 'thebooksjourney/screens/utility/BookmarksTracker';
 
 class HomeScreen extends React.Component {
@@ -37,7 +37,7 @@ class HomeScreen extends React.Component {
         
                     <BooksAvailableSection navigation={props.navigation}/>
                     <NotificationsSection navigation={props.navigation} requests={this.props.requests} user_id={this.props.user._id} />
-                    <NewsfeedSection />
+                    <NewsfeedSection navigation={props.navigation} />
                 </ScrollView>
 
                 <BookmarksTracker navigation={props.navigation} silver={props.user.bookmarks.silver} gold={props.user.bookmarks.gold} destination={'Dashboard'}/>

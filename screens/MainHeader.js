@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, TextInput, TouchableOpacity, Platform, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+import {API_BASE_URL} from 'thebooksjourney/screens/utility/helperFunctions';
+
 export default class MainHeader extends Component {
     constructor(props) {
         super(props);
@@ -32,9 +34,17 @@ export default class MainHeader extends Component {
     }
 
     onSearchSubmit = () => {
-        fetch(`https://www.googleapis.com/books/v1/volumes?q=${this.state.search_term}`)
-            .then(res => res.json())
+        fetch(`${API_BASE_URL}/books/search`, 
+            {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({query: this.state.search_term})
+            }
+            ).then(res => res.json())
             .then(resJson => {
+                console.log(resJson);
                 this.props.navigation.navigate('BookSearchResult', { data: resJson });
             }).catch(err => {
                 console.error(err);
