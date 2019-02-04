@@ -15,15 +15,20 @@ import { AppLoading, Font } from 'expo';
 
 import Ionicons from './node_modules/@expo/vector-icons/fonts/Ionicons.ttf';
 
-//import screens
+//***********  import screens ********************
 import SignInScreen from './screens/sign-in';
 import DashboardScreen from './screens/DashboardScreen';
 import BookSearchResultScreen from './screens/search/bookSearchResult';
 import ShareBooksScreen from './screens/share';
 import CommunityRequestsScreen from './screens/requests/communityRequests';
 import MyRequestsScreen from './screens/requests/myRequests';
-import FriendProfileScreen from './screens/friend';
 
+// friend screens
+import FriendProfileScreen from './screens/friend';
+import FriendBooksDetailedScreen from './screens/friend/friendBooksSection/detailedScreen';
+import FriendWatchlistBooksDetailedScreen from './screens/friend/watchlistBooksSection/detailedScreen';
+
+// setting screens
 import SettingScreen from './screens/settings';
 import EditProfileScreen from './screens/settings/profile';
 import NotificationSettingsScreen from './screens/settings/notifications';
@@ -51,6 +56,8 @@ const RootStack = createStackNavigator(
 
     // friend profile
     FriendProfile: { screen: FriendProfileScreen },
+    FriendBooks: { screen: FriendBooksDetailedScreen },
+    FriendWatchlist: { screen: FriendWatchlistBooksDetailedScreen },
   },
   {
     initialRouteName: 'Dashboard',

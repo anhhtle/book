@@ -1,17 +1,13 @@
 import React from 'React';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { Switch } from 'react-native-switch';
 import { renderRatingStars, renderUserRatingStars } from 'thebooksjourney/screens/utility/helperFunctions';
 
 export default class BookCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            variant: this.props.variant,
-            switchValue: true 
         };
 
-        this.handleSaveChanges = this.handleSaveChanges.bind(this);
     }
 
     render () {
@@ -20,8 +16,8 @@ export default class BookCard extends React.Component {
                 { this.renderImage() }
 
                 <View style={styles.cardDetail}>
-                    <Text style={styles.title}>{this.state.variant.book.title}</Text>
-                    <Text style={styles.author}>{this.state.variant.book.authors ? this.state.variant.book.authors[0] : ''}</Text>
+                    <Text style={styles.title}>{this.props.variant.book.title}</Text>
+                    <Text style={styles.author}>{this.props.variant.book.authors ? this.props.variant.book.authors[0] : ''}</Text>
 
                     {/* ratings */}
                     <View style={{flexDirection: 'row', marginBottom: 5}}>
@@ -31,42 +27,29 @@ export default class BookCard extends React.Component {
 
                     {/* user ratings */}
                     <View style={{flexDirection: 'row', marginBottom: 5}}>
-                        <Text>My rating: </Text>
+                        <Text>{this.props.variant.user.first_name + `'s`} rating: </Text>
                         { this.renderUserRating() }
                     </View>
 
                     {/* status*/}
                     <View style={{flexDirection: 'row', marginBottom: 5}}>
                         <Text>Status: </Text>
-                        <Text style={{color: '#8c1515'}}>{this.props.variant.status}</Text>
+                        <Text style={{color: '#4885ed'}}>{this.props.variant.status}</Text>
                     </View>
 
                     {/* share? */}
                     <View style={styles.switchContainer}>
                         <Text style={{marginRight: 10}}>Available for community?</Text>
-                        <Switch
-                            value={this.state.variant.available_for_share}
-                            onValueChange={(val) => this.handleSaveChanges(val)}
-                            circleSize={20}
-                            barHeight={20}
-                            circleBorderWidth={2}
-                            activeText={'On'}
-                            inActiveText={'Off'}
-                            backgroundActive={'gold'}
-                            backgroundInactive={'gray'}
-                            />
+                        <Text style={{color: '#4885ed'}}>{this.props.variant.available_for_share ? 'Yes' : 'No'}</Text>
                     </View>
 
                 </View>
             </TouchableOpacity>
         )
     }
-    componentWillReceiveProps(nextProps) {
-        this.setState({variant: nextProps.variant});
-    }
     renderImage() {
-        if (this.state.variant.book.image) {
-            return <Image source={{ uri: this.state.variant.book.image }} style={styles.cardImage} />
+        if (this.props.variant.book.image) {
+            return <Image source={{ uri: this.props.variant.book.image }} style={styles.cardImage} />
         }
 
         return <Image source={{ uri: 'https://www.edsportrallysupplies.ie/media/catalog/product/cache/1/image/256x256/9df78eab33525d08d6e5fb8d27136e95/i/m/image-placeholder-alt_2_1.jpg' }} style={styles.cardImage} />
@@ -81,20 +64,10 @@ export default class BookCard extends React.Component {
     }
     renderUserRating() {
         if (this.props.variant) {
-            return renderUserRatingStars(this.state.variant.user_rating)
+            return renderUserRatingStars(this.props.variant.user_rating)
         }
         return renderUserRatingStars(0)
     }
-    handleSaveChanges(val) {
-        const saveObj = {
-            variant_id: this.props.variant._id,
-            update: {
-                available_for_share: val
-            }
-        }
-        this.props.saveChanges(saveObj);
-    }
-
 }
 
 const styles = StyleSheet.create({
@@ -124,9 +97,6 @@ const styles = StyleSheet.create({
     author: {
         marginBottom: 5,
         fontWeight: 'bold'
-    },
-    statusContainer: {
-        // alignSelf: 'flex-end',
     },
     status: {
         color: '#8c1515'

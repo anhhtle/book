@@ -3,8 +3,6 @@ import { ScrollView, Text, View, TouchableOpacity, StyleSheet } from 'react-nati
 
 // redux
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { getVariants, updateVariant, deleteVariant } from 'thebooksjourney/redux//actions/variant';
 
 // component
 import WatchlistBookModal from './WatchlistBookModal';
@@ -21,8 +19,6 @@ class WatchlistBooksSection extends Component {
         }
 
         this.handleShowModal = this.handleShowModal.bind(this);
-        this.handleSaveChanges = this.handleSaveChanges.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
     }
 
     render() {
@@ -45,7 +41,7 @@ class WatchlistBooksSection extends Component {
                     <View style={styles.header}>
                         <Text style={styles.headerTitle}>Watchlist</Text>
                         
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Watchlist')}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('FriendWatchlist')}>
                             <Text style={styles.browseLink}>Browse all...</Text>
                         </TouchableOpacity>
                     </View>
@@ -65,7 +61,7 @@ class WatchlistBooksSection extends Component {
     setModalIndex() {
         let indexSelected = null;
         let count = 0;
-        this.props.variants.variants.map((item, index) => {
+        this.props.variantsFriend.variantsFriend.map((item, index) => {
             if (item.status === 'Watchlist') {
                 indexSelected = index;
                 count++;
@@ -82,7 +78,7 @@ class WatchlistBooksSection extends Component {
     }
     renderBooks() {
         let arr = [];
-        this.props.variants.variants.map((item, index) => {
+        this.props.variantsFriend.variantsFriend.map((item, index) => {
             if (item.status === 'Watchlist') {
                 arr.push(<BookCard book={item.book} key={item._id} showModal={() => this.handleShowModal(index)}/>)
             }
@@ -95,10 +91,8 @@ class WatchlistBooksSection extends Component {
             return (
                 <WatchlistBookModal 
                     isVisible={this.state.isModalVisible} 
-                    variant={this.props.variants.variants[this.state.indexSelected]} 
+                    variant={this.props.variantsFriend.variantsFriend[this.state.indexSelected]} 
                     closeModal={() => this.setState({isModalVisible: false})} 
-                    saveChanges={this.handleSaveChanges}
-                    delete={this.handleDelete}
                 />
             )
         } else {
@@ -110,22 +104,6 @@ class WatchlistBooksSection extends Component {
             isModalVisible: true,
             indexSelected: index
         });
-    }
-    handleSaveChanges(saveObj) {
-        this.props.updateVariant(this.props.user.token, saveObj)
-            .then(() => {
-                this.props.getVariants(this.props.user.token);
-            });
-            
-        this.setState({isModalVisible: false});
-    }
-    handleDelete(id) {
-        this.props.deleteVariant(this.props.user.token, id)
-        .then(() => {
-                this.setState({isModalVisible: false});
-                this.props.getVariants(this.props.user.token);
-            });
-            
     }
 }
 
@@ -159,14 +137,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { user, variants } = state
-    return { user, variants }
+    const { variantsFriend } = state
+    return { variantsFriend }
 };
 
-const mapDispatchToProps = dispatch => (
-    bindActionCreators({
-        getVariants, updateVariant, deleteVariant
-    }, dispatch)
-);
-  
-export default connect(mapStateToProps, mapDispatchToProps)(WatchlistBooksSection);
+export default connect(mapStateToProps)(WatchlistBooksSection);

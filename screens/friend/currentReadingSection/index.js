@@ -1,30 +1,43 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, Platform, Dimensions, StyleSheet} from 'react-native';
+import {View, Text, Dimensions, StyleSheet} from 'react-native';
 
 // redux
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { getVariantsFriend } from 'thebooksjourney/redux/actions/variantFriend';
 
 import CurrentReadingCard from './CurrentReadingCard';
 
 class CurrentReadingSection extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            renderComponent: false
+        }
     }
 
     render () {
-        return (
-            <View style={styles.container}>
-                <View style={styles.header}>
-                    <Text style={styles.headerTitle}>Current reading</Text>
+        if (this.state.renderComponent) {
+            return(
+                <View style={styles.container}>
+                    <View style={styles.header}>
+                        <Text style={styles.headerTitle}>Current reading</Text>
+                    </View>
+    
+                    {this.renderBooks()}
                 </View>
+            )
+        } 
 
-                {this.renderBooks()}
-            </View>
-        )
+        return <View style={styles.container}></View>;
     }
-
+    componentDidMount () {
+        let renderComponent = false;
+        this.props.variantsFriend.variantsFriend.map(variant => {
+            if (variant.status === 'Reading') {
+                renderComponent = true;
+            }
+        })
+        this.setState({renderComponent})
+    }
     renderBooks () {
         let arr = [];
         this.props.variantsFriend.variantsFriend.forEach((item, index) => {
@@ -78,14 +91,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { user, variantsFriend } = state
-    return { user, variantsFriend }
+    const { variantsFriend } = state
+    return { variantsFriend }
 };
 
-const mapDispatchToProps = dispatch => (
-    bindActionCreators({
-        getVariantsFriend
-    }, dispatch)
-);
-  
-export default connect(mapStateToProps, mapDispatchToProps)(CurrentReadingSection);
+export default connect(mapStateToProps)(CurrentReadingSection);

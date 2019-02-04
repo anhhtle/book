@@ -2,9 +2,9 @@ import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 
 // components
-import GoBackHeader from 'thebooksjourney/screens/utility/GoBackHeader';
+import FriendGoBackHeader from './FriendGoBackHeader';
 import CurrentReadingSection from './currentReadingSection';
-import MyBooksSection from './myBooksSection';
+import FriendBooksSection from './friendBooksSection';
 import WatchlistBooksSection from './watchlistBooksSection';
 import AvatarsSection from './avatarsSection';
 
@@ -21,10 +21,10 @@ export default class FriendProfileScreen extends React.Component {
         return (
             <ScrollView style={styles.container}>
 
-                <GoBackHeader title={this.state.name} navigation={this.props.navigation} destination={this.state.destination}/>
+                <FriendGoBackHeader title={this.state.name} navigation={this.props.navigation} destination={this.state.destination}/>
 
                 <CurrentReadingSection />
-                <MyBooksSection navigation={this.props.navigation} />
+                <FriendBooksSection navigation={this.props.navigation} />
                 <WatchlistBooksSection navigation={this.props.navigation} />
                 <AvatarsSection navigation={this.props.navigation} />
             </ScrollView>

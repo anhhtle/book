@@ -15,6 +15,7 @@ class CurrentReadingSection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            renderComponent: false,
             isModalVisible: false
         }
 
@@ -22,7 +23,6 @@ class CurrentReadingSection extends React.Component {
         this.handleRemoveBook = this.handleRemoveBook.bind(this);
         this.handleChangeBookProgress = this.handleChangeBookProgress.bind(this);
     }
-
     render () {
         return (
             <View style={styles.container}>

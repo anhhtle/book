@@ -3,14 +3,12 @@ import { ScrollView, Text, View, TouchableOpacity, StyleSheet } from 'react-nati
 
 // redux
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { getVariants, updateVariant, deleteVariant } from 'thebooksjourney/redux//actions/variant';
 
 // component
 import BookCard from 'thebooksjourney/screens/utility/BookCard';
 import BookDetailModal from './BookDetailModal';
 
-class MyBooksSection extends Component {
+class friendBooksSection extends Component {
     constructor (props) {
         super (props);
         this.state = {
@@ -20,17 +18,15 @@ class MyBooksSection extends Component {
         }
 
         this.handleShowModal = this.handleShowModal.bind(this);
-        this.handleSaveChanges = this.handleSaveChanges.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
     }
 
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={styles.headerTitle}>My books</Text>
+                    <Text style={styles.headerTitle}>{this.props.variantsFriend.variantsFriend[0].user.first_name + ' ' + this.props.variantsFriend.variantsFriend[0].user.last_name}'s books</Text>
 
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('MyBooks')}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('FriendBooks')}>
                         <Text style={styles.browseLink}>Browse all...</Text>
                     </TouchableOpacity>
                 </View>
@@ -48,17 +44,16 @@ class MyBooksSection extends Component {
     }
     componentDidMount() {
         this.setModalIndex();
+        console.log(this.props.variantsFriend.variantsFriend[0]);
     }
     componentWillReceiveProps() {
         this.setModalIndex();
     }
     setModalIndex() {
         let indexSelected = null;
-        this.props.variants.variants.map((item, index) => {
-            if (item.status !== 'Recommended') {
-                indexSelected = index;
-            }
-        });
+        if (this.props.variantsFriend.variantsFriend.length > 0) {
+            indexSelected = 0;
+        }
         if (indexSelected !== null) {
             this.setState({indexSelected, needModal: true})
         } else {
@@ -67,10 +62,8 @@ class MyBooksSection extends Component {
     }
     renderBooks() {
         let arr = [];
-        this.props.variants.variants.map((item, index) => {
-            if (item.status !== 'Recommended' && item.status !== 'Watchlist') {
-                arr.push(<BookCard book={item.book} key={item._id} showModal={() => this.handleShowModal(index)} />);
-            }
+        this.props.variantsFriend.variantsFriend.map((item, index) => {
+            arr.push(<BookCard book={item.book} key={item._id} showModal={() => this.handleShowModal(index)} />);
         });
 
         return arr;
@@ -80,10 +73,8 @@ class MyBooksSection extends Component {
             return (
                 <BookDetailModal 
                     isVisible={this.state.isModalVisible} 
-                    variant={this.props.variants.variants[this.state.indexSelected]} 
-                    closeModal={() => this.setState({isModalVisible: false})} 
-                    saveChanges={this.handleSaveChanges}
-                    delete={this.handleDelete}
+                    variant={this.props.variantsFriend.variantsFriend[this.state.indexSelected]} 
+                    closeModal={() => this.setState({isModalVisible: false})}
                 />
             )
         } else {
@@ -95,22 +86,6 @@ class MyBooksSection extends Component {
             isModalVisible: true,
             indexSelected: index
         });
-    }
-    handleSaveChanges(saveObj) {
-        this.props.updateVariant(this.props.user.token, saveObj)
-            .then(() => {
-                this.props.getVariants(this.props.user.token);
-            });
-            
-        this.setState({isModalVisible: false});
-    }
-    handleDelete(id) {
-        this.setState({isModalVisible: false});
-        this.props.deleteVariant(this.props.user.token, id)
-            .then(() => {
-                this.props.getVariants(this.props.user.token);
-            });
-            
     }
 }
 
@@ -144,14 +119,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { user, variants } = state;
-    return { user, variants }
+    const { variantsFriend } = state;
+    return { variantsFriend }
 }
 
-const mapDispatchToProps = dispatch => (
-    bindActionCreators({
-        getVariants, updateVariant, deleteVariant
-    }, dispatch)
-);
-
-export default connect(mapStateToProps, mapDispatchToProps)(MyBooksSection)
+export default connect(mapStateToProps)(friendBooksSection)

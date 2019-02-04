@@ -9,9 +9,6 @@ export default class WatchlistBookModal extends React.Component {
         super(props);
         this.state = {
         }
-
-        this.handleSave = this.handleSave.bind(this);
-        this.handleDelete = this.handleDelete.bind(this);
     }
 
     render () {
@@ -48,17 +45,6 @@ export default class WatchlistBookModal extends React.Component {
                             <Text>{props.variant ? props.variant.book.description: ''}</Text>
                         </View>
                         {/* end book description */}
-
-                        {/* action buttons */}
-                        <View style={styles.buttonsContainer}>
-                            <TouchableOpacity style={styles.deleteButton} onPress={this.handleDelete}>
-                                <Text style={{color: '#8c1515'}}>DELETE</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.addButton} onPress={this.handleSave}>
-                                <Text style={{color: '#000'}}>ADD TO BOOKCASE</Text>
-                            </TouchableOpacity>
-                        </View>
-                        {/* end action buttons */}
 
                     </ScrollView>
                 </View>
@@ -98,34 +84,6 @@ export default class WatchlistBookModal extends React.Component {
             }
         }
         return renderRatingStars(0)
-    }
-    handleSave() {
-        const saveObj = {
-            variant_id: this.props.variant._id,
-            update: {
-                status: 'Not started'
-            }
-        }
-        this.props.saveChanges(saveObj);
-    }
-    handleDelete() {
-        Alert.alert(
-            'Delete confirmation',
-            'Are you sure?',
-            [
-                {
-                    text: 'Yes',
-                    onPress: () => {
-                        if (this.props.variant) {
-                            this.props.delete(this.props.variant._id);
-                        }
-                    }
-                },
-                {   
-                    text: 'Cancel', 
-                },
-            ]
-        )
     }
 }
 
@@ -205,23 +163,4 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginRight: 15,
     },
-
-
-    //  action buttons section
-    buttonsContainer: {
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        alignItems: 'center'
-    },
-    deleteButton: {
-        position: 'absolute',
-        left: 0
-    },
-    addButton: {
-        backgroundColor: 'gold',
-        paddingVertical: 5,
-        paddingHorizontal: 10,
-        marginRight: 5,
-        borderRadius: 5,
-    }
 });
