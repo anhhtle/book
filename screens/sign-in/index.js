@@ -180,7 +180,11 @@ class SignInScreen extends React.Component {
             const token =  await AsyncStorage.getItem('TheBooksJourneyToken');
             if (token) {
                 this.props.getCurrentUser(token)
-                    .then(() => this.props.navigation.navigate('Home'))
+                    .then(() => {
+                        if (!this.props.user.error) {
+                            this.props.navigation.navigate('Home')
+                        }
+                    })
                     .catch(err => console.error(err));
             }
         } catch (error) {

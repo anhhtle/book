@@ -80,7 +80,7 @@ export default userReducer = (state = INITIAL_STATE, action) => {
             return {...state, loading: true};
 
         case 'GET_CURRENT_USER_SUCCESS':
-            if (action.payload.error) {
+            if (action.payload.user.error) {
                 return {...state, error: true, loading: false};
             } else {
                 return {...action.payload.user, token: action.payload.token, error: false, loading: false};

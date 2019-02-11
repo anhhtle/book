@@ -60,7 +60,7 @@ const RootStack = createStackNavigator(
     FriendWatchlist: { screen: FriendWatchlistBooksDetailedScreen },
   },
   {
-    initialRouteName: 'Dashboard',
+    initialRouteName: 'SignIn',
     headerMode: 'none'
   }
 );

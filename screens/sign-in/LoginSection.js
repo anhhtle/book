@@ -48,7 +48,7 @@ export default class LoginSection extends React.Component {
     handleLogin() {
         const loginObj = {
             user: {
-                email: this.state.email,
+                email: this.state.email.toLowerCase(),
                 password: this.state.password
             }
         }

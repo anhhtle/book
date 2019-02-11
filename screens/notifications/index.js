@@ -43,13 +43,13 @@ class NotificationsScreen extends React.Component {
         let arr = [];
         this.props.notifications.notifications.map((notification, index) => {
             if(notification.type === 'Recommendation') {
-                arr.push(<RecommendationCard key={index} friend={notification.friend} book={notification.book} date={notification.date} navigation={this.props.navigation}/>)
+                arr.push(<RecommendationCard key={index} friend={notification.friend} book={notification.book} date={notification.createdAt} navigation={this.props.navigation}/>)
             } else if (notification.type === 'Avatar') {
-                arr.push(<AvatarCard key={index} avatar={notification.avatar} date={notification.date} navigation={this.props.navigation}/>)
+                arr.push(<AvatarCard key={index} avatar={notification.avatar} date={notification.createdAt} navigation={this.props.navigation}/>)
             } else if (notification.type === 'New friend') {
-                arr.push(<NewFriendCard key={index} friend={notification.friend} date={notification.date} navigation={this.props.navigation}/>)
+                arr.push(<NewFriendCard key={index} friend={notification.friend} date={notification.createdAt} navigation={this.props.navigation}/>)
             } else if (notification.type === 'Friend request') {
-                arr.push(<FriendRequestCard key={index} friend={notification.friend} date={notification.date} navigation={this.props.navigation}/>)
+                arr.push(<FriendRequestCard key={index} friend={notification.friend} date={notification.createdAt} navigation={this.props.navigation}/>)
             }
         });
         return arr;

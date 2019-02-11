@@ -83,7 +83,11 @@ export const getCurrentUser = (token) => dispatch => {
         }
     }
     ).then(res => {
-        return res.json();
+        if( res.status === 401) {
+            return {error: true}
+        } else {
+            return res.json();
+        }
     }).then(user => {
         dispatch(getCurrentUserSuccess(user, token));
     }).catch(err => {
