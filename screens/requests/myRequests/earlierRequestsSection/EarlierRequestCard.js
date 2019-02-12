@@ -25,7 +25,7 @@ export default class EarlierRequestCard extends React.Component {
 
                     <View style={styles.dateContainer}>
                         <Ionicons name={Platform.OS === 'ios' ? 'ios-calendar' : 'md-calendar'} color={'#8c1515'} size={20}/>
-                        <Text style={styles.date}>{renderDate(props.request.date)}</Text>
+                        <Text style={styles.date}>{renderDate(props.request.updatedAt)}</Text>
                     </View>
                 </View>
             </View>
