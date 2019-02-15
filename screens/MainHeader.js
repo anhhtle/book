@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { View, TextInput, TouchableOpacity, Platform, StyleSheet } from 'react-native';
+import { View, Image, TextInput, TouchableOpacity, Platform, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+// redux
+import { connect } from 'react-redux';
 
 import {API_BASE_URL} from 'thebooksjourney/screens/utility/helperFunctions';
 
-export default class MainHeader extends Component {
+class MainHeader extends Component {
     constructor(props) {
         super(props);
         this.state = {
             search_term: '',
-            
         }
     };
 
@@ -27,7 +29,8 @@ export default class MainHeader extends Component {
                 </View>
 
                 <TouchableOpacity style={styles.settingsContainer} onPress={() => this.props.navigation.navigate('Setting') }>
-                    <Ionicons style={styles.settingsIcon} name={Platform.OS === 'ios' ? 'ios-settings' : 'md-settings'} color="#000"/>
+                    {/* <Ionicons style={styles.settingsIcon} name={Platform.OS === 'ios' ? 'ios-settings' : 'md-settings'} color="#000"/> */}
+                    <Image style={styles.profileImage} source={{uri: this.props.user.avatar.image }} />
                 </TouchableOpacity>
             </View>
         )
@@ -94,8 +97,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: 5
     },
-    settingsIcon: {
-        color: '#FFF',
-        fontSize: 20,
+    // settingsIcon: {
+    //     color: '#FFF',
+    //     fontSize: 20,
+    // },
+    profileImage: {
+        width: 35,
+        height: 35,
+        marginLeft: 5,
+        borderRadius: 18
     }
 });
+
+
+const mapStateToProps = (state) => {
+    const  { user } = state;
+    return { user}
+}
+
+export default connect(mapStateToProps)(MainHeader);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TextInput, TouchableOpacity, Platform, StyleSheet } from 'react-native';
+import { View, Image, TextInput, TouchableOpacity, Platform, StyleSheet } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {API_BASE_URL} from 'thebooksjourney/screens/utility/helperFunctions';
@@ -31,7 +31,8 @@ class ContactsHeader extends Component {
                 </View>
 
                 <TouchableOpacity style={styles.settingsContainer} onPress={() => this.props.navigation.navigate('Setting') }>
-                    <Ionicons style={styles.settingsIcon} name={Platform.OS === 'ios' ? 'ios-settings' : 'md-settings'} color="#000"/>
+                    {/* <Ionicons style={styles.settingsIcon} name={Platform.OS === 'ios' ? 'ios-settings' : 'md-settings'} color="#000"/> */}
+                    <Image style={styles.profileImage} source={{uri: this.props.user.avatar.image }} />
                 </TouchableOpacity>
             </View>
         )
@@ -99,9 +100,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: 5
     },
-    settingsIcon: {
-        color: '#FFF',
-        fontSize: 20,
+    // settingsIcon: {
+    //     color: '#FFF',
+    //     fontSize: 20,
+    // },
+    profileImage: {
+        width: 35,
+        height: 35,
+        marginLeft: 5,
+        borderRadius: 18
     }
 });
 

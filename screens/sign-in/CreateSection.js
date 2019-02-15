@@ -55,7 +55,7 @@ export default class CreateSection extends React.Component {
                 <TextInput style={styles.textInput} 
                     value={this.state.password_confirm}
                     onChangeText={(password_confirm) => this.setState({password_confirm})} 
-                    placeholder='Password ' keyboardType='default' 
+                    placeholder='Confirm Password ' keyboardType='default' 
                     textContentType='password' // iOS 11+ only
                     underlineColorAndroid='rgba(0,0,0,0)' />
 

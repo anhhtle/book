@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     linkText: {
-        color: '#FED766',
+        color: '#8c1515',
         fontWeight: 'bold',
     },
     infoText: {

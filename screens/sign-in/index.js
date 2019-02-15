@@ -1,5 +1,5 @@
 import React from 'React';
-import { View, TouchableOpacity, Text, StyleSheet, AsyncStorage } from 'react-native';
+import { View, Image, TouchableOpacity, Text, StyleSheet, AsyncStorage } from 'react-native';
 
 import {API_BASE_URL} from 'thebooksjourney/screens/utility/helperFunctions';
 
@@ -42,6 +42,8 @@ class SignInScreen extends React.Component {
     render () {
         return (
             <View style={styles.container}>
+
+                <Image style={styles.logo} source={require('thebooksjourney/assets/logo_bg.png')} />
 
                 {this.renderBody()}
 
@@ -196,9 +198,14 @@ class SignInScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#8c1515',
+        backgroundColor: '#f9f6ef',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    logo: {
+        width: 70,
+        height: 70,
+        marginBottom: 20
     },
     button: {
         marginTop: 30,
@@ -216,7 +223,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     linkText: {
-        color: '#FED766',
+        color: '#8c1515',
         fontWeight: 'bold',
     }
     
