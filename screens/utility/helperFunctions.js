@@ -83,4 +83,4 @@ export function renderUserRatingStars(ratingNum) {
 
 
 // ************** global consts ****************
-export const API_BASE_URL = 'https://books-app-server-dev.herokuapp.com/api/v1';
+export const API_BASE_URL = 'https://thebooksjourney.com/api/v1';

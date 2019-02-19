@@ -29,7 +29,7 @@ class FriendsSearchResultHeader extends Component {
                     <TouchableOpacity style={styles.searchIconContainer} onPress={this.onSearchSubmit}>
                         <Ionicons style={styles.searchIcon} name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'} color="#000"/>
                     </TouchableOpacity>
-                    <TextInput style={styles.textInput} placeholder='Seach book' keyboardType='default' underlineColorAndroid='rgba(0,0,0,0)' 
+                    <TextInput style={styles.textInput} placeholder='Find friend' keyboardType='default' underlineColorAndroid='rgba(0,0,0,0)' 
                         onChangeText={(search_term) => this.setState({search_term})}
                         onSubmitEditing={this.onSearchSubmit}
                     />

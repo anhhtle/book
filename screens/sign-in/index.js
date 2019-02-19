@@ -102,7 +102,6 @@ class SignInScreen extends React.Component {
 
         this.props.getUserToken(loginObj)
             .then(() => {
-                console.log(this.props.user);
                 if (this.props.user.error) {
                     this.setState({login_error: this.props.user.error});
                 } else {

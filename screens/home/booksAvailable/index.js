@@ -152,8 +152,9 @@ class BooksAvailableSection extends Component {
                             this.setState({
                                 isModalVisible: false,
                                 indexSelected: 0
+                            }, function() {
+                                this.props.navigation.navigate('MyRequests');
                             });
-                            this.props.navigation.navigate('MyRequests');
                         } else {
                             Alert.alert(
                                 'Request not sent',

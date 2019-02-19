@@ -165,6 +165,7 @@ export default class BookDetailModal extends React.Component {
                             <View style={styles.statusGroup}>
                                 <Text style={styles.dropdownLabel}>Share with community?</Text>
                                 <ModalDropdown 
+                                    disabled={props.variant ? this.state.variant.share_requested : false}
                                     options={this.state.bookAvailableForShareDropdown}
                                     defaultValue={props.variant ? this.state.available_for_share ? 'Yes' : 'No' : ''}
                                     animated={false}
@@ -181,7 +182,10 @@ export default class BookDetailModal extends React.Component {
 
                         {/* action buttons */}
                         <View style={styles.buttonsContainer}>
-                            <TouchableOpacity style={styles.deleteButton} onPress={this.handleDelete}>
+                            <TouchableOpacity 
+                            disabled={props.variant ? this.state.variant.available_for_share : false}
+                            style={styles.deleteButton} 
+                            onPress={this.handleDelete}>
                                 <Text style={{color: '#8c1515'}}>DELETE</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.cancleButton} onPress={props.closeModal}>

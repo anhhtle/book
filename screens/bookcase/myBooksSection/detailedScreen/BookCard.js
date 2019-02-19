@@ -45,6 +45,7 @@ export default class BookCard extends React.Component {
                     <View style={styles.switchContainer}>
                         <Text style={{marginRight: 10}}>Available for community?</Text>
                         <Switch
+                            disabled={this.state.variant.share_requested}
                             value={this.state.variant.available_for_share}
                             onValueChange={(val) => this.handleSaveChanges(val)}
                             circleSize={20}
@@ -55,6 +56,11 @@ export default class BookCard extends React.Component {
                             backgroundActive={'gold'}
                             backgroundInactive={'gray'}
                             />
+
+                    </View>
+
+                    <View style={{flexDirection: 'row', marginBottom: 5}}>
+                        <Text style={{color: 'blue', fontStyle: 'italic'}}>{this.state.variant.share_requested ? 'This book is currently being requested' : ''}</Text>
                     </View>
 
                 </View>
@@ -132,6 +138,7 @@ const styles = StyleSheet.create({
         color: '#8c1515'
     },
     switchContainer: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        marginBottom: 5
     }
 })
