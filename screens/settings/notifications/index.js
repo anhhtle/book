@@ -18,6 +18,7 @@ class NotificationSettingsScreen extends Component {
             push_friend_requests: this.props.user.setting.push_notifications.friend_requests,
             push_book_recommendations: this.props.user.setting.push_notifications.book_recommendations,
             email_book_requests: this.props.user.setting.email_notifications.book_requests,
+            email_friend_requests: this.props.user.setting.email_notifications.friend_requests,
             email_news: this.props.user.setting.email_notifications.news,
         }
 
@@ -32,7 +33,7 @@ class NotificationSettingsScreen extends Component {
 
                 <View style={{padding: 10}}>
                     {/* push notifications */}
-                    <Text style={styles.header}>Push notifications</Text>
+                    {/* <Text style={styles.header}>Push notifications</Text>
 
                     <View style={styles.switchContainer}>
                         <Text style={styles.label}>Book requests</Text>
@@ -77,7 +78,7 @@ class NotificationSettingsScreen extends Component {
                             backgroundActive={'gold'}
                             backgroundInactive={'gray'}
                             />
-                    </View>
+                    </View> */}
 
                     {/* email */}
                     <Text style={styles.header}>E-mail</Text>
@@ -87,6 +88,21 @@ class NotificationSettingsScreen extends Component {
                         <Switch
                             value={this.state.email_book_requests}
                             onValueChange={(val) => this.handleUpdateState('email_book_requests', val)}
+                            circleSize={20}
+                            barHeight={20}
+                            circleBorderWidth={2}
+                            activeText={'On'}
+                            inActiveText={'Off'}
+                            backgroundActive={'gold'}
+                            backgroundInactive={'gray'}
+                            />
+                    </View>
+
+                    <View style={styles.switchContainer}>
+                        <Text style={styles.label}>Friend requests</Text>
+                        <Switch
+                            value={this.state.email_friend_requests}
+                            onValueChange={(val) => this.handleUpdateState('email_friend_requests', val)}
                             circleSize={20}
                             barHeight={20}
                             circleBorderWidth={2}
@@ -123,7 +139,9 @@ class NotificationSettingsScreen extends Component {
             push_book_requests: nextProps.user.setting.push_notifications.book_requests,
             push_friend_requests: nextProps.user.setting.push_notifications.friend_requests,
             push_book_recommendations: nextProps.user.setting.push_notifications.book_recommendations,
+            
             email_book_requests: nextProps.user.setting.email_notifications.book_requests,
+            email_friend_requests: nextProps.user.setting.email_notifications.friend_requests,
             email_news: nextProps.user.setting.email_notifications.news,
         });
     }
@@ -143,6 +161,7 @@ class NotificationSettingsScreen extends Component {
             },
             email_notifications: {
                 book_requests: this.state.email_book_requests,
+                friend_requests: this.state.email_friend_requests,
                 news: this.state.email_news
             }
         }

@@ -2,7 +2,7 @@
   "name": "thebooksjourney",
   "displayName": "The Book's Journey",
   "expo": {
-    "name": "thebooksjourney",
+    "name": "The Book's Journey",
     "description": "In dev",
     "slug": "thebooksjourney",
     "privacy": "public",
@@ -26,7 +26,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.thebooksjourney"
+      "package": "com.anhle.thebooksjourney"
     }
   }
 }

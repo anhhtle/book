@@ -6,6 +6,7 @@ const INITIAL_STATE = {
     },
     email_notifications: {
         book_requests: true,
+        friend_requests: true,
         news: true
     }
 };
