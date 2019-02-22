@@ -1,5 +1,5 @@
 import React from 'React';
-import { ScrollView, View, Image, Text, WebView, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
+import { ScrollView, View, Image, Text, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
 import Modal from "react-native-modal";
 
 
@@ -10,8 +10,9 @@ export default class BookDetailModal extends React.Component {
         super(props);
         this.state = {
         }
+        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     }
-
+    
     render () {
 
         let props = this.props;
@@ -114,7 +115,6 @@ export default class BookDetailModal extends React.Component {
             return this.props.item.user.job;
         }
     }
-
 }
 
 const styles = StyleSheet.create({

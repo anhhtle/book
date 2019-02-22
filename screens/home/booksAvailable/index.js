@@ -176,6 +176,7 @@ class BooksAvailableSection extends Component {
                     })
             })
     }
+
 }
 
 const styles = StyleSheet.create({
@@ -219,6 +220,5 @@ const mapDispatchToProps = dispatch => (
         getBookRequests, createBookRequest, getVariantsShare
     }, dispatch)
 );
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(BooksAvailableSection)
