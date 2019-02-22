@@ -4,7 +4,8 @@ import { ScrollView, Text, View, StyleSheet, } from 'react-native';
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getFriendRequests, deleteFriendRequest } from 'thebooksjourney/redux/actions/friend';
+import { getFriendRequests, acceptFriendRequest, deleteFriendRequest } from 'thebooksjourney/redux/actions/friend';
+import { getCurrentUser } from 'thebooksjourney/redux/actions/user';
 
 import ContactsHeader from '../ContactsHeader';
 import ContactsSubheader from '../ContactsSubheader';
@@ -14,6 +15,7 @@ class FriendsRequestScreen extends React.Component {
     constructor(props) {
         super(props);
 
+        this.handleAccept = this.handleAccept.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
     }
 
@@ -31,9 +33,9 @@ class FriendsRequestScreen extends React.Component {
     }
     renderCards() {
         let arr = [];
-        this.props.friendRequests.friend_requests.map(request => {
+        this.props.friendRequests.friend_requests.map((request, index) => {
             if(request.requestee._id === this.props.user._id) {
-                arr.push(<FriendRequestCard key={request._id} request={request} delete={() => this.handleDelete(request._id)}/>)
+                arr.push(<FriendRequestCard key={request._id} accept={() => this.handleAccept(request._id, index)} request={request} delete={() => this.handleDelete(request._id, index)}/>)
             }
         })
         
@@ -42,10 +44,12 @@ class FriendsRequestScreen extends React.Component {
         }
         return arr;
     }
-    handleDelete(id) {
-        console.log(id);
-        this.props.deleteFriendRequest(this.props.user.token, id)
-            .then(() => this.props.getFriendRequests(this.props.user.token))
+    handleDelete(id, index) {
+        this.props.deleteFriendRequest(this.props.user.token, id, index);
+    }
+    handleAccept(id, index) {
+        this.props.acceptFriendRequest(this.props.user.token, id, index)
+            .then(() => this.props.getCurrentUser(this.props.user.token))
     }
 }
 
@@ -66,7 +70,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        getFriendRequests, deleteFriendRequest
+        getFriendRequests, deleteFriendRequest, acceptFriendRequest,
+        getCurrentUser
     }, dispatch)
 );
 

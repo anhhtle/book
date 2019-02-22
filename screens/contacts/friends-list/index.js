@@ -1,10 +1,11 @@
 import React from 'react';
-import { ScrollView, Text, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 
 // redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getCurrentUser, deleteFriend } from 'thebooksjourney/redux//actions/user';
+import { deleteFriend } from 'thebooksjourney/redux/actions/user';
+import { getVariantsFriend } from 'thebooksjourney/redux/actions/variantFriend';
 
 import ContactsHeader from '../ContactsHeader';
 import ContactsSubheader from '../ContactsSubheader';
@@ -15,6 +16,7 @@ class FriendsListScreen extends React.Component {
         super(props);
 
         this.handleDelete = this.handleDelete.bind(this);
+        this.handleFriendProfile = this.handleFriendProfile.bind(this);
     }
 
     render () {
@@ -29,14 +31,24 @@ class FriendsListScreen extends React.Component {
     }
     renderFriendCards() {
         let arr = []
-        this.props.user.friends.map(friend => {
-            arr.push(<FriendCard friend={friend} key={friend._id} delete={() => this.handleDelete(friend._id)}/>)
+        this.props.user.friends.map((friend, index) => {
+            arr.push(
+                <FriendCard friend={friend} key={friend._id} 
+                    delete={() => this.handleDelete(friend._id, index)}
+                    friend_profile={() => this.handleFriendProfile(friend._id, friend)}
+            />)
         });
         return arr;
     }
-    handleDelete(friend_id) {
-        this.props.deleteFriend(this.props.user.token, {friend_id})
-            .then(() => this.props.getCurrentUser(this.props.user.token));
+    handleDelete(friend_id, index) {
+        this.props.deleteFriend(this.props.user.token, {friend_id}, index);
+    }
+    handleFriendProfile(id, friend) {
+        this.props.getVariantsFriend(this.props.user.token, id)
+            .then(() => {
+                this.props.navigation.navigate('FriendProfile', {destination: 'FriendsList', friend});
+            })
+            .catch(err => console.error(err));
     }
 }
 
@@ -53,9 +65,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => (
     bindActionCreators({
-        getCurrentUser, deleteFriend
+        deleteFriend,
+        getVariantsFriend
     }, dispatch)
 );
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(FriendsListScreen)

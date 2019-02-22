@@ -41,6 +41,20 @@ export default friendRequestsReducer = (state = INITIAL_STATE, action) => {
                 }
             }
 
+        // accept friend request
+        case 'ACCEPT_FRIEND_REQUEST_REQUEST':
+            return {...state, loading: true};
+
+        case 'ACCEPT_FRIEND_REQUEST_SUCCESS':
+            if (action.payload.error) {
+                return {...state, error: action.payload.error, loading: false };
+            } else {
+                const accept_friend_requests = state.friend_requests.slice();
+                accept_friend_requests.splice(action.payload.index, 1);
+
+                return {...state, friend_requests: accept_friend_requests, error: null, loading: false};
+            }
+
         // delete friend request
         case 'DELETE_FRIEND_REQUEST_REQUEST':
             return {...state, loading: true};
@@ -49,7 +63,10 @@ export default friendRequestsReducer = (state = INITIAL_STATE, action) => {
             if (action.payload.error) {
                 return {...state, error: action.payload.error, loading: false };
             } else {
-                return {...state, error: false, loading: false };
+                const delete_friend_requests = state.friend_requests.slice();
+                delete_friend_requests.splice(action.payload.index, 1);
+
+                return {...state, friend_requests: delete_friend_requests, error: null, loading: false};
             }
 
         // seen friend request

@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { getCurrentUser, updateProfile } from 'thebooksjourney/redux/actions/user';
 
 import GoBackHeader from 'thebooksjourney/screens/utility/GoBackHeader';
-import AvatarCard from '../AvatarCard';
+import AvatarCard from 'thebooksjourney/screens/utility/AvatarCard';
 import AvatarLockedCard from './AvatarLockedCard';
 import AvatarDetailModal from '../AvatarDetailModal'; 
 
@@ -49,7 +49,7 @@ class AvatarDetailedScreen extends React.Component {
     renderAvatars() {
         let arr = [];
         this.props.avatars.avatars.map((avatar, index) => {
-            if (index > 0) { // don't show admin card
+            if (avatar.name !== 'The Admin') { // don't show admin card
                 let profileAvatar = false;
                 if (avatar._id === this.props.user.avatar._id) {
                     profileAvatar = true;

@@ -109,7 +109,7 @@ export const getCurrentUserSuccess = (user, token) => (
 );
 
 // delete a friend
-export const deleteFriend = (token, updateObj) => dispatch => {
+export const deleteFriend = (token, updateObj, index) => dispatch => {
     dispatch(deleteFriendRequest());
 
     return fetch(`${API_BASE_URL}/user/friend/delete`, 
@@ -124,7 +124,7 @@ export const deleteFriend = (token, updateObj) => dispatch => {
     ).then(res => {
         return res.json();
     }).then(resJson => {
-        dispatch(deleteFriendSuccess(resJson));
+        dispatch(deleteFriendSuccess(resJson, index));
     }).catch(err => {
         console.log(err);
         dispatch(userError(error));
@@ -137,10 +137,10 @@ export const deleteFriendRequest= () => (
     }
 );
 
-export const deleteFriendSuccess = (user) => (
+export const deleteFriendSuccess = (user, index) => (
     {
         type: 'DELETE_FRIEND_SUCCESS',
-        payload: user
+        payload: {user, index}
     }
 );
 

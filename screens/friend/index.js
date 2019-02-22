@@ -26,7 +26,7 @@ export default class FriendProfileScreen extends React.Component {
                 <CurrentReadingSection />
                 <FriendBooksSection navigation={this.props.navigation} />
                 <WatchlistBooksSection navigation={this.props.navigation} />
-                <AvatarsSection navigation={this.props.navigation} />
+                <AvatarsSection navigation={this.props.navigation} friend={this.props.navigation.state.params.friend} />
             </ScrollView>
         )
     }

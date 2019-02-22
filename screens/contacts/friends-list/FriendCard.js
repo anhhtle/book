@@ -16,13 +16,15 @@ export default class FriendCard extends React.Component {
 
         return (
             <View style={styles.container}>
-                <Image resizeMethod="resize" source={{url: props.friend.avatar.image}} style={styles.contactImage} />
+                <TouchableOpacity onPress={props.friend_profile}>
+                    <Image resizeMethod="resize" source={{url: props.friend.avatar.image}} style={styles.contactImage} />
+                </TouchableOpacity>
     
                 <View style={styles.rightSideContainer}>
-                    <View>
+                    <TouchableOpacity onPress={props.friend_profile}>
                         <Text style={styles.contactName}>{props.friend.first_name + ' ' + props.friend.last_name}</Text>
                         <Text style={styles.contactAliasContainer}>{this.renderAlias()}{this.renderJob()}</Text>
-                    </View>
+                    </TouchableOpacity>
     
                     <TouchableOpacity style={styles.actionBtnContainer} onPress={() => this.setState({isModalVisible: !this.state.isModalVisible})}>
                         <Ionicons name={Platform.OS === 'ios' ? 'ios-more' : 'md-more'} style={styles.moreIcon} />

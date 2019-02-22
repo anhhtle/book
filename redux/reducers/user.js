@@ -94,7 +94,10 @@ export default userReducer = (state = INITIAL_STATE, action) => {
             if (action.payload.error) {
                 return {...state, error: action.payload.error, loading: false};
             } else {
-                return {...state, error: false, loading: false};
+                const delete_friend_arr = state.friends.slice();
+                delete_friend_arr.splice(action.payload.index, 1);
+
+                return {...state, friends: delete_friend_arr, error: false, loading: false};
             }
 
         // update profile
@@ -109,13 +112,6 @@ export default userReducer = (state = INITIAL_STATE, action) => {
             }
 
 
-
-
-
-
-
-
-
         // update setting
         case 'UPDATE_SETTING_REQUEST':
             return {...state, loading: true};
@@ -126,26 +122,6 @@ export default userReducer = (state = INITIAL_STATE, action) => {
             } else {
                 return {...state, setting: action.payload, error: false, loading: false};
             }
-
-
-        // change user info... not implemented in API yet
-            
-        case 'CHANGE_USER_INFO':
-            const user = Object.assign({}, state);
-
-            user[action.payload.field] = action.payload.value;
-            
-            return user;
-
-        // change address... not implemented in API yet
-            
-        case 'CHANGE_USER_ADDRESS':
-            const user2 = Object.assign({}, state);
-
-            user2.address[action.payload.field] = action.payload.value;
-            
-            return user2;
-
 
         // error
         case 'USER_ERROR':

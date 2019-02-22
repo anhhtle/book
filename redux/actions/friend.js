@@ -70,8 +70,46 @@ export const createFriendRequestSuccess = (friend_request) => (
     }
 );
 
+
+// accept friend request
+export const acceptFriendRequest = (token, request_id, index) => dispatch => {
+    dispatch(acceptFriendRequestRequest());
+
+    return fetch(`${API_BASE_URL}/friend-requests/accept`, 
+    {
+        method: 'PUT',
+        headers: {
+            'Authorization': `Token ${token}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({request_id})
+    }
+    ).then(res => {
+        return res.json();
+    }).then(resJson => {
+        dispatch(acceptFriendRequestSuccess(resJson, index));
+    }).catch(err => {
+        console.log(err);
+        dispatch(friendRequestError(error));
+    });
+}
+
+export const acceptFriendRequestRequest= () => (
+    {
+        type: 'ACCEPT_FRIEND_REQUEST_REQUEST'
+    }
+);
+
+export const acceptFriendRequestSuccess = (friend_request, index) => (
+    {
+        type: 'ACCEPT_FRIEND_REQUEST_SUCCESS',
+        payload: {friend_request, index}
+    }
+);
+
+
 // delete friend request
-export const deleteFriendRequest = (token, id) => dispatch => {
+export const deleteFriendRequest = (token, id, index) => dispatch => {
     dispatch(deleteFriendRequestRequest());
 
     return fetch(`${API_BASE_URL}/friend-requests/${id}`, 
@@ -84,16 +122,17 @@ export const deleteFriendRequest = (token, id) => dispatch => {
     ).then(res => {
         return res.json();
     }).then(resJson => {
-        dispatch(deleteFriendRequestSuccess(resJson));
+        dispatch(deleteFriendRequestSuccess(resJson, index));
     }).catch(err => {
         console.log(err);
         dispatch(friendRequestError(error));
     });
 }
 
-export const deleteFriendRequestRequest= () => (
+export const deleteFriendRequestRequest = (friend_request, index) => (
     {
-        type: 'DELETE_FRIEND_REQUEST_REQUEST'
+        type: 'DELETE_FRIEND_REQUEST_REQUEST',
+        payload: {friend_request, index}
     }
 );
 

@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { getCurrentUser, updateProfile } from 'thebooksjourney/redux/actions/user';
 
 // components
-import AvatarCard from './AvatarCard';
+import AvatarCard from 'thebooksjourney/screens/utility/AvatarCard';
 import AvatarDetailModal from './AvatarDetailModal';
 
 class AvatarsSection extends Component {
@@ -21,16 +21,15 @@ class AvatarsSection extends Component {
 
         this.handleShowModal = this.handleShowModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
-        this.handleSaveChanges = this.handleSaveChanges.bind(this);
     }
 
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={styles.headerTitle}>Avatars unlocked ({this.props.user.avatars_unlocked.length - 1}/{this.props.avatars.avatars.length - 1})</Text>
+                    <Text style={styles.headerTitle}>Avatars unlocked ({this.props.friend.avatars_unlocked.length}/{this.props.avatars.avatars.length - 1})</Text>
 
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Avatars')}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('FriendAvatars')}>
                         <Text style={styles.browseLink}>Browse all...</Text>
                     </TouchableOpacity>
                 </View>
@@ -41,7 +40,6 @@ class AvatarsSection extends Component {
                     isVisible={this.state.isModalVisible} 
                     avatar={this.props.avatars.avatars[this.state.indexSelected]} 
                     closeModal={this.handleCloseModal} 
-                    saveChanges={this.handleSaveChanges}
                     profileAvatar={this.state.profileAvatar}
                     />
                 
@@ -51,13 +49,13 @@ class AvatarsSection extends Component {
 
     renderAvatars() {
         let arr = [];
-        this.props.avatars.avatars.map((avatar) => {
-            this.props.user.avatars_unlocked.map((avatarUnlocked,index) => {
+        this.props.avatars.avatars.map((avatar, index) => {
+            this.props.friend.avatars_unlocked.map((avatarUnlocked) => {
                 let profileAvatar = false;
-                if (avatar._id === this.props.user.avatar._id) {
+                if (avatar._id === this.props.friend.avatar._id) {
                     profileAvatar = true;
                 }
-                if (avatar._id === avatarUnlocked && index > 0) {
+                if (avatar._id === avatarUnlocked) {
                     arr.push(<AvatarCard key={avatar._id} avatar={avatar} showModal={() => this.handleShowModal(index, avatar._id)} profileAvatar={profileAvatar}/> )
                     
                 }
@@ -76,12 +74,6 @@ class AvatarsSection extends Component {
     }
     handleCloseModal() {
         this.setState({isModalVisible: false})
-    }
-    handleSaveChanges(id) {
-        this.props.updateProfile(this.props.user.token, {avatar: id})
-            .then(this.props.getCurrentUser(this.props.user.token));
-    
-        this.setState({isModalVisible: false});
     }
 }
 
@@ -108,8 +100,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { avatars, user } = state
-    return { avatars, user }
+    const { avatars } = state
+    return { avatars }
 };
 
 const mapDispatchToProps = dispatch => (

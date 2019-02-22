@@ -58,6 +58,7 @@ class HomeScreen extends React.Component {
         this.props.getVariants(this.props.user.token);
     }
     load() {
+        console.log(this.props.user.friends);
         this.props.getNewsfeeds(this.props.user.token);
         this.props.getFriendRequests(this.props.user.token);
         this.props.getBookRequests(this.props.user.token);

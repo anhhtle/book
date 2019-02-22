@@ -36,7 +36,7 @@ export default class FriendRequestCard extends React.Component {
                     <Text style={styles.contactAliasContainer}>{this.renderAlias()}{this.renderJob()}</Text>
                 </View>
 
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={this.props.accept}>
                     <Text style={{color: '#fff'}}>Connect</Text>
                 </TouchableOpacity>
 

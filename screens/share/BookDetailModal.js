@@ -10,7 +10,6 @@ export default class BookDetailModal extends React.Component {
         super(props);
         this.state = {
         }
-        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     }
     
     render () {

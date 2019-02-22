@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { getCurrentUser, updateProfile } from 'thebooksjourney/redux/actions/user';
 
 // components
-import AvatarCard from './AvatarCard';
+import AvatarCard from 'thebooksjourney/screens/utility/AvatarCard';
 import AvatarDetailModal from './AvatarDetailModal';
 
 class AvatarsSection extends Component {
@@ -28,7 +28,7 @@ class AvatarsSection extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={styles.headerTitle}>Avatars unlocked ({this.props.user.avatars_unlocked.length - 1}/{this.props.avatars.avatars.length - 1})</Text>
+                    <Text style={styles.headerTitle}>Avatars unlocked ({this.props.user.avatars_unlocked.length}/{this.props.avatars.avatars.length - 1})</Text>
 
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Avatars')}>
                         <Text style={styles.browseLink}>Browse all...</Text>
@@ -51,18 +51,17 @@ class AvatarsSection extends Component {
 
     renderAvatars() {
         let arr = [];
-        this.props.avatars.avatars.map((avatar) => {
-            this.props.user.avatars_unlocked.map((avatarUnlocked,index) => {
+        this.props.avatars.avatars.map((avatar, index) => {
+            this.props.user.avatars_unlocked.map((avatarUnlocked) => {
                 let profileAvatar = false;
                 if (avatar._id === this.props.user.avatar._id) {
                     profileAvatar = true;
                 }
-                if (avatar._id === avatarUnlocked && index > 0) {
+                if (avatar._id === avatarUnlocked) {
                     arr.push(<AvatarCard key={avatar._id} avatar={avatar} showModal={() => this.handleShowModal(index, avatar._id)} profileAvatar={profileAvatar}/> )
                     
                 }
             })
-
         })
         
         return arr;
