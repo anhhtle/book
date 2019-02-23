@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
 
     // left side
     searchContainer: {
-        flex: 9,
+        flex: 0.85,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
 
     // right side
     settingsContainer: {
-        flex: 1,
+        flex: 0.15,
         justifyContent: 'center',
         alignItems: 'center',
         marginLeft: 5

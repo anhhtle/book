@@ -145,19 +145,19 @@ const styles = StyleSheet.create({
     },
     acceptButton: {
         paddingVertical: 5,
-        width: 130,
+        width: 120,
         borderRadius: 5,
         backgroundColor: '#afc7ed'
     },
     sentButton: {
         paddingVertical: 5,
-        width: 130,
+        width: 120,
         borderRadius: 5,
         backgroundColor: 'gold'
     },
     negativeButton: {
         paddingVertical: 5,
-        width: 130,
+        width: 120,
         borderRadius: 5,
         backgroundColor: '#8c1515'
     },

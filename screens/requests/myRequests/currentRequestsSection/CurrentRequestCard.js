@@ -144,13 +144,13 @@ const styles = StyleSheet.create({
     },
     recievedButton: {
         paddingVertical: 5,
-        width: 120,
+        width: 115,
         borderRadius: 5,
         backgroundColor: 'gold'
     },
     neverArrivedButton: {
         paddingVertical: 5,
-        width: 120,
+        width: 115,
         borderRadius: 5,
         backgroundColor: '#8c1515'
     },

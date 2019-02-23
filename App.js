@@ -11,9 +11,9 @@ import combineReducers from './redux/reducers/combineReducers';
 const store = createStore(combineReducers, applyMiddleware(thunk));
 
 // need to comment out all expo related lines on production build
-import { AppLoading, Font } from 'expo';
+// import { AppLoading, Font } from 'expo';
 
-import Ionicons from './node_modules/@expo/vector-icons/fonts/Ionicons.ttf';
+// import Ionicons from './node_modules/@expo/vector-icons/fonts/Ionicons.ttf';
 
 //***********  import screens ********************
 import SignInScreen from './screens/sign-in';
@@ -70,23 +70,23 @@ export default class App extends React.Component {
     fontLoaded: false
   };
 
-  async componentWillMount() {
-    try {
-      await Font.loadAsync({
-        Ionicons
-      });
+  // async componentWillMount() {
+  //   try {
+  //     await Font.loadAsync({
+  //       Ionicons
+  //     });
 
-      this.setState({ fontLoaded: true });
-    } catch (error) {
-      console.log('error loading icon fonts', error);
-    }
-  }
+  //     this.setState({ fontLoaded: true });
+  //   } catch (error) {
+  //     console.log('error loading icon fonts', error);
+  //   }
+  // }
 
   render() {
 
-    if (!this.state.fontLoaded) {
-      return <AppLoading />;
-    }
+    // if (!this.state.fontLoaded) {
+    //   return <AppLoading />;
+    // }
 
     return (
       <Provider store={ store } >

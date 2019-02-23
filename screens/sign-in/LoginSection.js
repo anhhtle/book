@@ -5,8 +5,8 @@ export default class LoginSection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: 'anh.ht.le@gmail.com',
-            password: 'password'
+            email: '',
+            password: ''
         }
 
         this.handleLogin = this.handleLogin.bind(this);
