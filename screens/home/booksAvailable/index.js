@@ -21,7 +21,11 @@ class BooksAvailableSection extends Component {
         }
 
         this.handleShowModal = this.handleShowModal.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
         this.handleRequestBook = this.handleRequestBook.bind(this);
+    }
+    componentWillUnmount() {
+        this.isCancelled = true;
     }
 
     render() {
@@ -60,7 +64,7 @@ class BooksAvailableSection extends Component {
                 <BookDetailModal 
                     isVisible={this.state.isModalVisible} 
                     item={this.props.variantsShare.variants_share[this.state.indexSelected]} 
-                    closeModal={() => this.setState({isModalVisible: false})} 
+                    closeModal={this.handleCloseModal} 
                     requestBook={this.handleRequestBook}
                     />
             )
@@ -70,6 +74,11 @@ class BooksAvailableSection extends Component {
         this.setState({
             isModalVisible: true,
             indexSelected: index
+        });
+    }
+    handleCloseModal() {
+        this.setState({
+            isModalVisible: false
         });
     }
     handleRequestBook(id) {
@@ -147,13 +156,9 @@ class BooksAvailableSection extends Component {
                 this.props.getBookRequests(this.props.user.token)
                     .then(() => {
                         if(!this.props.variantsShare.error) {
-                            this.props.getVariantsShare(this.props.user.token, {page: 1});
-                            this.props.getCurrentUser(this.props.user.token);
                             this.setState({
                                 isModalVisible: false,
                                 indexSelected: 0
-                            }, function() {
-                                this.props.navigation.navigate('MyRequests');
                             });
                         } else {
                             Alert.alert(
@@ -173,6 +178,14 @@ class BooksAvailableSection extends Component {
                                 ]
                             )
                         }
+                    })
+            }).then(() => {
+                this.props.getCurrentUser(this.props.user.token);
+                this.props.getVariantsShare(this.props.user.token, {page: 1})
+                    .then(() => {
+                        setTimeout(() => {
+                            this.props.navigation.navigate('MyRequests');
+                        }, 200);
                     })
             })
     }

@@ -52,13 +52,11 @@ class HomeScreen extends React.Component {
         if (this.props.appState.env === 'dev') {
             this.props.getCurrentUser(this.props.user.token);
         }
-
         this.props.getAvatars(this.props.user.token);
-        this.props.getVariantsShare(this.props.user.token, {page: 1});
         this.props.getVariants(this.props.user.token);
     }
     load() {
-        console.log(this.props.user.friends);
+        this.props.getVariantsShare(this.props.user.token, {page: 1});
         this.props.getNewsfeeds(this.props.user.token);
         this.props.getFriendRequests(this.props.user.token);
         this.props.getBookRequests(this.props.user.token);

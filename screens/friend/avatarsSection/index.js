@@ -22,16 +22,11 @@ class AvatarsSection extends Component {
         this.handleShowModal = this.handleShowModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
     }
-
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
                     <Text style={styles.headerTitle}>Avatars unlocked ({this.props.friend.avatars_unlocked.length}/{this.props.avatars.avatars.length - 1})</Text>
-
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('FriendAvatars')}>
-                        <Text style={styles.browseLink}>Browse all...</Text>
-                    </TouchableOpacity>
                 </View>
 
                 {this.renderAvatars()}
@@ -60,7 +55,6 @@ class AvatarsSection extends Component {
                     
                 }
             })
-
         })
         
         return arr;

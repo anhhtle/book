@@ -102,7 +102,6 @@ class CurrentReadingSection extends React.Component {
                 this.setState({isModalVisible: false});
             });
     }
-
     handleChangeBookProgress (id, newProgress) {
         let status = 'Reading';
         if (newProgress === 100) {

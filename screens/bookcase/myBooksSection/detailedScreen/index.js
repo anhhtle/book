@@ -21,6 +21,7 @@ class MyBooksDetailedScreen extends React.Component {
         }
 
         this.handleShowModal = this.handleShowModal.bind(this);
+        this.handleCloseModal = this.handleCloseModal.bind(this);
         this.handleSaveChanges = this.handleSaveChanges.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
     }
@@ -75,7 +76,7 @@ class MyBooksDetailedScreen extends React.Component {
                 <BookDetailModal 
                     isVisible={this.state.isModalVisible} 
                     variant={this.props.variants.variants[this.state.indexSelected]} 
-                    closeModal={() => this.setState({isModalVisible: false})} 
+                    closeModal={this.handleCloseModal} 
                     saveChanges={this.handleSaveChanges}
                     delete={this.handleDelete}
                 />
@@ -86,6 +87,9 @@ class MyBooksDetailedScreen extends React.Component {
     }
     handleShowModal(index) {
         this.setState({isModalVisible: true, indexSelected: index})
+    }
+    handleCloseModal() {
+        this.setState({isModalVisible: false})
     }
     handleSaveChanges(saveObj) {
         this.props.updateVariant(this.props.user.token, saveObj)

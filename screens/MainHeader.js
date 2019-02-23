@@ -29,7 +29,6 @@ class MainHeader extends Component {
                 </View>
 
                 <TouchableOpacity style={styles.settingsContainer} onPress={() => this.props.navigation.navigate('Setting') }>
-                    {/* <Ionicons style={styles.settingsIcon} name={Platform.OS === 'ios' ? 'ios-settings' : 'md-settings'} color="#000"/> */}
                     <Image style={styles.profileImage} source={{uri: this.props.user.avatar.image }} />
                 </TouchableOpacity>
             </View>
@@ -47,7 +46,6 @@ class MainHeader extends Component {
             }
             ).then(res => res.json())
             .then(resJson => {
-                console.log(resJson);
                 this.props.navigation.navigate('BookSearchResult', { data: resJson });
             }).catch(err => {
                 console.error(err);

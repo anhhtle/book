@@ -9,7 +9,25 @@ import RecommendedBookSection from './recommendedBooksSection';
 import WatchlistBooksSection from './watchlistBooksSection';
 import AvatarsSection from './avatarsSection';
 
-export default class BookcaseScreen extends React.Component {
+// redux
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getVariants } from 'thebooksjourney/redux/actions/variant';
+
+class BookcaseScreen extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.load = this.load.bind(this);
+    }
+
+    componentDidMount() {
+        this.load()
+        this.props.navigation.addListener('willFocus', this.load);
+    }
+    load() {
+        this.props.getVariants(this.props.user.token);
+    }
     
     render () {
         return (
@@ -32,3 +50,16 @@ const styles = StyleSheet.create({
         flex: 1,
     }
 });
+
+const mapStateToProps = (state) => {
+    const { user, variants } = state
+    return { user, variants }
+};
+
+const mapDispatchToProps = dispatch => (
+    bindActionCreators({
+        getVariants,
+    }, dispatch)
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(BookcaseScreen);

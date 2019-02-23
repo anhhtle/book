@@ -27,7 +27,6 @@ import MyRequestsScreen from './screens/requests/myRequests';
 import FriendProfileScreen from './screens/friend';
 import FriendBooksDetailedScreen from './screens/friend/friendBooksSection/detailedScreen';
 import FriendWatchlistBooksDetailedScreen from './screens/friend/watchlistBooksSection/detailedScreen';
-// import FriendAvatarDetailedScreen from './screens/friend/avatarsSection/detailedScreen/';
 
 // setting screens
 import SettingScreen from './screens/settings';
@@ -59,7 +58,6 @@ const RootStack = createStackNavigator(
     FriendProfile: { screen: FriendProfileScreen },
     FriendBooks: { screen: FriendBooksDetailedScreen },
     FriendWatchlist: { screen: FriendWatchlistBooksDetailedScreen },
-    // FriendAvatars: { screen: FriendAvatarDetailedScreen }
   },
   {
     initialRouteName: 'SignIn',

@@ -36,25 +36,30 @@ class NewsfeedSection extends Component {
         let arr = [];
         this.props.newsfeeds.newsfeeds.map((newsfeed, index) => {
             if (newsfeed.type === 'Friend: new book') {
-                arr.push(<FriendNewBookCard key={index} friend={newsfeed.friend} book={newsfeed.book} date={newsfeed.createdAt} friend_profile={() => this.handleFriendProfile(newsfeed.friend._id, newsfeed.friend)} />)
+                arr.push(<FriendNewBookCard key={index} friend={newsfeed.friend} book={newsfeed.book} date={newsfeed.createdAt} friend_profile={() => this.handleFriendProfile(newsfeed.friend._id)} />)
             } else if (newsfeed.type === 'Friend: reading') {
-                arr.push(<FriendCurrentReadingCard key={index} friend={newsfeed.friend} book={newsfeed.book} date={newsfeed.createdAt} friend_profile={() => this.handleFriendProfile(newsfeed.friend._id, newsfeed.friend)}/>)
+                arr.push(<FriendCurrentReadingCard key={index} friend={newsfeed.friend} book={newsfeed.book} date={newsfeed.createdAt} friend_profile={() => this.handleFriendProfile(newsfeed.friend._id)}/>)
             } else if (newsfeed.type === 'Friend: sharing book') {
-                arr.push(<FriendSharingBookCard key={index} friend={newsfeed.friend} book={newsfeed.book} date={newsfeed.createdAt} friend_profile={() => this.handleFriendProfile(newsfeed.friend._id, newsfeed.friend)}/>)
+                arr.push(<FriendSharingBookCard key={index} friend={newsfeed.friend} book={newsfeed.book} date={newsfeed.createdAt} friend_profile={() => this.handleFriendProfile(newsfeed.friend._id)}/>)
             } else if (newsfeed.type === 'Friend: received book') {
-                arr.push(<FriendRecievedBookCard key={index} friend={newsfeed.friend} community_member={newsfeed.community_member} book={newsfeed.book} date={newsfeed.createdAt} friend_profile={() => this.handleFriendProfile(newsfeed.friend._id, newsfeed.friend)}/>)
+                arr.push(<FriendRecievedBookCard key={index} friend={newsfeed.friend} community_member={newsfeed.community_member} book={newsfeed.book} date={newsfeed.createdAt} friend_profile={() => this.handleFriendProfile(newsfeed.friend._id)}/>)
             } else if (newsfeed.type === 'Friend: avatar') {
-                arr.push(<FriendNewAvatarCard key={index} friend={newsfeed.friend} avatar={newsfeed.avatar} date={newsfeed.createdAt} friend_profile={() => this.handleFriendProfile(newsfeed.friend._id, newsfeed.friend)}/>)
+                arr.push(<FriendNewAvatarCard key={index} friend={newsfeed.friend} avatar={newsfeed.avatar} date={newsfeed.createdAt} friend_profile={() => this.handleFriendProfile(newsfeed.friend._id)}/>)
             }
         });
         return arr;
     }
-    handleFriendProfile(id, friend) {
-        this.props.getVariantsFriend(this.props.user.token, id)
-            .then(() => {
-                this.props.navigation.navigate('FriendProfile', {destination: 'Home', friend});
-            })
-            .catch(err => console.error(err));
+    handleFriendProfile(id) {
+        this.props.user.friends.map(friend => {
+            if (friend._id === id) {
+                this.props.getVariantsFriend(this.props.user.token, id)
+                    .then(() => {
+                        this.props.navigation.navigate('FriendProfile', {destination: 'Home', friend});
+                    })
+                    .catch(err => console.error(err));
+            }
+        })
+
     }
 }
 

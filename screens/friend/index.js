@@ -12,9 +12,18 @@ export default class FriendProfileScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
-            destination: ''
+            name: `${this.props.navigation.state.params.friend.first_name} ${this.props.navigation.state.params.friend.last_name}`,
+            destination: this.props.navigation.state.params.destination,
+            friend: this.props.navigation.state.params.friend
         }
+    }
+    componentWillReceiveProps() {
+        let name = `${this.props.navigation.state.params.friend.first_name} ${this.props.navigation.state.params.friend.last_name}`
+        this.setState({
+            name, 
+            destination: this.props.navigation.state.params.destination,
+            friend: this.props.navigation.state.params.friend
+        });
     }
     
     render () {
@@ -26,14 +35,9 @@ export default class FriendProfileScreen extends React.Component {
                 <CurrentReadingSection />
                 <FriendBooksSection navigation={this.props.navigation} />
                 <WatchlistBooksSection navigation={this.props.navigation} />
-                <AvatarsSection navigation={this.props.navigation} friend={this.props.navigation.state.params.friend} />
+                <AvatarsSection navigation={this.props.navigation} friend={this.state.friend} />
             </ScrollView>
         )
-    }
-    componentDidMount() {
-        let name = `${this.props.navigation.state.params.friend.first_name} ${this.props.navigation.state.params.friend.last_name}`
-
-        this.setState({name, destination: this.props.navigation.state.params.destination})
     }
 }
 

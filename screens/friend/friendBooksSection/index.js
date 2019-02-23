@@ -44,7 +44,6 @@ class friendBooksSection extends Component {
     }
     componentDidMount() {
         this.setModalIndex();
-        console.log(this.props.variantsFriend.variantsFriend[0]);
     }
     componentWillReceiveProps() {
         this.setModalIndex();

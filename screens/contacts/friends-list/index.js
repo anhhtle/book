@@ -35,7 +35,7 @@ class FriendsListScreen extends React.Component {
             arr.push(
                 <FriendCard friend={friend} key={friend._id} 
                     delete={() => this.handleDelete(friend._id, index)}
-                    friend_profile={() => this.handleFriendProfile(friend._id, friend)}
+                    friend_profile={() => this.handleFriendProfile(friend)}
             />)
         });
         return arr;
@@ -43,8 +43,8 @@ class FriendsListScreen extends React.Component {
     handleDelete(friend_id, index) {
         this.props.deleteFriend(this.props.user.token, {friend_id}, index);
     }
-    handleFriendProfile(id, friend) {
-        this.props.getVariantsFriend(this.props.user.token, id)
+    handleFriendProfile(friend) {
+        this.props.getVariantsFriend(this.props.user.token, friend._id)
             .then(() => {
                 this.props.navigation.navigate('FriendProfile', {destination: 'FriendsList', friend});
             })
