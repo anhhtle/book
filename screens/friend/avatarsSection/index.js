@@ -61,7 +61,7 @@ class AvatarsSection extends Component {
     }
     handleShowModal(index, key) {
         let profileAvatar = false;
-        if (key === this.props.user.avatar._id) {
+        if (key === this.props.friend.avatar._id) {
             profileAvatar = true
         }
         this.setState({isModalVisible: true, indexSelected: index, profileAvatar})

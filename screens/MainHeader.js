@@ -11,7 +11,7 @@ class MainHeader extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            search_term: '',
+            search_term: '*',
         }
     };
 

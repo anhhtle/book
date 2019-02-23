@@ -30,6 +30,7 @@ export default class LoginSection extends React.Component {
                     onChangeText={(password) => this.setState({password})} 
                     placeholder='Password ' keyboardType='default' 
                     textContentType='password' // iOS 11+ only
+                    secureTextEntry={true}
                     underlineColorAndroid='rgba(0,0,0,0)' />
 
                 <TouchableOpacity style={styles.loginButton} onPress={() => this.handleLogin()}>
@@ -80,7 +81,7 @@ const styles = StyleSheet.create({
         width: 250
     },
     errorText: {
-        color: '#fff',
+        color: '#8c1515',
         marginBottom: 10
     }
 });

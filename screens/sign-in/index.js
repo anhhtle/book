@@ -22,6 +22,7 @@ class SignInScreen extends React.Component {
             login_error: null,
             loginSection: true,
             createSection: false,
+            create_error: null,
             forgotPasswordSection: false,
             userAddressSection: false,
             userAvatarSection: false,
@@ -59,7 +60,7 @@ class SignInScreen extends React.Component {
             )
         } else if (this.state.createSection) {
             return (
-                <CreateSection create={this.handleCreate} />
+                <CreateSection create={this.handleCreate} error={this.state.create_error} />
             )
         } else if (this.state.userAddressSection) {
             return (
@@ -120,16 +121,20 @@ class SignInScreen extends React.Component {
     handleCreate(createObj) {
         this.props.createNewUser(createObj)
             .then(() => {
-                this.props.getCurrentUser(this.props.user.token)
-                    .then(() => {
-                        this.setAsyncStorage(this.props.user.token);
+                if (this.props.user.error) {
+                    this.setState({create_error: this.props.user.error});
+                } else {
+                    this.props.getCurrentUser(this.props.user.token)
+                        .then(() => {
+                            this.setAsyncStorage(this.props.user.token);
+                        });
+                    
+                    this.setState({
+                        loginSection: false,
+                        createSection: false,
+                        userAddressSection: true
                     });
-                
-                this.setState({
-                    loginSection: false,
-                    createSection: false,
-                    userAddressSection: true
-                });
+                }
             });
 
     }

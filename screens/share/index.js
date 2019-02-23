@@ -31,6 +31,16 @@ class ShareBooksScreen extends React.Component {
         this.handleNext = this.handleNext.bind(this);
         this.handlePrev = this.handlePrev.bind(this);
         this.renderBookDetailModal = this.renderBookDetailModal.bind(this);
+        this.load = this.load.bind(this);
+    }
+    componentDidMount() {
+        this.load()
+        this.props.navigation.addListener('willFocus', this.load);
+        this.props.getVariantsShare(this.props.user.token, {page: 1});
+            // .then(() => console.log(this.props.variantsShare));
+    }
+    load() {
+        this.props.getVariantsShare(this.props.user.token, {page: 1});
     }
 
     render () {
@@ -113,6 +123,30 @@ class ShareBooksScreen extends React.Component {
         });
     }
     handleRequestBook(id) {
+        // check address
+        if (!this.props.user.address.street ||
+            !this.props.user.address.city ||
+            !this.props.user.address.state) {
+            return Alert.alert(
+                'Missing address',
+                'Please fill out your mailing address.',
+                [
+                    {   
+                        text: 'Cancel'
+                    },
+                    {
+                        text: 'Update address',
+                        onPress: () => {
+                            this.setState({
+                                isModalVisible: false
+                            });
+                            this.props.navigation.navigate('EditProfile');
+                        }
+                    }
+                ]
+            )
+        }
+
         if (this.props.user.bookmarks.silver === 0 && this.props.user.bookmarks.gold === 0) {
             Alert.alert(
                 'No bookmark available',

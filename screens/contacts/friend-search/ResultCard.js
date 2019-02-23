@@ -59,11 +59,11 @@ class ResultCard extends React.Component {
         );
 
         this.props.user.friends.map((friend) => {
-            if (friend === this.state.friend._id) {
+            if (friend._id === this.state.friend._id) {
                 res = (
                     <View style={styles.friendedContainer}>
                         <Ionicons name={Platform.OS === 'ios' ? 'ios-checkmark' : 'md-checkmark'} style={styles.friendedIcon}/>
-                        <Text>Friend</Text>
+                        <Text style={{color: 'blue'}}>Friend</Text>
                     </View>
                 );
                 return;
@@ -73,8 +73,8 @@ class ResultCard extends React.Component {
         this.props.friendRequests.friend_requests.map(request => {
             if(request.requester._id === this.state.friend._id || request.requestee._id === this.state.friend._id) {
                 res = (
-                    <View style={styles.friendedContainer}>
-                        <Ionicons name={Platform.OS === 'ios' ? 'ios-checkmark' : 'md-checkmark'} style={styles.friendedIcon}/>
+                    <View style={styles.requestedContainer}>
+                        <Ionicons name={Platform.OS === 'ios' ? 'ios-checkmark' : 'md-checkmark'} style={styles.requestedIcon}/>
                         <Text>Requested</Text>
                     </View>
                 );
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
         marginRight: 8,
         color: '#fff'
     },
-    friendedContainer: {
+    requestedContainer: {
         width: 110,
         paddingHorizontal: 10,
         flexDirection: 'row',
@@ -147,10 +147,23 @@ const styles = StyleSheet.create({
         backgroundColor: 'lightgrey',
         borderRadius: 5
     },
+    requestedIcon: {
+        fontSize: 24,
+        marginRight: 8,
+    },
+    friendedContainer: {
+        width: 110,
+        paddingHorizontal: 10,
+        flexDirection: 'row',
+        alignSelf: 'flex-end',
+        alignItems: 'center',
+        // backgroundColor: 'lightgrey',
+        borderRadius: 5
+    },
     friendedIcon: {
         fontSize: 24,
         marginRight: 8,
-        color: '#000'
+        color: 'blue'
     },
 })
 

@@ -50,6 +50,7 @@ export default class CreateSection extends React.Component {
                     onChangeText={(password) => this.setState({password})} 
                     placeholder='Password ' keyboardType='default' 
                     textContentType='password' // iOS 11+ only
+                    secureTextEntry={true}
                     underlineColorAndroid='rgba(0,0,0,0)' />
 
                 <TextInput style={styles.textInput} 
@@ -57,6 +58,7 @@ export default class CreateSection extends React.Component {
                     onChangeText={(password_confirm) => this.setState({password_confirm})} 
                     placeholder='Confirm Password ' keyboardType='default' 
                     textContentType='password' // iOS 11+ only
+                    secureTextEntry={true}
                     underlineColorAndroid='rgba(0,0,0,0)' />
 
                 <TouchableOpacity style={styles.loginButton} onPress={() => this.handleCreate()}>
@@ -95,6 +97,11 @@ export default class CreateSection extends React.Component {
         return validate;
     }
     renderCreateError() {
+        if (this.props.error) {
+            return (
+                <Text style={styles.errorText}>{this.props.error}</Text>
+            )
+        }
         if (this.state.error) {
             return (
                 <Text style={styles.errorText}>{this.state.error_text}</Text>
@@ -140,7 +147,7 @@ const styles = StyleSheet.create({
         width: 250
     },
     errorText: {
-        color: '#fff',
+        color: '#8c1515',
         marginBottom: 10
     }
 });
