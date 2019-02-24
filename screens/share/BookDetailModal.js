@@ -22,19 +22,19 @@ export default class BookDetailModal extends React.Component {
                     <ScrollView>
 
                         <View style={{backgroundColor: '#8c1515', padding: 8, marginBottom: 10}}>
-                            <Text style={styles.title}>{props.item.book.title}</Text>
+                            <Text style={styles.title}>{props.item ? props.item.book.title : '' }</Text>
                         </View>
 
                         {/* header */}
                         <View style={styles.header}>
                             { this.renderImage() }
                             <View style={styles.headerDetail}>
-                                <Text style={styles.author}>{props.item.book.authors ? props.item.book.authors[0] : ''}</Text>
+                                <Text style={styles.author}>{props.item ? props.item.book.authors ? props.item.book.authors[0] : '' : ''}</Text>
                                 { this.renderCategories() }
 
                                 {/* ratings */}
                                 <View style={{flexDirection: 'row'}}>
-                                    { renderRatingStars(props.item.book.ratings) }
+                                    { renderRatingStars(props.item ? props.item.book.ratings : 0) }
                                 </View>
 
                                 <Text>Book condition: <Text style={styles.bookCondition}>{this.renderBookCondition()}</Text></Text>
@@ -43,15 +43,15 @@ export default class BookDetailModal extends React.Component {
                         {/* end header */}
 
                         <View style={styles.descriptionContainer}>
-                            <Text>{props.item.book.description}</Text>
+                            <Text>{props.item ? props.item.book.description : ''}</Text>
                         </View>
 
                         {/* owner section */}
                         <Text style={{color: '#8c1515', marginBottom: 10}}>OWNER</Text>
                         <View style={styles.ownerContainer}>
-                            <Image source={{uri: props.item.user.avatar.image}} style={styles.profileImage}/>
+                            <Image source={{uri: props.item ? props.item.user.avatar.image : ''}} style={styles.profileImage}/>
                             <View>
-                                <Text>{props.item.user.first_name} {props.item.user.last_name}</Text>
+                                <Text>{props.item ? props.item.user.first_name : ''} {props.item ? props.item.user.last_name : ''}</Text>
                                 <Text>{this.renderAlias()}{this.renderJob()}</Text>
                             </View>
                         </View>
@@ -61,7 +61,7 @@ export default class BookDetailModal extends React.Component {
                             <TouchableOpacity style={styles.cancleButton} onPress={props.closeModal}>
                                 <Text style={{color: '#fff'}}>CANCLE</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.requestButton} onPress={() => props.requestBook(props.item._id)}>
+                            <TouchableOpacity style={styles.requestButton} onPress={() => props.requestBook(props.item ? props.item._id : 0)}>
                                 <Text style={{color: '#000'}}>REQUEST BOOK</Text>
                             </TouchableOpacity>
                         </View>
@@ -74,44 +74,54 @@ export default class BookDetailModal extends React.Component {
     }
 
     renderImage() {
-        if (this.props.item.book.image) {
-            return <Image source={{ uri: this.props.item.book.image }} style={styles.bookImage} />
+        if (this.props.item) {
+            if (this.props.item.book.image) {
+                return <Image source={{ uri: this.props.item.book.image }} style={styles.bookImage} />
+            }
         }
 
         return <Image source={{ uri: 'https://www.edsportrallysupplies.ie/media/catalog/product/cache/1/image/256x256/9df78eab33525d08d6e5fb8d27136e95/i/m/image-placeholder-alt_2_1.jpg' }} style={styles.bookImage} />
     }
     renderCategories() {
-        if (this.props.item.book.categories) {
-            let str = '';
-            this.props.item.book.categories.map((cat, index) => {
-                if (index < 2) {
-                    if (index > 0) {
-                        str += ', '
-                    } 
-                    str += cat;
-                }
-            });
-
-            return (<Text style={styles.categories}>{str}</Text>);
+        if (this.props.item) {
+            if (this.props.item.book.categories) {
+                let str = '';
+                this.props.item.book.categories.map((cat, index) => {
+                    if (index < 2) {
+                        if (index > 0) {
+                            str += ', '
+                        } 
+                        str += cat;
+                    }
+                });
+    
+                return (<Text style={styles.categories}>{str}</Text>);
+            }
         }
     }
     renderBookCondition() {
-        if (this.props.item.book_condition) {
-            return this.props.item.book_condition.toUpperCase();
-        } else {
-            return 'N/A';
+        if (this.props.item) {
+            if (this.props.item.book_condition) {
+                return this.props.item.book_condition.toUpperCase();
+            } else {
+                return 'N/A';
+            }
         }
     }
     renderAlias() {
-        if (this.props.item.user.alias) {
-            return (<Text style={{color: '#8c1515', fontWeight: 'bold'}}>{this.props.item.user.alias}</Text>)
+        if (this.props.item) {
+            if (this.props.item.user.alias) {
+                return (<Text style={{color: '#8c1515', fontWeight: 'bold'}}>{this.props.item.user.alias}</Text>)
+            }
         }
     }
     renderJob() {
-        if (this.props.item.user.alias && this.props.item.user.job) {
-            return ', ' + this.props.item.user.job
-        } else if (this.props.item.user.job) {
-            return this.props.item.user.job;
+        if (this.props.item) {
+            if (this.props.item.user.alias && this.props.item.user.job) {
+                return ', ' + this.props.item.user.job
+            } else if (this.props.item.user.job) {
+                return this.props.item.user.job;
+            }
         }
     }
 }

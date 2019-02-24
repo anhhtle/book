@@ -119,7 +119,7 @@ class ShareBooksScreen extends React.Component {
     }
     handleCloseModal() {
         this.setState({
-            isModalVisible: false,
+            isModalVisible: false
         });
     }
     handleRequestBook(id) {
