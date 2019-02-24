@@ -17,7 +17,7 @@ export default class FriendCard extends React.Component {
         return (
             <View style={styles.container}>
                 <TouchableOpacity onPress={props.friend_profile}>
-                    <Image resizeMethod="resize" source={{url: props.friend.avatar.image}} style={styles.contactImage} />
+                    <Image source={{url: props.friend.avatar.image}} style={styles.contactImage} />
                 </TouchableOpacity>
     
                 <View style={styles.rightSideContainer}>
