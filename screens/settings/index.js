@@ -37,7 +37,7 @@ export default class SettingScreen extends Component {
                 <View style={{marginTop: 80, alignItems: 'center'}}>
                     <Text style={styles.contactUs}>Contact us</Text>
                     <TouchableOpacity onPress={this.handleOpenEmail}>
-                        <Text style={{fontSize: 16, color: '#4286f4'}}>thebooksjourney@gmail.com</Text>
+                        <Text style={{fontSize: 16, color: '#4286f4'}}>thebooksjourney.us@gmail.com</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -49,7 +49,7 @@ export default class SettingScreen extends Component {
     }
     handleOpenEmail = async () => {
         try {
-            await Linking.openURL('mailto:thebooksjourney@gmail.com');
+            await Linking.openURL('mailto:thebooksjourney.us@gmail.com');
         } catch (e) {
             console.log({e});
         }
