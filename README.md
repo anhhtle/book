@@ -17,5 +17,5 @@ https://github.com/anhhtle/books-server
 3) load vector icon in thebooksjourney/android/app/build.gradle
    apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 4) build APK; run the following in android folder: ./gradlew assembleRelease
-5) connect phone and test in device with: react-native run-android --variant=release
+5) connect phone and test in device with (run command at root folder): react-native run-android --variant=release
 6) rename APK to: com.thebooksjourney.apk and upload to https://play.google.com/apps/ account
