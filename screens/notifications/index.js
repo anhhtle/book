@@ -12,9 +12,10 @@ import RecommendationCard from './RecommendationCard';
 import AvatarCard from './AvatarCard';
 import NewFriendCard from './NewFriendCard';
 import FriendRequestCard from './FriendRequestCard';
-import RequestAcceptedCard from './RequestAcceptedCard';
-import RequestCancelledCard from './RequestCancelledCard';
 import RequestShareCard from './RequestShareCard';
+import RequestAcceptedCard from './RequestAcceptedCard';
+import RequestSentCard from './RequestSentCard';
+import RequestCancelledCard from './RequestCancelledCard';
 
 
 class NotificationsScreen extends React.Component {
@@ -59,7 +60,9 @@ class NotificationsScreen extends React.Component {
                 arr.push(<RequestCancelledCard key={index} book={notification.book} date={notification.createdAt} navigation={this.props.navigation}/>)
             } else if (notification.type === 'Request: share book') {
                 arr.push(<RequestShareCard key={index} book={notification.book} date={notification.createdAt} navigation={this.props.navigation}/>)
-            } 
+            } else if (notification.type === 'Request: sent') {
+                arr.push(<RequestSentCard key={index} book={notification.book} date={notification.createdAt} navigation={this.props.navigation}/>)
+            }
         });
         return arr;
 
