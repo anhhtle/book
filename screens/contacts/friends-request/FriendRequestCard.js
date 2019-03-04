@@ -23,7 +23,7 @@ export default class FriendRequestCard extends React.Component {
                 <Modal isVisible={this.state.isModalVisible} onBackdropPress={() => this.setState({ isModalVisible: false })} style={styles.modalOverlay}>
                     <View style={styles.modal}>
                         <TouchableOpacity style={{padding: 5}} onPress={this.props.delete}>
-                            <Text>Delete</Text>
+                            <Text>Delete request</Text>
                         </TouchableOpacity>
                     </View>
                 </Modal>

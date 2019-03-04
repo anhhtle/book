@@ -22,7 +22,7 @@ class FriendBooksDetailedScreen extends React.Component {
     render () {
         return (
             <ScrollView>
-                <FriendGoBackHeader title={this.props.variantsFriend.variantsFriend[0].user.first_name + ' ' + this.props.variantsFriend.variantsFriend[0].user.last_name +  `'s Books`} navigation={this.props.navigation} />
+                <FriendGoBackHeader title={this.props.navigation.state.params.friend.first_name + ' ' + this.props.navigation.state.params.friend.last_name +  `'s Books`} navigation={this.props.navigation} />
 
                 {this.renderBookCards()}
 

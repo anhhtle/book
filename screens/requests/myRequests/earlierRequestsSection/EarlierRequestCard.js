@@ -53,7 +53,7 @@ export default class EarlierRequestCard extends React.Component {
     }
     renderReceived () {
         return (
-            <Text style={styles.cardText}>You recieved <Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text> courtesy of <Text style={{fontWeight: 'bold'}}>{this.props.request.original_owner.first_name + ' ' + this.props.request.original_owner.last_name}</Text>. Happy reading!</Text>
+            <Text style={styles.cardText}>You received <Text style={{fontWeight: 'bold'}}>{this.props.request.variant.book.title}</Text> courtesy of <Text style={{fontWeight: 'bold'}}>{this.props.request.original_owner.first_name + ' ' + this.props.request.original_owner.last_name}</Text>. Happy reading!</Text>
         )
     }
     renderButtons () {
@@ -65,7 +65,7 @@ export default class EarlierRequestCard extends React.Component {
                         onPress={() => this.props.action(
                             {request_id: this.props.request._id, thanked_owner: true})
                         }>
-                            <Text style={{textAlign: 'center'}}>THANKS {this.props.request.original_owner.first_name.toUpperCase() + ' ' + this.props.request.original_owner.last_name.toUpperCase()}</Text>
+                            <Text style={{textAlign: 'center'}}>THANK {this.props.request.original_owner.first_name.toUpperCase() + ' ' + this.props.request.original_owner.last_name.toUpperCase()}</Text>
                         </TouchableOpacity>
                     </View>
                 )

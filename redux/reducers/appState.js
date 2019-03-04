@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-    env: 'dev'
+    env: 'production'
 };
 
 export default appStaterReducer = (state = INITIAL_STATE, action) => {

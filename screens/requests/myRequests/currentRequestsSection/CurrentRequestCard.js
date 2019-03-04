@@ -64,7 +64,7 @@ export default class CurrentRequestCard extends React.Component {
         if (this.props.request.status === 'Requesting') {
             return (
                 <View style={styles.helperTextContainer}>
-                    <Text style={styles.helperText}>The request will be automatically cancelled if the owner does not accept within 5 days. You will be refunded 1 book token</Text>
+                    <Text style={styles.helperText}>The request will automatically be cancelled if the owner does not accept within 5 days. You will be refunded 1 book token</Text>
                 </View>
             )
         } else if (this.props.request.status === 'Accepted') {
@@ -83,7 +83,7 @@ export default class CurrentRequestCard extends React.Component {
                     onPress={() => this.props.action(
                         {request_id: this.props.request._id, status: 'Received'})
                     }>
-                        <Text style={{textAlign: 'center'}}>RECIEVED</Text>
+                        <Text style={{textAlign: 'center'}}>RECEIVED</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity style={styles.neverArrivedButton}

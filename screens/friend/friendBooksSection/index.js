@@ -24,9 +24,9 @@ class friendBooksSection extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
-                    <Text style={styles.headerTitle}>{this.props.variantsFriend.variantsFriend[0].user.first_name + ' ' + this.props.variantsFriend.variantsFriend[0].user.last_name}'s books</Text>
+                    <Text style={styles.headerTitle}>{this.props.friend.first_name + ' ' + this.props.friend.last_name}'s books</Text>
 
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('FriendBooks')}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('FriendBooks', {friend: this.props.friend})}>
                         <Text style={styles.browseLink}>Browse all...</Text>
                     </TouchableOpacity>
                 </View>

@@ -10,11 +10,6 @@ import combineReducers from './redux/reducers/combineReducers';
 
 const store = createStore(combineReducers, applyMiddleware(thunk));
 
-// need to comment out all expo related lines on production build
-// import { AppLoading, Font } from 'expo';
-
-// import Ionicons from './node_modules/@expo/vector-icons/fonts/Ionicons.ttf';
-
 //***********  import screens ********************
 import SignInScreen from './screens/sign-in';
 import DashboardScreen from './screens/DashboardScreen';
@@ -33,6 +28,7 @@ import SettingScreen from './screens/settings';
 import EditProfileScreen from './screens/settings/profile';
 import NotificationSettingsScreen from './screens/settings/notifications';
 import UserGuideScreen from './screens/settings/userGuide';
+import GlobalFont from 'react-native-global-font';
 
 const RootStack = createStackNavigator(
   {
@@ -66,27 +62,14 @@ const RootStack = createStackNavigator(
 );
 
 export default class App extends React.Component {
-  state = {
-    fontLoaded: false
-  };
 
-  // async componentWillMount() {
-  //   try {
-  //     await Font.loadAsync({
-  //       Ionicons
-  //     });
+  componentDidMount() {
+    let fontName = 'Roboto'
+    GlobalFont.applyGlobal(fontName)
+  }
 
-  //     this.setState({ fontLoaded: true });
-  //   } catch (error) {
-  //     console.log('error loading icon fonts', error);
-  //   }
-  // }
 
   render() {
-
-    // if (!this.state.fontLoaded) {
-    //   return <AppLoading />;
-    // }
 
     return (
       <Provider store={ store } >

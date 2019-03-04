@@ -32,7 +32,7 @@ export default class UserAddressSection extends React.Component {
                 <TextInput style={styles.textInput} 
                     value={this.state.city}
                     onChangeText={(city) => this.setState({city})} 
-                    placeholder='city' keyboardType='default'
+                    placeholder='City' keyboardType='default'
                     underlineColorAndroid='rgba(0,0,0,0)' />
 
                 <TextInput style={styles.textInput} 

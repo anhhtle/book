@@ -188,8 +188,8 @@ export default class BookDetailModal extends React.Component {
                             onPress={this.handleDelete}>
                                 <Text style={{color: '#8c1515'}}>DELETE</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.cancleButton} onPress={props.closeModal}>
-                                <Text style={{color: '#fff'}}>CANCLE</Text>
+                            <TouchableOpacity style={styles.cancelButton} onPress={props.closeModal}>
+                                <Text style={{color: '#fff'}}>CANCEL</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.saveButton} onPress={this.handleSave}>
                                 <Text style={{color: '#000'}}>SAVE</Text>
@@ -444,7 +444,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: 0
     },
-    cancleButton: {
+    cancelButton: {
         backgroundColor: '#8c1515',
         paddingVertical: 5,
         paddingHorizontal: 10,

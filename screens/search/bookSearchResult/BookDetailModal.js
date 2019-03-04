@@ -46,8 +46,8 @@ export default class BookDetailModal extends React.Component {
                         </View>
 
                         <View style={styles.buttonsContainer}>
-                            <TouchableOpacity style={styles.cancleButton} onPress={props.closeModal}>
-                                <Text style={{color: '#fff'}}>CANCLE</Text>
+                            <TouchableOpacity style={styles.cancelButton} onPress={props.closeModal}>
+                                <Text style={{color: '#fff'}}>CANCEL</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.requestButton} onPress={props.addWatchlistBook}>
                                 <Text style={{color: '#000'}}>WATCHLIST</Text>
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-end'
     },
-    cancleButton: {
+    cancelButton: {
         backgroundColor: '#8c1515',
         paddingVertical: 5,
         paddingHorizontal: 10,

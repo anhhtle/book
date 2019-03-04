@@ -10,7 +10,7 @@ export default FriendNewBookCard = (props) => {
                     <Image source={{uri: props.friend.avatar.image}} style={styles.profileImage}/>
                 </TouchableOpacity>
                 <View style={styles.nameDateContainer}>
-                    <Text><Text style={styles.profileName}>{props.friend.first_name + ' ' + props.friend.last_name}</Text> have a <Text style={{fontWeight: 'bold'}}>new book</Text>!</Text>
+                    <Text><Text style={styles.profileName}>{props.friend.first_name + ' ' + props.friend.last_name}</Text> has a <Text style={{fontWeight: 'bold'}}>new book</Text>!</Text>
                     <Text style={styles.date}>{renderLongDate(props.date)}</Text>
                 </View>
             </View>

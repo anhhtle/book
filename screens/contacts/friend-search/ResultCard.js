@@ -75,7 +75,7 @@ class ResultCard extends React.Component {
                 res = (
                     <View style={styles.requestedContainer}>
                         <Ionicons name={Platform.OS === 'ios' ? 'ios-checkmark' : 'md-checkmark'} style={styles.requestedIcon}/>
-                        <Text>Requested</Text>
+                        <Text>Request pending</Text>
                     </View>
                 );
                 return;

@@ -12,6 +12,7 @@
     "react": "16.3.1",
     "react-native": "0.55.4",
     "react-native-fontawesome": "^5.7.0",
+    "react-native-global-font": "^1.0.2",
     "react-native-modal": "^6.5.0",
     "react-native-modal-dropdown": "^0.6.2",
     "react-native-switch": "^1.5.0",
@@ -20,5 +21,10 @@
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts"
+    ]
   }
 }
