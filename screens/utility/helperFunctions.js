@@ -81,6 +81,5 @@ export function renderUserRatingStars(ratingNum) {
     return starTemplate;
 }
 
-
 // ************** global consts ****************
 export const API_BASE_URL = 'https://thebooksjourney.com/api/v1';

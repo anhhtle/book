@@ -67,7 +67,7 @@ export default class AddressSection extends Component {
                         </View>
 
                         <TouchableOpacity style={styles.button}
-                        onPress={() => this.props.showModal({key: 'zipcode',label: 'ZIP Code', value: this.props.zipcode})}>
+                        onPress={() => this.props.showModal({key: 'zipcode',label: 'Zip code', value: this.props.zipcode})}>
                             <Ionicons style={styles.icon} name={Platform.OS === 'ios' ? 'ios-create' : 'md-create'} color={'grey'}/>
                         </TouchableOpacity>
                     </View>

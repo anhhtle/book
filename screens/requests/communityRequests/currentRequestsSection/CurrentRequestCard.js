@@ -57,13 +57,22 @@ export default class CurrentRequestCard extends React.Component {
         )
     }
     renderHelperText () {
-        if (this.props.request.status === 'Requesting' || this.props.request.status === 'Accepted') {
+        if (this.props.request.status === 'Requesting') {
+            return (
+                <View style={styles.helperTextContainer}>
+                    <Text style={styles.helperText}>Mailing area:</Text>
+                    <Text style={styles.address}>{this.props.request.requester.address.city + ', ' + this.props.request.requester.address.state + ' ' + this.props.request.requester.address.zipcode}</Text>
+                    <Text style={styles.address}>{this.props.request.requester.address.country}</Text>
+                </View>
+            )
+        } else if (this.props.request.status === 'Accepted') {
             return (
                 <View style={styles.helperTextContainer}>
                     <Text style={styles.helperText}>Mailing address:</Text>
-                    <Text style={styles.address}>{this.props.request.requester.address.country}</Text>
+                    <Text style={styles.address}>{this.props.request.requester.first_name + ' ' + this.props.request.requester.last_name}</Text>
                     <Text style={styles.address}>{this.props.request.requester.address.street}</Text>
                     <Text style={styles.address}>{this.props.request.requester.address.city + ', ' + this.props.request.requester.address.state + ' ' + this.props.request.requester.address.zipcode}</Text>
+                    <Text style={styles.address}>{this.props.request.requester.address.country}</Text>
                     <Text style={styles.address}>{this.props.request.requester.address.additional_info}</Text>
                 </View>
             )

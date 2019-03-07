@@ -29,7 +29,7 @@ export default class FriendRequestCard extends React.Component {
                 </Modal>
                 {/* end more option */}
 
-                <Image resizeMethod="resize" source={{url: this.props.request.requester.avatar.image}} style={styles.contactImage} />
+                <Image resizeMethod="resize" source={{uri: this.props.request.requester.avatar.image}} style={styles.contactImage} />
 
                 <View style={styles.contactDetail}>
                     <Text style={styles.contactName}>{this.props.request.requester.first_name + ' ' + this.props.request.requester.last_name}</Text>

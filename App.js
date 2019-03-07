@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView } from 'react-native';
+import { Text, StyleSheet, SafeAreaView } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 // redux
@@ -29,6 +29,8 @@ import EditProfileScreen from './screens/settings/profile';
 import NotificationSettingsScreen from './screens/settings/notifications';
 import UserGuideScreen from './screens/settings/userGuide';
 import GlobalFont from 'react-native-global-font';
+
+Text.defaultProps.style = { color: '#000' };
 
 const RootStack = createStackNavigator(
   {

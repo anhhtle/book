@@ -17,7 +17,7 @@ export default class FriendCard extends React.Component {
         return (
             <View style={styles.container}>
                 <TouchableOpacity onPress={props.friend_profile}>
-                    <Image source={{url: props.friend.avatar.image}} style={styles.contactImage} />
+                    <Image source={{ uri: props.friend.avatar.image}} style={styles.contactImage} />
                 </TouchableOpacity>
     
                 <View style={styles.rightSideContainer}>
@@ -63,8 +63,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     contactImage: {
-        width: 60,
         height: 60,
+        width: 60,
+        resizeMode: 'contain',
         marginRight: 10
     },
     rightSideContainer: {

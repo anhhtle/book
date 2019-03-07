@@ -15,7 +15,7 @@ export default UserGuideScreen = (props) => {
                 <Text><Text style={styles.label}>The Book's Journey</Text>'s mission is to promote reading by building a sharing community. As part of this community, you are encouraged to request books that you are interested in, and in return, we hope that you will be generous by listing books you own and willing to mail to requesting community members.</Text>
 
                 <Text style={styles.h2}>Bookmarks</Text>
-                <Text>Bookmarks are used to make book requests to community members. Each request uses one bookmark. There are two types:</Text>
+                <Text>Bookmarks are used to make book requests to community members. There are two types: silver and gold bookmarks; both are used the same way but how you obtains them are different.</Text>
                 <View style={styles.ul}>
                     <View style={styles.li}>
                         <Ionicons style={{marginRight: 10}} color={'silver'} size={24} name={Platform.OS === 'ios' ? 'ios-bookmark' : 'md-bookmark'}/>
@@ -28,7 +28,7 @@ export default UserGuideScreen = (props) => {
                 </View>
 
                 <TouchableOpacity style={styles.booksAvailableBtn} onPress={() => props.navigation.navigate('ShareBooksScreen')}>
-                    <Text>Books Available</Text>
+                    <Text>See books available</Text>
                 </TouchableOpacity>
 
             </View>

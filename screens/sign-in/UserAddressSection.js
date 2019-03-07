@@ -44,7 +44,7 @@ export default class UserAddressSection extends React.Component {
                 <TextInput style={styles.textInput} 
                     value={this.state.zipcode}
                     onChangeText={(zipcode) => this.setState({zipcode})} 
-                    placeholder='Zipcode' keyboardType='default'
+                    placeholder='Zip code' keyboardType='default'
                     underlineColorAndroid='rgba(0,0,0,0)' />
 
                 <TextInput style={styles.textInput} 
