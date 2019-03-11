@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, SafeAreaView } from 'react-native';
+import { Text, StyleSheet, SafeAreaView, YellowBox } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 // redux
@@ -31,6 +31,7 @@ import UserGuideScreen from './screens/settings/userGuide';
 import GlobalFont from 'react-native-global-font';
 
 Text.defaultProps.style = { color: '#000' };
+YellowBox.ignoreWarnings(['Class RCTCxxModule']);
 
 const RootStack = createStackNavigator(
   {

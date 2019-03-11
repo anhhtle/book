@@ -1,6 +1,7 @@
 # DEV
 1) open Android Studio. Run AVD.
 2) react-native run-android
+3) on ios: react-native run-ios --simulator="iPhone X"
 
 # to download to android device
 1) Connect device via USB
