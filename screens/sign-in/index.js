@@ -28,6 +28,7 @@ class SignInScreen extends React.Component {
             userAvatarSection: false,
             userAliasSection: false,
 
+            loading: true,
             asyncToken: null,
         }
 
@@ -56,7 +57,7 @@ class SignInScreen extends React.Component {
     renderBody() {
         if (this.state.loginSection) {
             return (
-                <LoginSection login={this.handleLogin} error={this.state.login_error} />
+                <LoginSection login={this.handleLogin} error={this.state.login_error} loading={this.state.loading} />
             )
         } else if (this.state.createSection) {
             return (
@@ -99,10 +100,11 @@ class SignInScreen extends React.Component {
     }
     handleLogin(loginObj) {
 
-        // this.props.getCurrentUser('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuaC5odC5sZUBnbWFpbC5jb20iLCJpZCI6IjZiOWIxNTIyMTFkY2IzMDY3NTY1OWUwNSIsImV4cCI6MTU0ODk2NDk4NCwiaWF0IjoxNTQzNzgwOTg0fQ.24IYvapi5PVBpNPOuzjn9EZPb5bLn1AOM_u3i4Wo5lI');
+        this.setState({loading: true});
 
         this.props.getUserToken(loginObj)
             .then(() => {
+                this.setState({loading: false});
                 if (this.props.user.error) {
                     this.setState({login_error: this.props.user.error});
                 } else {
@@ -115,7 +117,10 @@ class SignInScreen extends React.Component {
                         })
                 }
             })
-            .catch(err => {console.log(err)});
+            .catch(err => {
+                console.log(err);
+                this.setState({loading: false});
+            });
 
     }
     handleCreate(createObj) {
@@ -185,6 +190,7 @@ class SignInScreen extends React.Component {
         try {
             const token =  await AsyncStorage.getItem('TheBooksJourneyToken');
             if (token) {
+                this.setState({loading: false});
                 this.props.getCurrentUser(token)
                     .then(() => {
                         if (!this.props.user.error) {
@@ -195,6 +201,7 @@ class SignInScreen extends React.Component {
             }
         } catch (error) {
             console.log(error);
+            this.setState({loading: false});
         }
     }
 }
@@ -207,7 +214,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     logo: {
-        width: 70,
+        width: 77,
         height: 70,
         marginBottom: 20
     },

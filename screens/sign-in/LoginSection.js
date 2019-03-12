@@ -6,7 +6,7 @@ export default class LoginSection extends React.Component {
         super(props);
         this.state = {
             email: '',
-            password: ''
+            password: '',
         }
 
         this.handleLogin = this.handleLogin.bind(this);
@@ -33,7 +33,8 @@ export default class LoginSection extends React.Component {
                     secureTextEntry={true}
                     underlineColorAndroid='rgba(0,0,0,0)' />
 
-                <TouchableOpacity style={styles.loginButton} onPress={() => this.handleLogin()}>
+                <TouchableOpacity style={styles.loginButton} onPress={() => this.handleLogin()}
+                disabled={this.props.loading}>
                     <Text style={{color: '#fff', fontWeight: 'bold'}}>LOGIN</Text>
                 </TouchableOpacity>
             </View>
