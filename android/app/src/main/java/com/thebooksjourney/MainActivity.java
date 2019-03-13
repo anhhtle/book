@@ -1,4 +1,4 @@
-package com.thebooksjourney;
+package com.thebooksjourney.thebooksjourney;
 
 import com.facebook.react.ReactActivity;
 

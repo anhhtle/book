@@ -198,6 +198,8 @@ class SignInScreen extends React.Component {
                         }
                     })
                     .catch(err => console.error(err));
+            } else {
+                this.setState({loading: false});
             }
         } catch (error) {
             console.log(error);
