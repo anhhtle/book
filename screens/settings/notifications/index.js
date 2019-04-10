@@ -113,7 +113,7 @@ class NotificationSettingsScreen extends Component {
                             />
                     </View>
 
-                    <View style={styles.switchContainer}>
+                    {/* <View style={styles.switchContainer}>
                         <Text style={styles.label}>News</Text>
                         <Switch
                             value={this.state.email_news}
@@ -126,11 +126,9 @@ class NotificationSettingsScreen extends Component {
                             backgroundActive={'gold'}
                             backgroundInactive={'gray'}
                             />
-                    </View>
+                    </View> */}
                    
-
                 </View>
-
             </View>
         );
     }
