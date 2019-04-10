@@ -17,7 +17,7 @@ export const getNewsfeeds = (token) => dispatch => {
         dispatch(getNewsfeedsSuccess(resJson));
     }).catch(err => {
         console.error(err);
-        dispatch(getNewsfeedsError(error));
+        dispatch(getNewsfeedsError(err));
     });
 };
 

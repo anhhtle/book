@@ -15,7 +15,7 @@ export const getNotifications = (token) => dispatch => {
         dispatch(getNotificationsSuccess(resJson));
     }).catch(err => {
         console.error(err);
-        dispatch(notificationsError(error));
+        dispatch(notificationsError(err));
     });
 };
 

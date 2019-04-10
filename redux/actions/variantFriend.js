@@ -16,7 +16,7 @@ export const getVariantsFriend = (token, id) => dispatch => {
         dispatch(getVariantsFriendSuccess(resJson));
     }).catch(err => {
         console.error(err);
-        dispatch(variantsFriendError(error));
+        dispatch(variantsFriendError(err));
     });
 };
 

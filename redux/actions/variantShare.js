@@ -19,7 +19,7 @@ export const getVariantsShare = (token, pageObj) => dispatch => {
         dispatch(getVariantsShareSuccess(resJson));
     }).catch(err => {
         console.error(err);
-        dispatch(variantsShareError(error));
+        dispatch(variantsShareError(err));
     });
 };
 
@@ -55,7 +55,7 @@ export const searchVariantsShare = (token, query) => dispatch => {
         dispatch(searchVariantsShareSuccess(resJson));
     }).catch(err => {
         console.error(err);
-        dispatch(variantsShareError(error));
+        dispatch(variantsShareError(err));
     });
 };
 

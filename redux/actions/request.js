@@ -16,7 +16,7 @@ export const getBookRequests = (token) => dispatch => {
         dispatch(getBookRequestsSuccess(resJson));
     }).catch(err => {
         console.error(err);
-        dispatch(getBookRequestsError(error));
+        dispatch(getBookRequestsError(err));
     });
 };
 
@@ -60,7 +60,7 @@ export const createBookRequest = (token, createObj) => dispatch => {
         dispatch(createBookRequestSuccess(resJson));
     }).catch(err => {
         console.error(err);
-        dispatch(createBookRequestError(error));
+        dispatch(createBookRequestError(err));
     });
 };
 
@@ -103,7 +103,7 @@ export const updateBookRequests = (token, updateObj) => dispatch => {
         dispatch(updateBookRequestsSuccess(resJson));
     }).catch(err => {
         console.error(err);
-        dispatch(updateBookRequestsError(error));
+        dispatch(updateBookRequestsError(err));
     });
 };
 

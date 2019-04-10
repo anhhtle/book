@@ -16,7 +16,7 @@ export const getVariants = (token) => dispatch => {
         dispatch(getVariantsSuccess(resJson));
     }).catch(err => {
         console.error(err);
-        dispatch(variantsError(error));
+        dispatch(variantsError(err));
     });
 };
 
@@ -52,7 +52,7 @@ export const addVariant = (token, addObj) => dispatch => {
         dispatch(addVariantSuccess(resJson));
     }).catch(err => {
         console.error(err);
-        dispatch(variantsError(error));
+        dispatch(variantsError(err));
     });
 };
 
@@ -68,15 +68,6 @@ export const addVariantSuccess = (variant) => (
         payload: variant
     }
 );
-
-
-
-
-
-
-
-
-
 
 // update a variant
 export const updateVariant = (token, updateObj) => dispatch => {
@@ -97,7 +88,7 @@ export const updateVariant = (token, updateObj) => dispatch => {
         dispatch(updateVariantSuccess(resJson));
     }).catch(err => {
         console.error(err);
-        dispatch(variantsError(error));
+        dispatch(variantsError(err));
     });
 };
 
@@ -131,7 +122,7 @@ export const deleteVariant = (token, id) => dispatch => {
         dispatch(updateVariantSuccess(resJson));
     }).catch(err => {
         console.error(err);
-        dispatch(variantsError(error));
+        dispatch(variantsError(err));
     });
 };
 
